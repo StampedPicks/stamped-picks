@@ -606,6 +606,11 @@ def tick(api, now, post=True, feed=None):
         store.write(store.LEDGER, rows)
     if announce(state, store.read(store.LEDGER), post):
         render.render()
+    try:                                          # UFC nights: cover the whole card, bet or no bet
+        from ledger import fightnight
+        fightnight.run(now, state, feed, post, store.read(store.LEDGER))
+    except Exception as ex:                       # noqa: BLE001 - coverage never blocks picks
+        print(f"[fightnight] {ex}")
     store.save_state(state)
 
 
