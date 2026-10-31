@@ -67,7 +67,26 @@ UNIT_MODE = os.getenv("UNIT_MODE", "tiered")   # "tiered" = 1u / 1.5u / 2u by ed
 UNIT_DOLLARS = int(os.getenv("UNIT_DOLLARS", "100"))   # posts translate units to dollars at this amount per unit
 
 # ---------------------------------------------------------------- outputs
-X_KEYS = {k: os.getenv(k, "") for k in ("X_API_KEY", "X_API_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_SECRET")}
+def _x_keys() -> dict:
+    """X's four keys, matched by their shape so they work even if pasted into the wrong slots:
+    access token = digits-dash-letters, consumer key = 25 chars, consumer secret = 50, token secret = 45."""
+    import re as _re
+    names = ("X_API_KEY", "X_API_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_SECRET")
+    vals = [os.getenv(n, "").strip().strip("\"'") for n in names]
+    found = {}
+    for v in vals:
+        if _re.match(r"^\d+-\w+$", v):
+            found["X_ACCESS_TOKEN"] = v
+        elif len(v) == 25:
+            found["X_API_KEY"] = v
+        elif len(v) == 50:
+            found["X_API_SECRET"] = v
+        elif len(v) == 45:
+            found["X_ACCESS_SECRET"] = v
+    return found if len(found) == 4 else dict(zip(names, vals))
+
+
+X_KEYS = _x_keys()
 # Standard X accounts get 280 characters per post, so the pick goes out as a short thread.
 # With X Premium (25,000 characters) set this to true and it goes out as one long post.
 X_PREMIUM = os.getenv("X_PREMIUM", "false").lower() == "true"
