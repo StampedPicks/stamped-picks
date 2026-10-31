@@ -1,0 +1,78 @@
+name: Stamped Picks
+
+# One job every 5 minutes (so your Telegram commands get answered quickly). Each run checks the date and time in Eastern and does whatever is due
+# (Daily Play at 11 AM, NFL/UFC cards at 8 PM the night before, reminders, pre-game updates,
+# halftime check-ins, results). Times live in ledger/config.py, so daylight saving is handled there.
+# GitHub can start scheduled runs a few minutes late; the engine allows for that.
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+    inputs:
+      cmd:
+        description: "tick | daily | card ufc today | card nfl | card boxing | grade | recap | menu | tgchats | settle N win|loss|push"
+        default: "tick"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ledger
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+      BOARD_KEY: ${{ secrets.BOARD_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      DISCORD_OWNER_WEBHOOK_URL: ${{ secrets.DISCORD_OWNER_WEBHOOK_URL }}
+      X_API_KEY: ${{ secrets.X_API_KEY }}
+      X_API_SECRET: ${{ secrets.X_API_SECRET }}
+      X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+      X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TG_FREE_CHAT: ${{ vars.TG_FREE_CHAT }}
+      TG_VIP_CHAT: ${{ vars.TG_VIP_CHAT }}
+      TG_PREMIUM_CHAT: ${{ vars.TG_PREMIUM_CHAT }}
+      TG_OWNER_CHAT: ${{ vars.TG_OWNER_CHAT }}
+      OWNER_TG_USERNAME: ${{ vars.OWNER_TG_USERNAME }}
+      WHOP_PICK_URL: ${{ vars.WHOP_PICK_URL }}
+      WHOP_DAY_URL: ${{ vars.WHOP_DAY_URL }}
+      WHOP_WEEK_URL: ${{ vars.WHOP_WEEK_URL }}
+      WHOP_MONTH_URL: ${{ vars.WHOP_MONTH_URL }}
+      WHOP_YEAR_URL: ${{ vars.WHOP_YEAR_URL }}
+      PRICE_PICK: ${{ vars.PRICE_PICK || '$5' }}
+      PRICE_DAY: ${{ vars.PRICE_DAY || '$10' }}
+      PRICE_WEEK: ${{ vars.PRICE_WEEK || '$15' }}
+      PRICE_MONTH: ${{ vars.PRICE_MONTH || '$45' }}
+      PRICE_YEAR: ${{ vars.PRICE_YEAR || '$299' }}
+      ODDS_PLAN: ${{ vars.ODDS_PLAN || 'free' }}
+      X_PREMIUM: ${{ vars.X_PREMIUM || 'false' }}
+      UNIT_DOLLARS: ${{ vars.UNIT_DOLLARS || '100' }}
+      BRAND_NAME: ${{ vars.BRAND_NAME || 'Stamped Picks' }}
+      BRAND_HANDLE: ${{ vars.BRAND_HANDLE || '@StampedPicks' }}
+      LEDGER_URL: ${{ vars.LEDGER_URL }}
+      REPO_URL: https://github.com/${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Run
+        run: python run.py ${{ github.event.inputs.cmd || 'tick' }}
+      - name: Commit receipts
+        run: |
+          git config user.name "ledger-bot"
+          git config user.email "ledger-bot@users.noreply.github.com"
+          mkdir -p data && git add data docs
+          if ! git diff --cached --quiet; then
+            git commit -m "ledger $(date -u +%Y-%m-%dT%H:%MZ)"
+            git pull --rebase --autostash
+            git push
+          fi
