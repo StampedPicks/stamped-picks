@@ -661,8 +661,8 @@ def main():
     api = OddsAPI(C.ODDS_API_KEY)
     state = store.load_state()
     if a.cmd == "tick":
-        tick(api, now, post)
-    elif a.cmd == "daily":
+        return tick(api, now, post)          # tick loads and saves its own state
+    if a.cmd == "daily":
         run_daily(api, now, state, post)
     elif a.cmd == "card":
         sport = {"nfl": "americanfootball_nfl", "ufc": MMA, "mma": MMA, "boxing": "boxing_boxing"}.get((a.args or [""])[0].lower())
