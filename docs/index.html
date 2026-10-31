@@ -1,0 +1,77 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sharp Ledger Ledger</title>
+<meta name="description" content="Every Sharp Ledger Daily Play, timestamped, graded and measured against the closing line.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--bg:#f6f3ec;--card:#fcfbf7;--ink:#151513;--ink2:#52514e;--muted:#7a786f;--rule:#dcd7ca;
+--line:#2a78d6;--good:#0f7a3d;--bad:#b42318;--goodbg:#e3f1e7;--badbg:#fbe4e1;--accent:#151513}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#131312;--card:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--muted:#8f8d84;--rule:#34332f;--line:#3987e5;--good:#5bc785;--bad:#f07a6e;--goodbg:#173323;--badbg:#3a1d1a;--accent:#f0efec}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#131312;--card:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--muted:#8f8d84;--rule:#34332f;--line:#3987e5;--good:#5bc785;--bad:#f07a6e;--goodbg:#173323;--badbg:#3a1d1a;--accent:#f0efec}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "IBM Plex Sans",system-ui,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 16px 48px}
+.demo{background:#7a1f12;color:#fff;padding:10px 14px;border-radius:6px;font-weight:600;margin-bottom:20px}
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:2px solid var(--accent);padding-bottom:14px}
+h1{font:600 40px/1 Fraunces,Georgia,serif;margin:0;letter-spacing:-.5px}
+.tag{color:var(--ink2);margin:6px 0 0}.handle{font-family:"IBM Plex Mono",monospace;color:var(--ink2)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:22px 0}
+.tile{background:var(--card);padding:14px 16px}.tile .k{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.tile .v{font:500 26px/1.2 "IBM Plex Mono",monospace;margin-top:4px}.tile .s{font-size:12px;color:var(--muted)}
+section{background:var(--card);border:1px solid var(--rule);padding:18px;margin:18px 0}
+h2{font:600 20px/1.2 Fraunces,Georgia,serif;margin:0 0 4px}.muted,.sub{color:var(--muted)}.sub{font-size:12px}
+svg{width:100%;height:auto;display:block;margin-top:10px}
+.grid{stroke:var(--rule);stroke-width:1}.zero{stroke:var(--ink2);stroke-width:1}.tick{fill:var(--muted);font:11px "IBM Plex Mono",monospace}
+.line{fill:none;stroke:var(--line);stroke-width:2;stroke-linejoin:round}.end{fill:var(--line);stroke:var(--card);stroke-width:2}
+.xh{stroke:var(--muted);stroke-dasharray:3 3}.dot{fill:var(--line);stroke:var(--card);stroke-width:2}.hit{fill:transparent;cursor:crosshair}
+.chartbox{position:relative}#tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font:12px "IBM Plex Mono",monospace;padding:6px 8px;border-radius:4px;white-space:nowrap;display:none}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:760px){.two{grid-template-columns:1fr}h1{font-size:32px}.tile:last-child:nth-child(odd){grid-column:1/-1}.tick{font-size:22px}}
+.line,.grid,.zero,.xh{vector-effect:non-scaling-stroke}
+.two section{margin:0}ol{padding-left:20px;margin:8px 0 0}li{margin:4px 0}
+.scroll{overflow-x:auto;margin-top:10px}table{border-collapse:collapse;width:100%;min-width:820px;font-size:14px}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border-bottom:1px solid var(--accent);padding:8px 8px}
+td{border-bottom:1px solid var(--rule);padding:9px 8px;vertical-align:top}.num{font-family:"IBM Plex Mono",monospace;text-align:right;white-space:nowrap}
+th.num{text-align:right}.play{font-weight:600}.lean{font-weight:400;font-size:11px;border:1px solid var(--rule);border-radius:3px;padding:0 4px;color:var(--muted)}
+.res{font-weight:600;font-size:13px;padding:2px 6px;border-radius:3px}.res.W{color:var(--good);background:var(--goodbg)}.res.L{color:var(--bad);background:var(--badbg)}.res.P{color:var(--ink2)}
+a{color:var(--line)}footer{color:var(--muted);font-size:13px;margin-top:28px;border-top:1px solid var(--rule);padding-top:14px}
+</style></head><body><div class="wrap">
+
+<header><div><h1>Sharp Ledger</h1><p class="tag">One play a day. Every result public. Graded against the closing line.</p></div>
+<div class="handle">@SharpLedger · updated Oct 30, 2026 6:26 PM ET</div></header>
+
+<div class="tiles">
+<div class="tile"><div class="k">Record</div><div class="v">0-0</div><div class="s">0% wins · 0 pending</div></div>
+<div class="tile"><div class="k">Units</div><div class="v">+0.00u</div><div class="s">ROI +0.0%</div></div>
+<div class="tile"><div class="k">Avg CLV</div><div class="v">—</div><div class="s">edge vs closing no-vig line</div></div>
+<div class="tile"><div class="k">Beat the close</div><div class="v">—</div><div class="s">of 0 plays measured</div></div>
+<div class="tile"><div class="k">Plays logged</div><div class="v">0</div><div class="s">none deleted, ever</div></div>
+</div>
+
+<section><h2>Cumulative units, Daily Play</h2><p class="muted" style="margin:0">1 unit risked per play. Hover for each play.</p>
+<div class="chartbox"><p class="muted">The chart appears after the first two graded plays.</p><div id="tip"></div></div></section>
+
+<div class="two">
+<section><h2>Why closing line value matters</h2>
+<p>Win streaks can be luck. Beating the closing line can't be faked for long: it means we consistently got a better price than the sharpest market settled on by game time. Bettors who beat the close over hundreds of plays win long term. This page shows that number for every play, wins and losses alike.</p></section>
+<section><h2>How to verify us</h2><ol>
+<li>Every play is committed to our public commit history before the game starts. Git timestamps can't be backdated without it showing.</li>
+<li>Members Board plays are published as sealed fingerprints before games, then revealed. 0 of 0 revealed plays match their seal (0 sealed so far).</li>
+<li>Members Board record: <b>0-0</b>, +0.00u, ROI +0.0%.</li></ol></section>
+</div>
+
+<section><h2>Every Daily Play</h2><div class="scroll"><table>
+<thead><tr><th class="num">#</th><th>Date</th><th>Sport</th><th>Play</th><th>Book</th><th class="num">Odds</th><th class="num">Edge</th><th class="num">Close</th><th class="num">CLV</th><th>Result</th><th class="num">Units</th></tr></thead>
+<tbody><tr><td colspan="11" class="muted">No plays logged yet. The first Daily Play will appear here.</td></tr></tbody></table></div></section>
+
+<footer>21+ only. Picks are opinions based on a statistical model, not guarantees, and past results don't predict future results. Bet only what you can afford to lose. If gambling stops being fun, call or text 1-800-GAMBLER.</footer>
+</div>
+<script>
+(function(){const pts=[];const svg=document.getElementById('chart');if(!svg||!pts.length)return;
+const tip=document.getElementById('tip'),xh=document.getElementById('xh'),dot=document.getElementById('dot'),box=svg.parentNode;
+svg.querySelector('.hit').addEventListener('mousemove',e=>{const r=svg.getBoundingClientRect(),sx=(e.clientX-r.left)*svg.viewBox.baseVal.width/r.width;
+let b=pts[0];for(const p of pts)if(Math.abs(p.x-sx)<Math.abs(b.x-sx))b=p;
+xh.setAttribute('x1',b.x);xh.setAttribute('x2',b.x);dot.setAttribute('cx',b.x);dot.setAttribute('cy',b.y);xh.setAttribute('visibility','visible');dot.setAttribute('visibility','visible');
+tip.textContent=b.lab+' · '+(b.u>=0?'+':'')+b.u.toFixed(2)+'u';tip.style.display='block';const k=r.width/svg.viewBox.baseVal.width;
+tip.style.left=Math.min(b.x*k+10,r.width-tip.offsetWidth)+'px';tip.style.top=Math.max(0,b.y*k-34)+'px';});
+svg.querySelector('.hit').addEventListener('mouseleave',()=>{tip.style.display='none';xh.setAttribute('visibility','hidden');dot.setAttribute('visibility','hidden');});})();
+</script></body></html>
