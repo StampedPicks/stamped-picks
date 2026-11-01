@@ -28,7 +28,9 @@
     "15": true
   },
   "live": {
-    "13": [],
+    "13": [
+      "p1"
+    ],
     "2": [],
     "3": [],
     "4": [],
@@ -234,8 +236,8 @@
       }
     },
     "_last": {
-      "americanfootball_nfl": "2026-11-01T21:38:03Z",
-      "icehockey_nhl": "2026-11-01T21:38:03Z"
+      "americanfootball_nfl": "2026-11-01T22:13:42Z",
+      "icehockey_nhl": "2026-11-01T22:13:42Z"
     }
   },
   "whale_promos": {
