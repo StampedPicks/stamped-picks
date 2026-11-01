@@ -1,9 +1,28 @@
 {
  "market": [
-  "\u2022 Sharp books make Miami Dolphins +7 a 51% shot to cover. Fair odds: -105.",
-  "\u2022 DraftKings pays -102, right at or a hair above fair. Best number on the board.",
-  "\u2022 The sharp line has been moving our way.",
-  "\u2022 Only DraftKings has this price, so it may not last."
+  "\u2022 Our fair price: the Under 42 is a 54% shot to hit (fair odds -119).",
+  "\u2022 BetMGM pays -110, about 3.9% more than that.",
+  "\u2022 Only BetMGM has this price, so it may not last.",
+  "\u2022 Our sim (10,000 games): Chiefs 17.4, Broncos 20.0. The Under 42 hits in 64% of them. The sim backs it."
  ],
- "research": null
+ "research": {
+  "points": [
+   "Denver's passing offense is 27th in the league at 175.1 yards per game",
+   "Chiefs defense is fifth in opponent EPA per play and fifth in opponent success rate",
+   "Under is 5-2 in Denver games and 4-2 in KC games. Other books hang 40.5 to 41.5, so 42 gives extra cushion",
+   "Pat Surtain II returns as a full participant with no designation, which helps Denver's pass defense"
+  ],
+  "risk": "Rice's return plus Mahomes and a healthier Denver (Surtain, Waddle) could lift a Week 1-style 31-10 scoring game",
+  "news": "",
+  "angle": "Two defense-first teams in a divisional game, and the Under 42 total is a full point or more above the market",
+  "context": [
+   "DEN out: RB RJ Harvey, S Talanoa Hufanga. Questionable and limited Friday: WR Jaylen Waddle, LT Garett Bolles, DL Zach Allen, S Brandon Jones",
+   "Rapoport says Waddle is trending toward playing. Rookie RB Jonah Coleman is back from IR and gets more work",
+   "KC: WR Rashee Rice returns from a hamstring injury. DT Omarr Norman-Lott out. CB Delane and CB Sneed questionable",
+   "Weather forecast is mild: low 60s, 5 mph wind, slight chance of showers. Mile High elevation. KC lost 20-3 at SEA, DEN beat ARI 30-16",
+   "Market: opened Broncos -1 and is now Chiefs -1.5 to -1. Total is 40.5 to 41.5 across books. No public split found"
+  ],
+  "confidence": 6,
+  "sources": []
+ }
 }
