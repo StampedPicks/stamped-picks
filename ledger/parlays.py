@@ -18,7 +18,7 @@ from zoneinfo import ZoneInfo
 
 import requests
 
-from . import config as C, espn, social, store, tags, telegram
+from . import config as C, espn, social, store, tags, telegram, sim
 from .grading import grade
 from .model import parse_time, fmt_american
 
@@ -251,7 +251,9 @@ def premium(now, state, post, key, cands, card_ids, to_row, card_id) -> dict | N
     member_text = "\n".join([f"🔒 PREMIUM PICK · NFL", "", f"{row['label']} ({row['price_american']}) at {_book(row['book'])}",
                              f"{float(row['units']):g}u (${float(row['units']) * C.UNIT_DOLLARS:,.0f} at ${C.UNIT_DOLLARS}/unit)",
                              f"⏰ {when} · good to {row['play_to']}",
-                             f"🕒 Stamped {now.astimezone(TZ):%a %-I:%M %p} ET"] + [""] + social.market_reasons(row, len(p.books_with_edge)))
+                             f"🕒 Stamped {now.astimezone(TZ):%a %-I:%M %p} ET"] + [""] + social.market_reasons(row, len(p.books_with_edge))
+                            + sim.line(p) + ([f"🎯 {p.analysis['angle']}"] + [f"• {x}" for x in p.analysis.get("reasons", [])]
+                                             if getattr(p, "analysis", None) else []))
     teaser = "\n".join([f"🔒 We have a PREMIUM pick for today's {when} {game} game.", "",
                          "We really like this spot. Our strongest number of the day that isn't on the free card.",
                          "", "Members get it now. Result posts here after the game, win or lose. Link in bio 👀"])
