@@ -39,7 +39,7 @@ def week_key(d) -> str:
 def has_whale(sport, d) -> bool:
     wk = week_key(d)
     return any(r.get("tier") == "whale" and r["sport"] == sport and week_key(parse_time(r["commence_time"])
-               .astimezone(TZ).date()) == wk for r in store.read(store.LEDGER))
+               .astimezone(TZ).date()) == wk for r in store.read(store.LEDGER) + store.vault_read())
 
 
 def run(api, now, state, post, sport, hours, books, markets, to_row, hist, thread):
@@ -76,15 +76,65 @@ def run(api, now, state, post, sport, hours, books, markets, to_row, hist, threa
     game_day = parse_time(best.commence_time).astimezone(TZ).date().isoformat()
     rows = store.read(store.LEDGER)
     row = to_row(best, game_day, now, "whale", pick_no=store.next_no(rows), card=f"{sport}|{game_day}|whale")
+    posts = thread_posts(row, best, conf)
+    if PRIVATE:                                    # members / DM only: sealed until the game starts
+        store.vault_hold(row)
+        print(f"[whale] {sport} #{row['pick_no']} sealed until game time, {conf}/10 {row['units']}u")
+        promo = promo_post(row, conf)
+        social.save_post(f"whale_promo_{sport}", d.isoformat(), promo)
+        if post:
+            from . import telegram
+            for chat in (C.TG_PREMIUM, C.TG_VIP, C.TG_OWNER):
+                if chat:
+                    telegram.send(chat, "\n\n".join(posts))
+            pid = social.post_x(promo, mirror=False)
+            if pid:
+                thread(state, row["card"]).update(main=pid, last=pid)
+                state.setdefault("whale_promos", {})[row["pick_no"]] = {
+                    "last_call": (parse_time(row["commence_time"]) - timedelta(minutes=60)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                    "sport": sport, "units": row["units"], "done": False, "reply_to": pid}
+        return row
     store.append(store.LEDGER, row)
     print(f"[whale] {sport} #{row['pick_no']} {row['label']} {row['price_american']} {conf}/10 {row['units']}u")
-    posts = thread_posts(row, best, conf)
     social.save_post(f"whale_{sport}", d.isoformat(), posts)
     if post:
         ids = social.post_thread(posts)
         if ids:
             thread(state, row["card"]).update(main=ids[0], last=ids[0])
     return row
+
+
+PRIVATE = getattr(C, "WHALE_PRIVATE", True)        # whales go to members / DMs; the public gets the promo + result
+
+
+def promo_post(row, conf) -> str:
+    name = NAMES.get(row["sport"], C.SPORTS.get(row["sport"], (row["sport"],))[0])
+    when = parse_time(row["commence_time"]).astimezone(TZ).strftime("%-I:%M %p ET")
+    u = float(row["units"])
+    return social.tagged("\n".join([
+        f"💎🐋 THE DIAMOND WHALE IS IN · {name}",
+        "",
+        f"Our best bet of the day. {u:g} units. Confidence {conf}/10.",
+        f"Priced -200 to +100, kicks off {when}.",
+        "",
+        "Every angle checked: injuries, matchups, our 10,000-game sims, the sharp market.",
+        "",
+        "DM us \"WHALE\" to get it before kickoff 🔒",
+        "Result posts here after the game, win or lose."]), "#DiamondWhale #NFLPicks #SportsBetting #GamblingTwitter")
+
+
+def last_calls(now, state, post):
+    """One reminder an hour before a sealed whale's game: last call to DM for it."""
+    for no, w in (state.get("whale_promos") or {}).items():
+        if w.get("done") or now < parse_time(w["last_call"]):
+            continue
+        w["done"] = True
+        if now > parse_time(w["last_call"]) + timedelta(minutes=50):
+            continue                               # too late to be useful
+        text = social.tagged(f"⏰ Last call: the 💎🐋 Diamond Whale ({float(w['units']):g}u) kicks off in about an hour.\n\n"
+                             "DM us \"WHALE\" now 🔒", "#DiamondWhale #GamblingTwitter")
+        if post:
+            social.post_x(text, reply_to=w.get("reply_to"), mirror=False)
 
 
 def thread_posts(row, p, conf) -> list[str]:
