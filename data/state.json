@@ -81,10 +81,47 @@
       "jake ferguson": {
         "status": "questionable to return",
         "post": "2116962777038569644"
+      },
+      "tyler huntley": {
+        "status": "questionable to return",
+        "post": "2116974711754158320"
+      },
+      "jeremiyah love": {
+        "status": "left game went to medical tent",
+        "post": "2116974716573430028"
+      },
+      "amonra st brown": {
+        "status": "evaluated for concussion back on sideline",
+        "post": "2116974721354826178"
+      },
+      "demetrius knight jr": {
+        "status": "returned",
+        "post": "2116974724999770338"
+      },
+      "_report:basketball_nba:2026-11-01:15": true,
+      "mitchell robinson": {
+        "status": "out",
+        "post": null
+      },
+      "paolo banchero": {
+        "status": "out",
+        "post": null
+      },
+      "jalen suggs": {
+        "status": "out",
+        "post": null
+      },
+      "jonathan isaac": {
+        "status": "out",
+        "post": null
+      },
+      "noah penda": {
+        "status": "out",
+        "post": null
       }
     },
     "_last": {
-      "americanfootball_nfl": "2026-11-01T18:37:00Z"
+      "americanfootball_nfl": "2026-11-01T19:24:21Z"
     }
   }
 }
