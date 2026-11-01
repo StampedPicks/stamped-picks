@@ -44,6 +44,16 @@ def stake_line(units: float) -> str:
     return f"💵 Bet {units:g} {word} (= {money(units)} if 1 unit is ${C.UNIT_DOLLARS})"
 
 
+START_WORD = {"americanfootball_nfl": "kickoff", "americanfootball_ncaaf": "kickoff", "basketball_nba": "tip-off",
+              "basketball_ncaab": "tip-off", "basketball_wnba": "tip-off", "icehockey_nhl": "puck drop",
+              "baseball_mlb": "first pitch", "mma_mixed_martial_arts": "the first bell", "boxing_boxing": "the first bell"}
+
+
+def start_word(sport: str) -> str:
+    """'kickoff' is football only: tip-off, puck drop, first pitch, the first bell for the rest."""
+    return START_WORD.get(sport, "game time")
+
+
 def stake_short(units: float) -> str:
     return f"{units:g}u ({money(units)})"
 
