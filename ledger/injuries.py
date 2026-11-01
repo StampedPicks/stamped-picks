@@ -23,6 +23,7 @@ TZ = ZoneInfo(C.DISPLAY_TZ)
 SPORTS = {"americanfootball_nfl": "NFL", "basketball_nba": "NBA", "americanfootball_ncaaf": "college football",
           "icehockey_nhl": "NHL", "basketball_ncaab": "college basketball", "baseball_mlb": "MLB"}
 EVERY_MIN = int(getattr(C, "INJURY_EVERY_MIN", 15))
+PREGAME_REPORT = False          # no lists of every player out; in-game alerts only
 REPORT_LEAD_MIN = (60, 100)     # pre-game injury report: 60-100 minutes before the slot's first kickoff
 
 
@@ -71,9 +72,11 @@ def _ask(prompt, searches=4) -> list[dict]:
 def live_sweep(sport, games) -> list[dict]:
     matchups = "; ".join(f"{g['away']['display']} at {g['home']['display']} ({g['detail']})" for g in games)
     return _ask(f"""These {SPORTS[sport]} games are in progress right now: {matchups}.
-Search for in-game injuries in these games reported in the last 2 hours: any STARTER or KEY player (QB, star
-skill player, top defender, starting lineman) who left the game hurt, was ruled questionable/doubtful/out to
-return, or returned after being checked. Only include what a beat reporter or the team has confirmed.
+Search for SIGNIFICANT in-game injuries in these games from the last 2 hours: only a player whose loss changes
+the game for bettors, like the starting QB or a team's star (top RB/WR/TE, best pass rusher or cornerback, a
+star NBA/NHL player). Include him if he left the game hurt, was ruled questionable/doubtful/out to return, or
+came back in. Leave out backups, role players, routine checks and anyone who was already out before the game.
+Only what a beat reporter or the team has confirmed. Most sweeps should return an empty list.
 Reply with only JSON: {{"injuries": [{{"player": "...", "team": "full team name", "position": "QB",
 "injury": "thumb", "status": "questionable to return" or "out" or "returned" etc, "replacement": "who's in, or empty",
 "detail": "one short line of context, at most 120 characters"}}]}} (empty list if nothing).""")
@@ -141,7 +144,7 @@ def run(now, state, feed, post, rows):
         last = desk.setdefault("_last", {}).get(sport)
         if live and (not last or now - parse_time(last) >= timedelta(minutes=EVERY_MIN)):
             desk["_last"][sport] = now.strftime("%Y-%m-%dT%H:%M:%SZ")
-            for a in live_sweep(sport, live):
+            for a in live_sweep(sport, live)[:3]:
                 key = espn.norm(a["player"])
                 status = espn.norm(str(a.get("status", "")))
                 prev = seen.get(key)
@@ -152,8 +155,8 @@ def run(now, state, feed, post, rows):
                 print(f"[injuries] {a['player']}: {a.get('status')}")
                 pid = social.post_x(text, reply_to=prev.get("post") if prev else None) if post else None
                 seen[key] = {"status": status, "post": pid or (prev or {}).get("post")}
-        # pre-kickoff report: once per slot (games sharing a kickoff hour)
-        pre = [g for g in games if g["state"] == "pre" and g.get("start")]
+        # pre-game report: off. Only significant in-game injuries get posted.
+        pre = [g for g in games if PREGAME_REPORT and g["state"] == "pre" and g.get("start")]
         slots = {}
         for g in pre:
             mins = (parse_time(g["start"]) - now).total_seconds() / 60
