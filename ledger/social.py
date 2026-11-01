@@ -116,13 +116,20 @@ def market_reasons(row: dict, n_edge_books: int) -> list[str]:
     p, ev = float(row["fair_prob"]), float(row["ev"])
     side = {"h2h": row["side"], "spreads": row["label"], "totals": f"the {row['side']} {row['point']}"}[row["market"]]
     what = {"h2h": "to win", "spreads": "to cover", "totals": "to hit"}[row["market"]]
-    out = [f"• Sharp books make {side} a {p:.0%} shot {what}. Fair odds: {row['play_to']}.",
-           f"• {_book(row['book'])} pays {row['price_american']}, about {ev:.1%} more than that."]
+    out = [f"• Sharp books make {side} a {p:.0%} shot {what}. Fair odds: {row['play_to']}."]
+    if ev >= C.MIN_EV:
+        out.append(f"• {_book(row['book'])} pays {row['price_american']}, about {ev:.1%} more than that.")
+    elif ev >= 0:
+        out.append(f"• {_book(row['book'])} pays {row['price_american']}, right at or a hair above fair. "
+                   "Best number on the board.")
+    else:
+        out.append(f"• {_book(row['book'])} pays {row['price_american']}, the best number on the board for this side. "
+                   "Thin edge, so it's a smaller bet.")
     mv = float(row.get("movement") or 0)
     if mv > 0.005:
         out.append("• The sharp line has been moving our way.")
     elif mv < -0.005:
-        out.append("• Sharp line drifted the other way. Edge is smaller but still there.")
+        out.append("• Sharp line drifted the other way since open.")
     out.append(f"• {n_edge_books} books still offer a number this good." if n_edge_books >= 2
                else f"• Only {_book(row['book'])} has this price, so it may not last.")
     return out
@@ -151,7 +158,7 @@ def daily_thread(row: dict, before: list[dict], market: list[str], research: dic
     bet = f"{row['label']} ({row['price_american']})"
     lean = row["tier"] == "lean"
     head = [f"📒 Daily Play #{n} · {_emoji(row['sport'])} {C.SPORTS[row['sport']][0]}"
-            + (" · LEAN (small edge, half bet)" if lean else ""), "",
+            + (" · LEAN (smaller bet)" if lean else ""), "",
             voice.pick([f"We're on {bet} at {_book(row['book'])} {_tonight(row['commence_time'])}.",
                         f"Today's play: {bet} at {_book(row['book'])}.",
                         f"Riding with {bet} at {_book(row['book'])} {_tonight(row['commence_time'])}."], "open", n),
@@ -188,7 +195,8 @@ def card_thread(sport, game_day, picks, before, markets, research) -> list[str]:
     head = [voice.pick([f"{emoji} {name} card is IN", f"{emoji} {name} card is set", f"{emoji} Here's our {name} card"], k),
             "", f"{len(picks)} play{'s' if len(picks) > 1 else ''} we like for tomorrow:"]
     for i, r in enumerate(picks):
-        head.append(f"{NUM[i]} {r['label']} ({r['price_american']}) · {stake_short(float(r['units']))}")
+        head.append(f"{NUM[i]} {r['label']} ({r['price_american']}) · {stake_short(float(r['units']))}"
+                    + (" · lean" if r.get("tier") == "lean" else ""))
     head += ["", stamped(picks[0]) + ", before every game"]
     if st["wins"] + st["losses"] + st["pushes"]:
         head.append(f"📊 Record: {record_line(st)}")
@@ -198,7 +206,8 @@ def card_thread(sport, game_day, picks, before, markets, research) -> list[str]:
     head.append(voice.pick(["Breakdown on each one 🧵👇", "Why we like each one 🧵👇"], k))
     posts = [fit(head, keep_last=1)]
     for i, r in enumerate(picks):
-        posts.append(fit([f"{NUM[i]} {r['label']} ({r['price_american']}) at {_book(r['book'])}",
+        posts.append(fit([f"{NUM[i]} {r['label']} ({r['price_american']}) at {_book(r['book'])}"
+                          + (" · LEAN (smaller bet)" if r.get("tier") == "lean" else ""),
                           f"⏰ {_when(r['commence_time'], day=True)} · good to {r['play_to']} · {stake_short(float(r['units']))}",
                           ""] + markets[r["pick_no"]]))
         m = _matchup(research.get(r["pick_no"]), prefix=f"{NUM[i]} ")
