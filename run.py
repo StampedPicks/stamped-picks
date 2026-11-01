@@ -792,7 +792,7 @@ def cmd_settle(pick_no, result, final, post=True):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("cmd", choices=["tick", "daily", "card", "whale", "extras", "grade", "settle", "recap", "render", "newkey", "demo",
+    ap.add_argument("cmd", choices=["tick", "daily", "card", "whale", "extras", "fixprop", "grade", "settle", "recap", "render", "newkey", "demo",
                                     "menu", "tgchats", "reset"])
     ap.add_argument("args", nargs="*", help="card: nfl|ufc · settle: play number, win|loss|push, optional final")
     ap.add_argument("--no-post", action="store_true", help="save the text without posting")
@@ -859,6 +859,9 @@ def main():
         slot = next((x.lower() for x in a.args if x.lower() in SLOTS), "late")
         parts = tuple(x.lower() for x in a.args if x.lower() in ("who", "prop")) or ("who", "prop")
         run_extras(api, now, state, post, NFL, day, slot, parts)
+    elif a.cmd == "fixprop":                       # re-post the latest prop's data reply, cleaned
+        from ledger import extras
+        extras.repost_data(post)
     elif a.cmd == "grade":
         backup_grade(api, now, state)
         announce(state, store.read(store.LEDGER), post)
