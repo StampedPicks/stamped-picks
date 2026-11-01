@@ -284,8 +284,12 @@ def run_card(api, now, state, post, sport, day):
         if not events:
             print(f"[card] {sport} {day}: no big fights")
             return
-    window = (max(s, now + timedelta(minutes=20)), e)   # "today" cards skip games starting within 20 minutes
+    window = (max(s, now + timedelta(minutes=10)), e)   # "today" cards skip games starting within 10 minutes
     cands = candidates(sport, events, now, hist, window=window)
+    taken = {(r["event_id"], r["market"], r["side"]) for r in store.read(store.LEDGER) if r.get("date") == day.isoformat()}
+    taken_games = {r["event_id"] for r in store.read(store.LEDGER)
+                   if r.get("date") == day.isoformat() and r.get("tier") in ("edge", "lean", "premium")}
+    cands = [p for p in cands if p.event_id not in taken_games and (p.event_id, p.market, p.side) not in taken]
     cands = analyst.review(sport, sim.apply(sport, cands, now))      # our sims, then research + verdicts
     picks = choose_card(cands, cfg["max_picks"], cfg.get("min_picks", 0))
     cid = card_id(sport, day)
