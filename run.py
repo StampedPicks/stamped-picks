@@ -284,7 +284,7 @@ def run_card(api, now, state, post, sport, day):
         if not events:
             print(f"[card] {sport} {day}: no big fights")
             return
-    window = (max(s, now + timedelta(minutes=10)), e)   # "today" cards skip games starting within 10 minutes
+    window = (max(s, now + timedelta(minutes=5)), e)    # "today" cards skip games starting within 5 minutes
     cands = candidates(sport, events, now, hist, window=window)
     taken = {(r["event_id"], r["market"], r["side"]) for r in store.read(store.LEDGER) if r.get("date") == day.isoformat()}
     taken_games = {r["event_id"] for r in store.read(store.LEDGER)
@@ -654,7 +654,7 @@ def cmd_settle(pick_no, result, final, post=True):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("cmd", choices=["tick", "daily", "card", "grade", "settle", "recap", "render", "newkey", "demo",
-                                    "menu", "tgchats"])
+                                    "menu", "tgchats", "reset"])
     ap.add_argument("args", nargs="*", help="card: nfl|ufc · settle: play number, win|loss|push, optional final")
     ap.add_argument("--no-post", action="store_true", help="save the text without posting")
     a = ap.parse_args()
@@ -674,6 +674,21 @@ def main():
         return run_recap(now, post)
     if a.cmd == "menu":
         return print(members.cmd_menu(None, now, []))
+    if a.cmd == "reset":                          # reset nfl: today's ungraded picks for a sport were deleted from X
+        sport = {"nfl": "americanfootball_nfl", "ufc": MMA, "mma": MMA, "boxing": "boxing_boxing"}.get((a.args or [""])[0].lower())
+        if not sport:
+            raise SystemExit("usage: python run.py reset nfl|ufc|boxing")
+        day = et(now).date().isoformat()
+        rows = store.read(store.LEDGER)
+        keep = [r for r in rows if not (r["sport"] == sport and r["date"] == day and not r.get("result"))]
+        store.write(store.LEDGER, keep)
+        from ledger import parlays
+        parlays.write([p for p in parlays.read() if not (sport == parlays.NFL and p["date"] == day)])
+        st = store.load_state()
+        st["parlays_posted"] = [d for d in st.get("parlays_posted", []) if not (sport == parlays.NFL and d == day)]
+        st["threads"] = {k: v for k, v in st.get("threads", {}).items() if not (sport in k and day in k)}
+        store.save_state(st)
+        return print(f"[reset] removed {len(rows) - len(keep)} ungraded {sport} picks for {day}")
     if a.cmd == "tgchats":
         for cid, kind, title in telegram.chats():
             print(f"{cid}\t{kind}\t{title}")
