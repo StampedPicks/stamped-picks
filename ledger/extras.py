@@ -120,9 +120,10 @@ def prop(api, now, state, post, events, slot_name: str) -> dict | None:
     except SystemExit as e:
         print(f"[extras] props unavailable: {e}")
         return None
+    print(f"[extras] {len(props)} prop prices across {len(events)} games")
     pool, seen = [], set()
     for x in sorted(props, key=lambda x: x["ev"], reverse=True):
-        if x["market"] not in WORDS or not (1.59 <= x["price"] <= 2.3) or x["ev"] <= 0 or x["player"] in seen:
+        if x["market"] not in WORDS or not (1.59 <= x["price"] <= 2.3) or x["ev"] < -0.015 or x["player"] in seen:
             continue
         seen.add(x["player"])
         pool.append(x)
@@ -257,14 +258,16 @@ def who_wins(now, state, post, cands, slot_name, card_ids, to_row, cid, thread) 
     return row
 
 
-def run(api, now, state, post, sport, slot, events, cands, card_ids, to_row, cid, thread):
+def run(api, now, state, post, sport, slot, events, cands, card_ids, to_row, cid, thread, force=False):
+    """card_ids: games where the card already has a side (ML/spread) bet, so who-wins picks another game."""
     if sport != NFL:
         return
     name = {"early": "1 PM GAMES", "late": "4 PM GAMES", "night": "PRIMETIME"}.get(slot, "TODAY")
     done = state.setdefault("extras_posted", [])
-    if cid in done:
+    if cid in done and not force:
         return
-    done.append(cid)
+    if cid not in done:
+        done.append(cid)
     try:
         who_wins(now, state, post, cands, name, card_ids, to_row, cid, thread)
     except Exception as e:                        # noqa: BLE001 - extras never block anything
