@@ -64,7 +64,8 @@ def _json(text: str) -> dict:
 
 
 def _clean(s, limit):
-    s = re.sub(r"\s+", " ", str(s or "")).strip().strip("•-– ").strip()
+    s = re.sub(r"</?[a-zA-Z][^<>]*>", "", str(s or ""))            # search citation tags (<cite index=...>) and any markup
+    s = re.sub(r"\s+", " ", s).strip().strip("•-– ").strip()
     s = re.sub(r"\[\d+\]|【[^】]*】", "", s).strip()          # stray citation markers
     if not s or BANNED.search(s):
         return ""
