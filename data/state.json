@@ -20,7 +20,13 @@
     "4": true,
     "15": true
   },
-  "closed": {},
+  "closed": {
+    "13": true,
+    "2": true,
+    "3": true,
+    "4": true,
+    "15": true
+  },
   "live": {},
   "announced": [],
   "recapped": [],
