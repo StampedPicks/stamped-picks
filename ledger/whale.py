@@ -50,7 +50,9 @@ def run(api, now, state, post, sport, hours, books, markets, to_row, hist, threa
         return None
     start, end = now + timedelta(minutes=30), now + timedelta(hours=hours)
     events = api.odds(sport, markets, books, start, end)
-    cands = [p for p in candidates(sport, events, now, hist, window=(start, end)) if LO <= p.price <= HI]
+    public = {r["event_id"] for r in store.read(store.LEDGER) if not r.get("result")}   # games already on a free card
+    cands = [p for p in candidates(sport, events, now, hist, window=(start, end))
+             if LO <= p.price <= HI and (not PRIVATE or p.event_id not in public)]
     cands = sim.apply(sport, cands, now)
     cands = [p for p in cands if p.ev >= 0 and (getattr(p, "sim", None) or {}).get("agrees") is not False]
     if not cands:
