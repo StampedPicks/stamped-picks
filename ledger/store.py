@@ -25,6 +25,55 @@ def read(path: Path) -> list[dict]:
         return list(csv.DictReader(f))
 
 
+def next_no(rows: list[dict], offset: int = 0) -> str:
+    """The next pick number: one past the highest ever used, sealed premium picks included (never len+1,
+    which can repeat a number after picks are removed and would mix up results and write-ups)."""
+    nums = [int(r["pick_no"]) for r in list(rows) + vault_read() if str(r.get("pick_no", "")).isdigit()]
+    return str(max(nums, default=0) + 1 + offset)
+
+
+# ---------------------------------------------------------------- the vault: premium picks, sealed until game time
+# The repo (and so data/ledger.csv) is public. Premium picks are what members pay for, so until their game
+# starts they live encrypted in data/vault.enc (BOARD_KEY), and move onto the public ledger at kickoff.
+VAULT = C.DATA / "vault.enc"
+
+
+def vault_read() -> list[dict]:
+    if not VAULT.exists() or not C.BOARD_KEY:
+        return []
+    from .seal import unseal
+    try:
+        return unseal(VAULT.read_bytes(), C.BOARD_KEY)
+    except Exception as e:                        # noqa: BLE001
+        print(f"[vault] can't open: {e}")
+        return []
+
+
+def _vault_write(rows: list[dict]):
+    from cryptography.fernet import Fernet
+    VAULT.parent.mkdir(parents=True, exist_ok=True)
+    VAULT.write_bytes(Fernet(C.BOARD_KEY.encode()).encrypt(json.dumps(rows).encode()))
+
+
+def vault_hold(row: dict):
+    """Seal a premium pick. Without a BOARD_KEY there's nowhere private to keep it, so it goes on the ledger."""
+    if not C.BOARD_KEY:
+        append(LEDGER, row)
+        return
+    _vault_write(vault_read() + [row])
+
+
+def vault_release(now: datetime) -> list[dict]:
+    """Moves premium picks whose game has started onto the public ledger. Returns the ones moved."""
+    rows = vault_read()
+    due = [r for r in rows if datetime.fromisoformat(r["commence_time"].replace("Z", "+00:00")) <= now]
+    if due:
+        for r in due:
+            append(LEDGER, r)
+        _vault_write([r for r in rows if r not in due])
+    return due
+
+
 def write(path: Path, rows: list[dict], columns=COLUMNS):
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="") as f:
