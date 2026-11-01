@@ -180,20 +180,21 @@ def prop(api, now, state, post, events, slot_name: str) -> dict | None:
     if not pairs:
         print("[extras] no two-sided prop lines in this slot")
         return None
-    pairs.sort(key=lambda v: max(v["Over"]["ev"], v["Under"]["ev"]), reverse=True)
+    # The pool is the players people actually bet on: each game's QB passing line and its biggest rushing and
+    # receiving lines (the starters), plus the best-priced lines on the board. Fringe receptions lines don't lead.
     pool, seen = [], set()
-    for v in pairs:                                # the 8 best-priced lines, one per player, at least one per game
-        pl = v["Over"]["player"]
-        if pl not in seen:
-            seen.add(pl)
+
+    def add(v):
+        if v["Over"]["player"] not in seen and len(pool) < 10:
+            seen.add(v["Over"]["player"])
             pool.append(v)
-        if len(pool) == 8:
-            break
-    for eid in {x["event_id"] for x in props} - {v["Over"]["event_id"] for v in pool}:
-        extra = next((v for v in pairs if v["Over"]["event_id"] == eid and v["Over"]["player"] not in seen), None)
-        if extra:
-            seen.add(extra["Over"]["player"])
-            pool.append(extra)
+    for eid in sorted({v["Over"]["event_id"] for v in pairs}):
+        for mk, n in (("player_pass_yds", 1), ("player_rush_yds", 1), ("player_reception_yds", 2)):
+            for v in sorted((v for v in pairs if v["Over"]["event_id"] == eid and v["Over"]["market"] == mk),
+                            key=lambda v: v["Over"]["point"], reverse=True)[:n]:
+                add(v)
+    for v in sorted(pairs, key=lambda v: max(v["Over"]["ev"], v["Under"]["ev"]), reverse=True)[:3]:
+        add(v)
     verdicts = _research_props(pool)
     scored = []
     for v, a in zip(pool, verdicts):
@@ -201,7 +202,7 @@ def prop(api, now, state, post, events, slot_name: str) -> dict | None:
         if side not in ("Over", "Under") or len(a.get("reasons", [])) < 2:
             continue
         x = v[side]
-        if x["ev"] < -0.04:                        # never pay a big premium over the market's own price
+        if x["ev"] < -0.06:                        # standard -110 juice is fine; never pay a big premium over it
             continue
         scored.append((a["confidence"], x["ev"], x, a))
     if not scored:
