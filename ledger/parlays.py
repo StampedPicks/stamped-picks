@@ -27,7 +27,7 @@ TZ = ZoneInfo(C.DISPLAY_TZ)
 FILE = C.DATA / "parlays.csv"
 COLS = ["id", "date", "name", "posted_at", "legs", "price", "units", "result", "profit", "final"]
 SUMMARY = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary"
-NUM = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣"]
+NUM = social.NUM
 TD_VIG = 1.12            # anytime-TD markets carry roughly 10-15% hold; strip it to estimate a fair chance
 
 KINDS = {   # name, emoji, units, legs
