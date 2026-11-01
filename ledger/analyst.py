@@ -81,7 +81,12 @@ For EACH candidate, use web search to check it like a sharp handicapper would. C
 - THE CROWD ON X: what respected handicappers and well-known public cappers are saying about this game
 
 Then decide: does the football support the market edge, or is there a reason the edge is fake (stale line,
-injury the price already reflects, bad weather for an Over, etc.)? Say "pass" whenever the facts cut against it.
+injury the price already reflects, bad weather for an Over, etc.)? Say "pass" only when a SPECIFIC fact you found
+cuts against the bet (name it in risk). Not finding news is NOT a reason to pass: the market edge and the
+simulation stand on their own, so with nothing found either way say "bet" with confidence 5.
+
+Work fast: keep your notes between searches to a line or two, and do not write a report. When the research is
+done, reply with the JSON right away.
 
 Rules:
 - Only state facts you found in today's search results or current-season stats. Never invent a number.
@@ -108,14 +113,16 @@ def review(sport: str, cands: list, n: int = MAX_CANDIDATES) -> list:
     shortlist = _shortlist(cands, n)
     prompt = _prompt(sport, shortlist)
     try:
-        text, sources = research._call(prompt, MAX_SEARCHES, max_tokens=8000)
+        text, sources = research._call(prompt, MAX_SEARCHES, max_tokens=16000)
         try:
             data = research._json(text)
         except Exception:                          # noqa: BLE001 - long search turns sometimes end without the JSON
             print("[analyst] no verdict JSON after research; asking for it from the notes")
             follow = (prompt + "\n\nHere are the research notes you already gathered:\n\n" + text[-20000:]
-                      + "\n\nDo not search again. Using only these notes, reply now with ONLY the JSON described above.")
-            text2, _ = research._call(follow, 1, max_tokens=6000)
+                      + "\n\nDo not search again. Using only these notes, reply now with ONLY the JSON described above. "
+                      "Where the notes have nothing on a candidate, give it verdict bet, confidence 5, and leave its "
+                      "context empty; pass only on a specific fact in the notes.")
+            text2, _ = research._call(follow, 1, max_tokens=8000)
             data = research._json(text2)
     except Exception as e:                        # noqa: BLE001 - research never blocks the pick
         print(f"[analyst] skipped: {e}")
