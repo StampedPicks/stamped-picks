@@ -33,13 +33,25 @@ Hard rules:
 BANNED = re.compile(r"\b(lock|guarantee\w*|can'?t lose|sure thing|free money|max bet|hammer\w*)\b|#|@|https?://", re.I)
 
 
-def _ask(prompt: str, max_tokens: int = 300) -> str:
-    r = requests.post(research.API, timeout=60, json={
-        "model": MODEL, "max_tokens": max_tokens, "messages": [{"role": "user", "content": prompt}]},
-        headers={"x-api-key": C.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01",
-                 "content-type": "application/json"})
-    r.raise_for_status()
-    return "".join(b.get("text", "") for b in r.json().get("content", []) if b.get("type") == "text").strip()
+def _ask(prompt: str, max_tokens: int = 1000) -> str:
+    """Haiku first (cheap); if it errors or comes back empty, the main model writes it."""
+    for model in (MODEL, C.ANTHROPIC_MODEL):
+        try:
+            r = requests.post(research.API, timeout=60, json={
+                "model": model, "max_tokens": max_tokens, "messages": [{"role": "user", "content": prompt}]},
+                headers={"x-api-key": C.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01",
+                         "content-type": "application/json"})
+            if r.status_code >= 300:
+                print(f"[writer] {model}: {r.status_code} {r.text[:160]}")
+                continue
+            data = r.json()
+            text = "".join(b.get("text", "") for b in data.get("content", []) if b.get("type") == "text").strip()
+            if text:
+                return text
+            print(f"[writer] {model}: empty reply (stop: {data.get('stop_reason')})")
+        except Exception as e:                    # noqa: BLE001
+            print(f"[writer] {model}: {e}")
+    return ""
 
 
 def hook(kind: str, facts: str, limit: int = 180, secret: bool = False) -> str | None:
