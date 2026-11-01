@@ -288,8 +288,8 @@ def choose_card(plays: list[Play], max_picks: int, min_picks: int = 0) -> list[P
         if len(out) == max_picks:
             break
     for floor in (C.LEAN_FLOOR, -1.0):                 # second pass: never leave a card short
-        if not C.ALWAYS_PICK or len(out) >= min_picks:
-            break
+        if not C.ALWAYS_PICK or len(out) >= min_picks or (floor < C.LEAN_FLOOR and out):
+            break                                       # below-fair fills only when the card would be empty
         for p in ranked:
             if p.event_id in seen or p.ev < floor:
                 continue
