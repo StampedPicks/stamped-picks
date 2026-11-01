@@ -13,7 +13,7 @@ from . import telegram
 
 TZ = ZoneInfo(C.DISPLAY_TZ)
 LIMIT = 280
-NUM = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
+NUM = [f"{n}\ufe0f\u20e3" for n in range(1, 10)] + ["🔟"] + [f"{n}." for n in range(11, 41)]   # 1️⃣…🔟, then 11. 12. …
 
 
 # ---------------------------------------------------------------- helpers
