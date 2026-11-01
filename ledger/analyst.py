@@ -49,7 +49,7 @@ def _shortlist(cands, n=MAX_CANDIDATES) -> list:
     return out
 
 
-def _prompt(sport: str, shortlist) -> str:
+def _prompt(sport: str, shortlist, extra: str = "") -> str:
     league = C.SPORTS.get(sport, ("sports",))[0] if sport else "multi-sport"
     lines = []
     for i, p in enumerate(shortlist, 1):
@@ -80,6 +80,7 @@ For EACH candidate, use web search to check it like a sharp handicapper would. C
 - MARKET: line movement since open and why, betting splits (percent of bets vs percent of money), steam moves
 - THE CROWD ON X: what respected handicappers and well-known public cappers are saying about this game
 
+{extra}
 Then decide: does the football support the market edge, or is there a reason the edge is fake (stale line,
 injury the price already reflects, bad weather for an Over, etc.)? Say "pass" only when a SPECIFIC fact you found
 cuts against the bet (name it in risk). Not finding news is NOT a reason to pass: the market edge and the
@@ -104,16 +105,16 @@ Reply with only this JSON, nothing else:
 "context": ["..."], "risk": "..."}}]}}"""
 
 
-def review(sport: str, cands: list, n: int = MAX_CANDIDATES) -> list:
+def review(sport: str, cands: list, n: int = MAX_CANDIDATES, extra: str = "", searches: int = MAX_SEARCHES) -> list:
     """Returns the candidates with analyst verdicts applied: passes removed from the shortlist, scores
     re-weighted by confidence, and p.analysis filled in. Candidates outside the shortlist are kept as-is
     (they can still fill a card as leans). If the analyst can't run, returns cands unchanged."""
     if not C.ANTHROPIC_API_KEY or not cands:
         return cands
     shortlist = _shortlist(cands, n)
-    prompt = _prompt(sport, shortlist)
+    prompt = _prompt(sport, shortlist, extra)
     try:
-        text, sources = research._call(prompt, MAX_SEARCHES, max_tokens=16000)
+        text, sources = research._call(prompt, searches, max_tokens=16000)
         try:
             data = research._json(text)
         except Exception:                          # noqa: BLE001 - long search turns sometimes end without the JSON
