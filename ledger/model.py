@@ -95,6 +95,7 @@ class Play:
     movement: float = 0.0          # change in sharp fair prob for this side since first snapshot
     score: float = 0.0
     units: float = 1.0
+    tier: str = "edge"
 
     @property
     def label(self) -> str:
@@ -188,7 +189,7 @@ def score(pl: Play) -> float:
 def size(pl: Play, tier: str = "edge") -> float:
     """Units to bet. Bigger edge = bigger bet, capped at 2u. Leans (thin edges) are half size."""
     if tier == "lean":
-        return 0.5
+        return 1.0 if pl.ev >= C.FALLBACK_MIN_EV else 0.5
     if C.UNIT_MODE != "tiered":
         return 1.0
     confirmed = pl.has_pinnacle and len(pl.books_with_edge) >= 2   # big edges are often stale lines
@@ -197,18 +198,30 @@ def size(pl: Play, tier: str = "edge") -> float:
     return 1.5 if pl.ev >= 0.035 else 1.0
 
 
-def choose_card(plays: list[Play], max_picks: int) -> list[Play]:
-    """Card days: up to max_picks full edges, one per game. No leans; no edge means no bet."""
+def choose_card(plays: list[Play], max_picks: int, min_picks: int = 0) -> list[Play]:
+    """Card days: up to max_picks full edges, one per game. If that leaves fewer than min_picks, the card is
+    filled with leans: the best-priced plays left on the board (within LEAN_FLOOR of fair), bet smaller."""
     ranked = sorted(plays, key=lambda p: p.score, reverse=True)
     seen, out = set(), []
     for p in ranked:
         if p.ev < C.MIN_EV or p.event_id in seen:
             continue
         seen.add(p.event_id)
-        p.units = size(p, "edge")
+        p.tier, p.units = "edge", size(p, "edge")
         out.append(p)
         if len(out) == max_picks:
             break
+    for floor in (C.LEAN_FLOOR, -1.0):                 # second pass: never leave a card short
+        if not C.ALWAYS_PICK or len(out) >= min_picks:
+            break
+        for p in ranked:
+            if p.event_id in seen or p.ev < floor:
+                continue
+            seen.add(p.event_id)
+            p.tier, p.units = "lean", size(p, "lean")
+            out.append(p)
+            if len(out) == min_picks:
+                break
     return sorted(out, key=lambda p: (p.commence_time, -p.score))
 
 
@@ -217,7 +230,9 @@ def choose(plays: list[Play]) -> tuple[Play | None, list[Play], str]:
     ranked = sorted(plays, key=lambda p: p.score, reverse=True)
     full = [p for p in ranked if p.ev >= C.MIN_EV]
     pool, tier = (full, "edge") if full else (
-        ([p for p in ranked if p.ev >= C.FALLBACK_MIN_EV], "lean") if C.ALWAYS_PICK else ([], "none"))
+        ([p for p in ranked if p.ev >= C.LEAN_FLOOR], "lean") if C.ALWAYS_PICK else ([], "none"))
+    if not pool and C.ALWAYS_PICK and ranked:          # never a day without a pick: best number on the board
+        pool, tier = ranked, "lean"
     if not pool:
         return None, [], "none"
     seen, board = set(), []
