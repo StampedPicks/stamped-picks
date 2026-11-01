@@ -93,7 +93,7 @@ def result_post(w, r) -> str:
     n = len(w["rungs"])
     if r["result"] == "win" and w["status"] == "done":
         return (f"🏆 {NAME} · Week {w['week']} COMPLETE\n\n✅ {r['label']} cashed.\n\n"
-                f"{money(START)} → {money(w['stack'])} in {n} rungs. Every rung stamped before kickoff.\n\n"
+                f"{money(START)} → {money(w['stack'])} in {n} rungs. Every rung stamped before the game started.\n\n"
                 f"New climb starts Monday. {TAGS}")
     if r["result"] == "win":
         return (f"✅ Rung {n} cleared: {r['label']}\n\n🪜 Stack: {money(w['stack'])}. "
