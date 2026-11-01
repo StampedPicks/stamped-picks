@@ -56,6 +56,10 @@ BET_BOOKS = {
 MIN_EV = float(os.getenv("MIN_EV", "0.015"))            # 1.5% edge to qualify as a full play
 FALLBACK_MIN_EV = float(os.getenv("FALLBACK_MIN_EV", "0.005"))  # used only if nothing clears MIN_EV
 ALWAYS_PICK = os.getenv("ALWAYS_PICK", "true").lower() == "true"
+# When nothing clears MIN_EV, the Daily Play and NFL/UFC cards still go out with the best-priced plays on the
+# board, marked as leans and bet smaller. A lean must be within this much of the sharp fair price (-0.02 = the
+# best number on the board is no worse than 2% under fair). Set ALWAYS_PICK=false to go back to "no edge, no bet".
+LEAN_FLOOR = float(os.getenv("LEAN_FLOOR", "-0.02"))
 MAX_EV = 0.10                 # anything above 10% is almost always a stale/bad line: skip it
 MIN_DECIMAL, MAX_DECIMAL = 1.50, 3.00   # -200 to +200 only. No longshots, no heavy chalk.
 EARLIEST_START_MIN = 60       # game must start at least 60 min after the pick
@@ -109,12 +113,12 @@ BOARD_KEY = os.getenv("BOARD_KEY", "")   # Fernet key that seals the members boa
 # a game-day reminder, then live updates. All times are Eastern. A "game day" runs 6 AM to 6 AM ET,
 # so a UFC main event after midnight still counts as Saturday's card.
 CARD_SPORTS = {
-    "americanfootball_nfl": {"name": "NFL", "max_picks": 3, "hype": "12:00", "card": "20:00", "reminder": "10:00",
+    "americanfootball_nfl": {"name": "NFL", "max_picks": 3, "min_picks": 3, "hype": "12:00", "card": "20:00", "reminder": "10:00",
                              "min_games_for_hype": 4},   # Sundays get hype; TNF/MNF just get the card
-    "mma_mixed_martial_arts": {"name": "UFC", "max_picks": 3, "hype": "12:00", "card": "20:00", "reminder": "12:00",
+    "mma_mixed_martial_arts": {"name": "UFC", "max_picks": 3, "min_picks": 2, "hype": "12:00", "card": "20:00", "reminder": "12:00",
                                "min_games_for_hype": 5},
     # Big fights only: a fight counts when at least BIG_FIGHT_MIN_BOOKS of the 6 US books post it.
-    "boxing_boxing": {"name": "Boxing", "max_picks": 2, "hype": "12:00", "card": "20:00", "reminder": "12:00",
+    "boxing_boxing": {"name": "Boxing", "max_picks": 2, "min_picks": 1, "hype": "12:00", "card": "20:00", "reminder": "12:00",
                       "min_games_for_hype": 1},
 }
 BIG_FIGHT_MIN_BOOKS = 5
