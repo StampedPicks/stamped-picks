@@ -9,7 +9,7 @@ Two jobs, both through Claude with live web search (ESPN's free feed has no inju
     (questionable / doubtful / out) and who's in for him. One post per player per day; updates (e.g.
     "questionable" -> "out", or "returned") go as replies to the first alert.
 
-Every alert says when it touches one of our open plays. Searches are throttled to one sweep per sport every
+Coverage is only for games we have an open play on (premium picks excepted, so they stay private). Searches are throttled to one sweep per sport every
 INJURY_EVERY_MIN minutes while games are live, so the cost stays a few dollars per NFL Sunday.
 """
 from __future__ import annotations
@@ -20,7 +20,8 @@ from . import config as C, espn, research, social, tags
 from .model import parse_time
 
 TZ = ZoneInfo(C.DISPLAY_TZ)
-SPORTS = {"americanfootball_nfl": "NFL", "basketball_nba": "NBA", "americanfootball_ncaaf": "college football"}
+SPORTS = {"americanfootball_nfl": "NFL", "basketball_nba": "NBA", "americanfootball_ncaaf": "college football",
+          "icehockey_nhl": "NHL", "basketball_ncaab": "college basketball", "baseball_mlb": "MLB"}
 EVERY_MIN = int(getattr(C, "INJURY_EVERY_MIN", 15))
 REPORT_LEAD_MIN = (60, 100)     # pre-game injury report: 60-100 minutes before the slot's first kickoff
 
@@ -35,6 +36,16 @@ def _games(feed, sport, now):
 
 def _ours(rows, sport):
     return [r for r in rows if r["sport"] == sport and not r.get("result") and r.get("tier") != "premium"]
+
+
+def _is_ours(g, rows) -> bool:
+    """Only games we have an open play on get injury coverage."""
+    for r in rows:
+        h, a = espn.norm(r["home"]), espn.norm(r["away"])
+        if (h in g["home"]["names"] or (h.split() or [""])[-1] == g["home"]["nick"]) and \
+                (a in g["away"]["names"] or (a.split() or [""])[-1] == g["away"]["nick"]):
+            return True
+    return False
 
 
 def _touch(alert, rows) -> list[str]:
@@ -100,11 +111,11 @@ def alert_post(sport, a, ours) -> str:
 
 
 def report_post(sport, items, ours_by) -> str:
-    lines = [f"🏥 {SPORTS[sport].upper()} INJURY REPORT · before kickoff", ""]
+    lines = [f"🏥 {SPORTS[sport].upper()} INJURY REPORT · before {social.start_word(sport)}", ""]
     for a in items:
         mark = " ⚠️ our game" if ours_by.get(a["player"]) else ""
         lines.append(f"• {_line(a)}{mark}")
-    lines += ["", "Every line we post is priced after this news. " + tags.SPORT.get(sport, "") + " #InjuryReport"]
+    lines += ["", tags.SPORT.get(sport, "") + " #InjuryReport #GamblingTwitter"]
     return "\n".join(lines)
 
 
@@ -123,6 +134,9 @@ def run(now, state, feed, post, rows):
             print(f"[injuries] {sport}: {e}")
             continue
         ours = _ours(rows, sport)
+        if not ours:
+            continue
+        games = [g for g in games if _is_ours(g, ours)]
         live = [g for g in games if g["state"] == "in"]
         last = desk.setdefault("_last", {}).get(sport)
         if live and (not last or now - parse_time(last) >= timedelta(minutes=EVERY_MIN)):
