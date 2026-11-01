@@ -281,8 +281,9 @@ def run_card(api, now, state, post, sport, day):
         if not events:
             print(f"[card] {sport} {day}: no big fights")
             return
-    window = (max(s, now + timedelta(minutes=C.EARLIEST_START_MIN)), e)   # "today" cards skip fights already underway
-    picks = choose_card(candidates(sport, events, now, hist, window=window), cfg["max_picks"])
+    window = (max(s, now + timedelta(minutes=20)), e)   # "today" cards skip games starting within 20 minutes
+    cands = candidates(sport, events, now, hist, window=window)
+    picks = choose_card(cands, cfg["max_picks"], cfg.get("min_picks", 0))
     cid = card_id(sport, day)
     if not picks:
         print(f"[card] {cid}: no edges")
@@ -295,7 +296,7 @@ def run_card(api, now, state, post, sport, day):
     before = store.read(store.LEDGER)
     new, markets, notes = [], {}, {}
     for p in picks:
-        row = to_row(p, day.isoformat(), now, "edge", pick_no=str(len(before) + len(new) + 1), card=cid)
+        row = to_row(p, day.isoformat(), now, p.tier, pick_no=str(len(before) + len(new) + 1), card=cid)
         store.append(store.LEDGER, row)
         new.append(row)
         markets[row["pick_no"]] = social.market_reasons(row, len(p.books_with_edge))
@@ -313,6 +314,12 @@ def run_card(api, now, state, post, sport, day):
             thread(state, cid).update(main=ids[0], last=ids[-1])
         social.post_discord("\n\n".join(th))
         social.post_owner(social.reply_kit_message(new))
+    try:                                          # NFL: every-game picks + parlays, posted with the card
+        from ledger import parlays
+        upcoming = [ev for ev in events if parse_time(ev["commence_time"]) >= window[0]]
+        parlays.run(api, now, state, post, sport, day, cands, upcoming, {p.event_id for p in picks}, to_row, cid)
+    except Exception as ex:                       # noqa: BLE001 - extras never block the card
+        print(f"[parlays] {ex}")
 
 
 def run_reminder(api, now, state, post, sport, day):
@@ -358,7 +365,7 @@ def run_pregame(api, now, state, rows, post) -> bool:
     pg, closed, changed, groups = state.setdefault("pregame", {}), state.setdefault("closed", {}), False, {}
     lo, hi = C.PREGAME_UPDATE_MIN
     for r in rows:
-        if r.get("result"):
+        if r.get("result") or r.get("tier") == "premium":     # premium picks stay members-only until graded
             continue
         n, mins = r["pick_no"], (parse_time(r["commence_time"]) - now).total_seconds() / 60
         needs_update = 10 < mins <= hi and n not in pg
@@ -430,8 +437,8 @@ def run_live(now, state, rows, feed, post) -> bool:
                 graded = True
                 print(f"[live] #{r['pick_no']} final: {r['result']} ({r['final_score']})")
             continue
-        if r["sport"] == MMA:
-            continue                    # fights report when they end
+        if r["sport"] == MMA or r.get("tier") == "premium":
+            continue                    # fights report when they end; premium picks stay private until graded
         latest, reached = live.checkpoints_due(r["sport"], g, lv.get(r["pick_no"], []))
         lv[r["pick_no"]] = sorted(set(lv.get(r["pick_no"], [])) | set(reached))
         if latest:
@@ -611,6 +618,11 @@ def tick(api, now, post=True, feed=None):
         fightnight.run(now, state, feed, post, store.read(store.LEDGER))
     except Exception as ex:                       # noqa: BLE001 - coverage never blocks picks
         print(f"[fightnight] {ex}")
+    try:                                          # grade NFL parlays
+        from ledger import parlays
+        parlays.settle(now, state, feed, post)
+    except Exception as ex:                       # noqa: BLE001
+        print(f"[parlays] settle: {ex}")
     store.save_state(state)
 
 
