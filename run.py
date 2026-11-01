@@ -319,7 +319,7 @@ def run_card(api, now, state, post, sport, day):
                else art("card", new, card_title(sport), card_sub(state, sport, day), name=f"card_{sport}_{day}"))
         ids = social.post_thread(th, media=pic)
         if ids:
-            thread(state, cid).update(main=ids[0], last=ids[-1])
+            thread(state, cid).update(main=ids[0], last=ids[0])   # updates and results reply to the card post
         social.post_discord("\n\n".join(th))
         social.post_owner(social.reply_kit_message(new))
     try:                                          # NFL: every-game picks + parlays, posted with the card
