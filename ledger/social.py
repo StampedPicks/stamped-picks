@@ -78,10 +78,11 @@ def tagged(text: str, tags: str) -> str:
 
 
 def fit(lines: list[str], keep_last: int = 0) -> str:
-    """Join lines into one post. Over 280 → drop the lowest optional lines until it fits, always keeping
-    the first line and the last `keep_last` lines."""
+    """Join lines into one post. Over the limit (280, or a readable 1,200 with X Premium) → drop the lowest
+    optional lines until it fits, always keeping the first line and the last `keep_last` lines."""
     lines = [l for l in lines if l is not None]
-    while x_len("\n".join(lines)) > LIMIT:
+    limit = 1200 if C.X_PREMIUM else LIMIT
+    while x_len("\n".join(lines)) > limit:
         cand = [i for i in range(1, len(lines) - keep_last) if lines[i].strip()]
         if not cand:
             break
@@ -116,7 +117,7 @@ def market_reasons(row: dict, n_edge_books: int) -> list[str]:
     p, ev = float(row["fair_prob"]), float(row["ev"])
     side = {"h2h": row["side"], "spreads": row["label"], "totals": f"the {row['side']} {row['point']}"}[row["market"]]
     what = {"h2h": "to win", "spreads": "to cover", "totals": "to hit"}[row["market"]]
-    out = [f"• Sharp books make {side} a {p:.0%} shot {what}. Fair odds: {row['play_to']}."]
+    out = [f"• Our fair price: {side} is a {p:.0%} shot {what} (fair odds {row['play_to']})."]
     if ev >= C.MIN_EV:
         out.append(f"• {_book(row['book'])} pays {row['price_american']}, about {ev:.1%} more than that.")
     elif ev >= 0:
@@ -138,12 +139,20 @@ def market_reasons(row: dict, n_edge_books: int) -> list[str]:
 def _matchup(research: dict | None, prefix: str = "") -> str | None:
     if not research:
         return None
-    lines = [f"{prefix}The matchup:"] + [f"• {p}" for p in research["points"]]
+    head = f"{prefix}🎯 {research['angle']}" if research.get("angle") else f"{prefix}The matchup:"
+    lines = [head] + [f"• {p}" for p in research["points"]]
+    if research.get("context"):
+        lines += ["", "📋 What we checked:"] + [f"• {c}" for c in research["context"]]
     if research.get("news"):
         lines.append(f"📰 {research['news']}")
+    tail = []
     if research.get("risk"):
-        lines += ["", f"Risk: {research['risk']}"]
-    return fit(lines, keep_last=1 if research.get("risk") else 0)
+        tail.append(f"⚠️ Risk: {research['risk']}")
+    if research.get("confidence"):
+        tail.append(f"Our confidence: {research['confidence']}/10")
+    if tail:
+        lines += [""] + tail
+    return fit(lines, keep_last=len(tail))
 
 
 def _units_note(units_text: str, extra: str) -> str:
@@ -177,7 +186,7 @@ def daily_thread(row: dict, before: list[dict], market: list[str], research: dic
     posts.append(_units_note(f"today's play is {money(u)}",
                              "Stamped before the game, graded in public, wins and losses (link in bio). Update before "
                              "the game, check-ins during it."))
-    return ["\n\n".join(posts)] if C.X_PREMIUM else posts
+    return posts                              # a real thread: one post per step, so people can reply to each
 
 
 def no_play_post(date: str) -> str:
@@ -221,7 +230,7 @@ def card_thread(sport, game_day, picks, before, markets, research) -> list[str]:
                              ("Live updates" if same_day else "Gameday reminder tomorrow, then live updates")
                              + f" during the {what}. Every pick stamped, "
                              "every result public (link in bio)."))
-    return ["\n\n".join(posts)] if C.X_PREMIUM else posts
+    return posts                              # a real thread: one post per step, so people can reply to each
 
 
 def no_card_post(sport, game_day) -> str:
