@@ -1,23 +1,40 @@
 {
  "market": [
-  "\u2022 Our fair price: the Under 42 is a 54% shot to hit (fair odds -118).",
-  "\u2022 BetMGM pays -110, about 3.6% more than that.",
-  "\u2022 Only BetMGM has this price, so it may not last.",
-  "\u2022 Our sim (10,000 games): Chiefs 17.2, Broncos 20.1. The Under 42 hits in 63% of them. The sim backs it."
+  "\u2022 Our fair price: Philadelphia Eagles +6 is a 54% shot to cover (fair odds -119).",
+  "\u2022 DraftKings pays -108, about 4.9% more than that.",
+  "\u2022 The sharp line has been moving our way.",
+  "\u2022 Only DraftKings has this price, so it may not last.",
+  "\u2022 Our sim (10,000 games): Eagles 21.0, Commanders 23.4. Philadelphia Eagles +6 covers in 61% of them. The sim backs it."
  ],
  "research": {
   "points": [
-   "Chiefs allow just 17.2 points a game, 2nd-best in the NFL this season.",
-   "Denver scores only 20.6 a game, 25th in the league, and its defense allows 20.1 (7th).",
-   "Denver's 21 sacks rank 2nd in the NFL, so its pass rush can stall Chiefs drives."
+   "Washington is 31st in points allowed per game and 22nd in yards per play allowed.",
+   "Washington is without interior defenders Daron Payne (season-ending injury Friday) and Javon Kinlaw. That's a boost for Barkley and the run game.",
+   "Washington ranks 31st in opponent rush success rate, and Barkley is cleared to play.",
+   "Philly has beaten Washington 15 times in 20 meetings since 2017 and is 7-2 at Northwest Stadium in that span. The Week 1 game was an Eagles 24-22 win.",
+   "Dan Quinn is the least profitable active coach as a favorite in Bet Labs, with a 40% cover rate."
   ],
-  "risk": "Chiefs are missing CBs Delane and Sneed, which could open up Denver's passing game.",
-  "news": "Chiefs CB Mansoor Delane is out, but WR Rashee Rice and RT Jaylon Moore return. Broncos' Waddle, Allen and Bolles are\u2026",
+  "risk": "McKee has no top-two WRs and a hobbled Barkley behind a 22nd-ranked line, so Washington's blitz could bury him.}",
+  "news": "",
+  "angle": "Backup-QB dog getting 6 against a bad Commanders defense missing both starting interior DTs",
+  "context": [
+   "Eagles OUT: WR DeVonta Smith, WR Wicks, LB Campbell, WR/KR Covey, CB Jonathan Jones. Tanner McKee makes his 3rd straight start with Hurts on IR.",
+   "Barkley (hamstring) was limited Friday and has no designation. The Eagles have no healthy RB behind him, so a re-aggravation would hurt.",
+   "Commanders: Payne out for the season, Kinlaw and Newton out. Burks (foot) is expected to play and Jayden Daniels was a full participant despite an elbow issue.",
+   "Little wind and a low chance of rain, with temperatures falling into the 40s. Weather is not a factor.",
+   "Spread splits: Commanders 52% of bets but 61% of money, Eagles 48% and 39%. The spread opened Commanders -3.5 and moved to -6.",
+   "Eagles +6 is a Yahoo/Action best bet, and CBS's Eagles-Commanders SNF breakdown favors Philly 20-17. Some cappers lay the points with Washington off the bye."
+  ],
+  "confidence": 6,
   "sources": [
-   "https://www.foxsports.com/stories/nfl/2026-nfl-defense-rankings-team-pass-rush-stats",
-   "https://www.nfl.com/games/chiefs-at-broncos-2026-reg-8",
-   "https://www.ksnt.com/news/chiefs-rookie-db-mansoor-delane-ruled-out-vs-broncos/",
-   "https://www.chiefs.com/news/five-things-to-watch-on-sunday-chiefs-vs-broncos-x5242"
+   "https://www.cbssports.com/nfl/news/commanders-vs-eagles-where-to-watch-prediction/",
+   "https://www.si.com/betting/eagles-vs-commanders-score-prediction-for-nfl-week-8-can-washington-get-revenge-01m64w8q0c26",
+   "https://bettorsinsider.com/nfl/2026/10/31/eagles-vs-commanders-snf-preview-odds-prediction-best-bet/",
+   "https://sports.yahoo.com/articles/eagles-vs-commanders-prediction-pick-160058377.html",
+   "https://www.sportsbettingdime.com/news/nfl/final-eagles-commanders-injury-reports-snf-updates-daniels-barkley-burks-diggs-devonta-smith/",
+   "https://www.si.com/nfl/commanders/onsi/commanders-eagles-weather-forecast-week-8",
+   "https://www.sportsbettingdime.com/news/nfl/eagles-vs-commanders-public-betting-splits-sharp-money-trends-snf/",
+   "https://www.cbssports.com/betting/news/eagles-commanders-prediction-spread-odds-time-sunday-night-football-picks/"
   ]
  }
 }

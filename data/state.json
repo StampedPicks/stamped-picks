@@ -103,10 +103,19 @@
     "americanfootball_nfl|2026-11-01|late|side": {
       "main": "2116985359393595856",
       "last": "2116990877851697340"
+    },
+    "americanfootball_nfl|2026-11-01|night": {
+      "main": "2117032248436261305",
+      "last": "2117032248436261305"
+    },
+    "americanfootball_nfl|2026-11-01|night|slate": {
+      "main": "2117032271119106270",
+      "last": "2117032271119106270"
     }
   },
   "parlays_posted": [
-    "2026-11-01"
+    "2026-11-01",
+    "americanfootball_nfl|2026-11-01|night"
   ],
   "injuries": {
     "2026-11-01": {
@@ -261,6 +270,7 @@
     }
   },
   "extras_posted": [
-    "americanfootball_nfl|2026-11-01|late"
+    "americanfootball_nfl|2026-11-01|late",
+    "americanfootball_nfl|2026-11-01|night"
   ]
 }
