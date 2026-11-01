@@ -1,0 +1,23 @@
+{
+ "market": [
+  "\u2022 Our fair price: the Under 42 is a 54% shot to hit (fair odds -118).",
+  "\u2022 BetMGM pays -110, about 3.6% more than that.",
+  "\u2022 Only BetMGM has this price, so it may not last.",
+  "\u2022 Our sim (10,000 games): Chiefs 17.2, Broncos 20.1. The Under 42 hits in 63% of them. The sim backs it."
+ ],
+ "research": {
+  "points": [
+   "Chiefs allow just 17.2 points a game, 2nd-best in the NFL this season.",
+   "Denver scores only 20.6 a game, 25th in the league, and its defense allows 20.1 (7th).",
+   "Denver's 21 sacks rank 2nd in the NFL, so its pass rush can stall Chiefs drives."
+  ],
+  "risk": "Chiefs are missing CBs Delane and Sneed, which could open up Denver's passing game.",
+  "news": "Chiefs CB Mansoor Delane is out, but WR Rashee Rice and RT Jaylon Moore return. Broncos' Waddle, Allen and Bolles are\u2026",
+  "sources": [
+   "https://www.foxsports.com/stories/nfl/2026-nfl-defense-rankings-team-pass-rush-stats",
+   "https://www.nfl.com/games/chiefs-at-broncos-2026-reg-8",
+   "https://www.ksnt.com/news/chiefs-rookie-db-mansoor-delane-ruled-out-vs-broncos/",
+   "https://www.chiefs.com/news/five-things-to-watch-on-sunday-chiefs-vs-broncos-x5242"
+  ]
+ }
+}
