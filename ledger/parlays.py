@@ -110,8 +110,11 @@ def td_legs(api, events, books) -> list[dict]:
     return sorted(out, key=lambda x: x["ev"], reverse=True)
 
 
-def build(cands, tds) -> dict:
-    """{kind: [legs]} for the three parlays. Every leg is from a different game."""
+def build(cands, tds, exclude=frozenset()) -> dict:
+    """{kind: [legs]} for the three parlays. Every leg is from a different game; games in `exclude` (the
+    premium pick's game) are left out so a public parlay never gives the premium side away."""
+    cands = [p for p in cands if p.event_id not in exclude]
+    tds = [t for t in tds if t["event_id"] not in exclude]
     out = {}
     ladder = [game_leg(p) for p in best_per_game(cands, 1.6, 2.3)[:4]]
     if len(ladder) >= 3:
@@ -119,7 +122,10 @@ def build(cands, tds) -> dict:
     if len(tds) >= 3:
         out["td"] = tds[:4] if len(tds) >= 4 else tds[:3]
     flyer = []
-    for p in best_per_game(cands, 1.9, 3.5):          # stop once it pays about +2500, 4-6 legs
+    dogs = best_per_game(cands, 2.2, 4.0)               # real underdogs (+120 or longer) first
+    if len(dogs) < 4:
+        dogs += [p for p in best_per_game(cands, 1.9, 2.2) if p.event_id not in {d.event_id for d in dogs}]
+    for p in dogs:                                      # stop once it pays about +2500, 4-6 legs
         flyer.append(game_leg(p))
         if len(flyer) >= 6 or (len(flyer) >= 4 and price_of(flyer) >= 26):
             break
@@ -207,7 +213,7 @@ def run(api, now, state, post, sport, day, cands, events, card_ids: set, to_row,
         tds = td_legs(api, events, list(C.BET_BOOKS))
     except SystemExit as e:
         print(f"[parlays] TD props unavailable: {e}")
-    built = build(cands, tds)
+    built = build(cands, tds, {prem["event_id"]} if prem else frozenset())
     prs = read()
     for kind, legs in built.items():
         name, emoji, units, _ = KINDS[kind]
