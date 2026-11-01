@@ -391,6 +391,28 @@ def run_card(api, now, state, post, sport, day, slot=None):
                     day_cands=day_cands, day_events=day_events)
     except Exception as ex:                       # noqa: BLE001 - extras never block the card
         print(f"[parlays] {ex}")
+    if slot:                                      # NFL slot extras: player prop + who wins, with the data
+        try:
+            from ledger import extras
+            extras.run(api, now, state, post, sport, slot, upcoming, cands, {p.event_id for p in picks}, to_row, cid, thread)
+        except Exception as ex:                   # noqa: BLE001
+            print(f"[extras] {ex}")
+
+
+def run_extras(api, now, state, post, sport, day, slot):
+    """Player prop + who-wins for a slot whose card already went out (e.g. added after the card)."""
+    from ledger import extras
+    s, e = game_day_window(day)
+    s, e = max(s, at(day, SLOTS[slot][0]), now + timedelta(minutes=10)), min(e, at(day, SLOTS[slot][1]))
+    events = api.odds(sport, markets_for(sport), BOOKS, s, e)
+    if not events:
+        return print(f"[extras] no games left in the {slot} slot")
+    cands = candidates(sport, events, now, store.snapshot_history(sport, now), window=(s, e))
+    cands = analyst.review(sport, sim.apply(sport, cands, now), all_games=True)
+    on_card = {r["event_id"] for r in store.read(store.LEDGER)
+               if r.get("date") == day.isoformat() and r.get("tier") in ("edge", "lean")}
+    extras.run(api, now, state, post, sport, slot, events, cands, on_card, to_row,
+               card_id(sport, day) + f"|{slot}", thread)
 
 
 def run_reminder(api, now, state, post, sport, day):
@@ -561,7 +583,7 @@ def announce(state, rows, post):
     recapped = set(state.setdefault("recapped", []))
     for cid in sorted({r["card"] for r in rows if r.get("card")}):
         card_rows = [x for x in rows if x.get("card") == cid]
-        if cid in recapped or cid.endswith("|whale") or not all(x.get("result") for x in card_rows):
+        if cid in recapped or cid.endswith(("|whale", "|side", "|premium")) or not all(x.get("result") for x in card_rows):
             continue
         recapped.add(cid)
         text = social.card_recap(cid.split("|")[0], card_day(cid), card_rows, rows)
@@ -731,6 +753,16 @@ def tick(api, now, post=True, feed=None):
         injuries.run(now, state, feed, post, store.read(store.LEDGER))
     except Exception as ex:                       # noqa: BLE001
         print(f"[injuries] {ex}")
+    try:                                          # player props: grade from the box score
+        from ledger import extras
+        extras.settle(now, state, feed, post)
+    except Exception as ex:                       # noqa: BLE001
+        print(f"[extras] settle: {ex}")
+    try:                                          # whale last call: DM for it before kickoff
+        from ledger import whale
+        whale.last_calls(now, state, post)
+    except Exception as ex:                       # noqa: BLE001
+        print(f"[whale] {ex}")
     try:                                          # grade the ladder's rung
         from ledger import ladder
         ladder.settle(now, state, feed, post)
@@ -758,7 +790,7 @@ def cmd_settle(pick_no, result, final, post=True):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("cmd", choices=["tick", "daily", "card", "whale", "grade", "settle", "recap", "render", "newkey", "demo",
+    ap.add_argument("cmd", choices=["tick", "daily", "card", "whale", "extras", "grade", "settle", "recap", "render", "newkey", "demo",
                                     "menu", "tgchats", "reset"])
     ap.add_argument("args", nargs="*", help="card: nfl|ufc · settle: play number, win|loss|push, optional final")
     ap.add_argument("--no-post", action="store_true", help="save the text without posting")
@@ -820,6 +852,10 @@ def main():
         if not sport:
             raise SystemExit("usage: python run.py whale nfl|ufc|ncaaf|nba [hours]")
         run_whale(api, now, state, post, sport, int(a.args[1]) if len(a.args) > 1 else C.WHALE_SCHEDULE.get(sport, (0, "", 84))[2])
+    elif a.cmd == "extras":                        # extras nfl today late|night: prop + who wins for a slot now
+        day = et(now).date()
+        slot = next((x.lower() for x in a.args if x.lower() in SLOTS), "late")
+        run_extras(api, now, state, post, NFL, day, slot)
     elif a.cmd == "grade":
         backup_grade(api, now, state)
         announce(state, store.read(store.LEDGER), post)
