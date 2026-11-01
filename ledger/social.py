@@ -192,8 +192,10 @@ def card_thread(sport, game_day, picks, before, markets, research) -> list[str]:
     st = store.stats(before)
     name, emoji = voice.card_name(sport, game_day), _emoji(sport)
     k = f"{sport}{game_day}"
+    same_day = parse_time(picks[0]["posted_at"]).astimezone(TZ).date() == game_day
     head = [voice.pick([f"{emoji} {name} card is IN", f"{emoji} {name} card is set", f"{emoji} Here's our {name} card"], k),
-            "", f"{len(picks)} play{'s' if len(picks) > 1 else ''} we like for tomorrow:"]
+            "", f"{len(picks)} play{'s' if len(picks) > 1 else ''} we like for "
+                f"{'today' if same_day else 'tomorrow'}:"]
     for i, r in enumerate(picks):
         head.append(f"{NUM[i]} {r['label']} ({r['price_american']}) · {stake_short(float(r['units']))}"
                     + (" · lean" if r.get("tier") == "lean" else ""))
@@ -216,7 +218,8 @@ def card_thread(sport, game_day, picks, before, markets, research) -> list[str]:
     total = sum(float(r["units"]) for r in picks)
     what = "fights" if sport == "mma_mixed_martial_arts" else "games"
     posts.append(_units_note(f"the whole card is {money(total)}",
-                             f"Gameday reminder tomorrow, then live updates during the {what}. Every pick stamped, "
+                             ("Live updates" if same_day else "Gameday reminder tomorrow, then live updates")
+                             + f" during the {what}. Every pick stamped, "
                              "every result public (link in bio)."))
     return ["\n\n".join(posts)] if C.X_PREMIUM else posts
 
