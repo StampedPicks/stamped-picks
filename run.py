@@ -269,8 +269,13 @@ def run_hype(api, now, state, post, sport, day):
         social.post_discord(text)
 
 
-def run_card(api, now, state, post, sport, day):
+SLOTS = {"early": ("00:00", "15:00"), "late": ("15:00", "18:00"), "night": ("18:00", "23:59")}   # ET kickoff windows
+
+
+def run_card(api, now, state, post, sport, day, slot=None):
     cfg, (s, e) = C.CARD_SPORTS[sport], game_day_window(day)
+    if slot in SLOTS:                                       # one card per kickoff slot (1 PM / 4 PM / night)
+        s, e = max(s, at(day, SLOTS[slot][0])), min(e, at(day, SLOTS[slot][1]))
     n_games = len(api.events(sport, s, e))                  # free
     if not n_games:
         return
@@ -702,12 +707,13 @@ def main():
     elif a.cmd == "card":
         sport = {"nfl": "americanfootball_nfl", "ufc": MMA, "mma": MMA, "boxing": "boxing_boxing"}.get((a.args or [""])[0].lower())
         if not sport:
-            raise SystemExit("usage: python run.py card nfl|ufc|boxing [today]")
+            raise SystemExit("usage: python run.py card nfl|ufc|boxing [today] [early|late|night]")
         today_card = len(a.args) > 1 and a.args[1].lower() == "today"
         day = et(now).date() + timedelta(days=0 if today_card else 1)
         if today_card and et(now).hour < C.DAY_START_HOUR:
             day -= timedelta(days=1)
-        run_card(api, now, state, post, sport, day)
+        slot = next((x.lower() for x in a.args[2:] if x.lower() in SLOTS), None)
+        run_card(api, now, state, post, sport, day, slot)
     elif a.cmd == "grade":
         backup_grade(api, now, state)
         announce(state, store.read(store.LEDGER), post)
