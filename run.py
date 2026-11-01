@@ -394,7 +394,8 @@ def run_card(api, now, state, post, sport, day, slot=None):
     if slot:                                      # NFL slot extras: player prop + who wins, with the data
         try:
             from ledger import extras
-            extras.run(api, now, state, post, sport, slot, upcoming, cands, {p.event_id for p in picks}, to_row, cid, thread)
+            extras.run(api, now, state, post, sport, slot, upcoming, cands,
+                       {p.event_id for p in picks if p.market in ("h2h", "spreads")}, to_row, cid, thread)
         except Exception as ex:                   # noqa: BLE001
             print(f"[extras] {ex}")
 
@@ -409,10 +410,10 @@ def run_extras(api, now, state, post, sport, day, slot):
         return print(f"[extras] no games left in the {slot} slot")
     cands = candidates(sport, events, now, store.snapshot_history(sport, now), window=(s, e))
     cands = analyst.review(sport, sim.apply(sport, cands, now), all_games=True)
-    on_card = {r["event_id"] for r in store.read(store.LEDGER)
-               if r.get("date") == day.isoformat() and r.get("tier") in ("edge", "lean")}
+    on_card = {r["event_id"] for r in store.read(store.LEDGER) if r.get("date") == day.isoformat()
+               and r.get("tier") in ("edge", "lean", "side") and r["market"] in ("h2h", "spreads")}
     extras.run(api, now, state, post, sport, slot, events, cands, on_card, to_row,
-               card_id(sport, day) + f"|{slot}", thread)
+               card_id(sport, day) + f"|{slot}", thread, force=True)
 
 
 def run_reminder(api, now, state, post, sport, day):
