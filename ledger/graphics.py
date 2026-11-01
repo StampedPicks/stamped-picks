@@ -183,6 +183,40 @@ def card_image(rows: list[dict], title: str, sub: str, results: bool = False) ->
     return im
 
 
+# ---------------------------------------------------------------- the odds board (teaser posts)
+def odds_board(away: str, home: str, when: str, sport: str, lines: dict) -> Image.Image:
+    """A sportsbook-style board for one game: spread, moneyline and total for both sides.
+    lines = {"away": {"spread": "+3.5 -108", "money": "+166", "total": "O 46.5 -120"}, "home": {...}}.
+    Shows the market only; it never marks which side we're on."""
+    im = _paper()
+    _header(im, f"{away.split()[-1].upper()} @ {home.split()[-1].upper()}", f"{sport} · {when}")
+    d = ImageDraw.Draw(im)
+    cols = [("SPREAD", "spread"), ("MONEY", "money"), ("TOTAL", "total")]
+    x0, top, name_w = 136, 470, 250
+    cw, ch, gap = (W - 70 - x0 - name_w - 2 * 18) // 3, 170, 18
+    for j, (label, _) in enumerate(cols):
+        cx = x0 + name_w + j * (cw + gap) + cw // 2
+        d.text((cx, top - 50), label, font=font("PlexMono-SemiBold", 30), fill=MUTED, anchor="mm")
+    for i, (side, team) in enumerate((("away", away), ("home", home))):
+        y = top + i * (ch + 40)
+        d.text((x0, y + ch // 2), team.split()[-1].upper(), font=fit(team.split()[-1].upper(), "Oswald-Bold", 64, name_w - 20),
+               fill=DARK, anchor="lm")
+        for j, (_, key) in enumerate(cols):
+            x = x0 + name_w + j * (cw + gap)
+            d.rounded_rectangle([x, y, x + cw, y + ch], radius=14, outline=DARK, width=4)
+            val = (lines.get(side) or {}).get(key) or "—"
+            parts = val.split(" ")
+            top_t, price = (" ".join(parts[:-1]), parts[-1]) if len(parts) > 1 else ("", parts[0])
+            if top_t:
+                d.text((x + cw // 2, y + 52), top_t, font=fit(top_t, "Oswald-Medium", 46, cw - 24), fill=MUTED, anchor="mm")
+                d.text((x + cw // 2, y + 118), price, font=fit(price, "Oswald-Bold", 58, cw - 24), fill=DARK, anchor="mm")
+            else:
+                d.text((x + cw // 2, y + ch // 2), price, font=fit(price, "Oswald-Bold", 64, cw - 24), fill=DARK, anchor="mm")
+    _paste_center(im, _stamp("PREMIUM PLAY STAMPED", INK, 40, seed=5, angle=-4), W // 2 + 40, 1060)
+    _footer(im)
+    return im
+
+
 # ---------------------------------------------------------------- the before/after GIF
 def stamp_gif(row: dict, title: str, path: Path) -> Path:
     """The pick ticket, then the result stamp slamming onto it. About 1 MB, loops once per view."""
