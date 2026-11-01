@@ -34,22 +34,27 @@
       "p2"
     ],
     "2": [
-      "half"
+      "half",
+      "q4"
     ],
     "3": [
       "half"
     ],
     "4": [
-      "half"
+      "half",
+      "q4"
     ],
     "15": [
       "half"
     ],
     "14": [
-      "half"
+      "half",
+      "q4"
     ]
   },
-  "announced": [],
+  "announced": [
+    "13"
+  ],
   "recapped": [],
   "fightnight": {
     "600061420": {
@@ -95,7 +100,7 @@
     },
     "americanfootball_nfl|2026-11-01": {
       "main": "2116954157198319678",
-      "last": "2117033471470162167"
+      "last": "2117041798359196011"
     },
     "americanfootball_nfl|2026-11-01|slate": {
       "main": "2116954195970412619",
@@ -103,7 +108,7 @@
     },
     "americanfootball_nfl|2026-11-01|whale": {
       "main": "2116983471793156249",
-      "last": "2117025799283044379"
+      "last": "2117041802679349468"
     },
     "americanfootball_nfl|2026-11-01|late|side": {
       "main": "2116985359393595856",
@@ -261,7 +266,7 @@
       }
     },
     "_last": {
-      "americanfootball_nfl": "2026-11-01T23:18:05Z",
+      "americanfootball_nfl": "2026-11-01T23:51:10Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z"
     }
   },
