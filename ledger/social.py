@@ -91,7 +91,7 @@ def fit(lines: list[str], keep_last: int = 0) -> str:
     while "\n\n\n" in text:
         text = text.replace("\n\n\n", "\n\n")
     text = text.strip()
-    while x_len(text) > LIMIT:
+    while x_len(text) > limit:
         text = text[:-2].rstrip() + "…"
     return text
 
