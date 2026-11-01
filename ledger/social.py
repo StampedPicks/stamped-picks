@@ -78,22 +78,53 @@ def tagged(text: str, tags: str) -> str:
 
 
 def fit(lines: list[str], keep_last: int = 0) -> str:
-    """Join lines into one post. Over the limit (280, or a readable 1,200 with X Premium) → drop the lowest
-    optional lines until it fits, always keeping the first line and the last `keep_last` lines."""
-    lines = [l for l in lines if l is not None]
-    limit = 1200 if C.X_PREMIUM else LIMIT
-    while x_len("\n".join(lines)) > limit:
-        cand = [i for i in range(1, len(lines) - keep_last) if lines[i].strip()]
-        if not cand:
-            break
-        lines.pop(cand[-1])
-    text = "\n".join(lines)
+    """Join lines into one post. Nothing is ever cut: if the text is longer than one post, post_x / post_thread
+    split it into a thread (see split). `keep_last` is kept for older callers and no longer used."""
+    text = "\n".join(l for l in lines if l is not None)
     while "\n\n\n" in text:
         text = text.replace("\n\n\n", "\n\n")
+    return text.strip()
+
+
+def split(text: str, limit: int = LIMIT) -> list[str]:
+    """Break a post into thread-sized pieces without cutting anything: at blank lines first, then at line
+    breaks, then (only for one very long line) at spaces. Hashtags stay with the last piece."""
     text = text.strip()
-    while x_len(text) > limit:
-        text = text[:-2].rstrip() + "…"
-    return text
+    if x_len(text) <= limit:
+        return [text]
+    out, cur = [], ""
+
+    def push(piece, sep):
+        nonlocal cur
+        cand = f"{cur}{sep}{piece}" if cur else piece
+        if x_len(cand) <= limit:
+            cur = cand
+            return True
+        return False
+
+    for para in text.split("\n\n"):
+        if push(para, "\n\n"):
+            continue
+        if cur:
+            out.append(cur)
+            cur = ""
+        if push(para, ""):
+            continue
+        for line in para.split("\n"):              # paragraph too long: go line by line
+            if push(line, "\n"):
+                continue
+            if cur:
+                out.append(cur)
+                cur = ""
+            if push(line, ""):
+                continue
+            for word in line.split(" "):            # a single line too long: go word by word
+                if not push(word, " "):
+                    out.append(cur)
+                    cur = word
+    if cur:
+        out.append(cur)
+    return [o.strip() for o in out if o.strip()]
 
 
 def _verdict(row, now_price, now_fair) -> str:
@@ -197,6 +228,16 @@ def no_play_post(date: str) -> str:
 
 
 # ---------------------------------------------------------------- card days (NFL, UFC)
+class Thread(list):
+    """A list of posts where some posts start a new branch: they reply to the first (OG) post instead of the
+    post before them. On a card, each game is its own branch under the card post, so people can follow and
+    reply to the game they care about."""
+
+    def __init__(self, posts=(), branch_starts=()):
+        super().__init__(posts)
+        self.branch_starts = set(branch_starts)
+
+
 def card_thread(sport, game_day, picks, before, markets, research) -> list[str]:
     st = store.stats(before)
     name, emoji = voice.card_name(sport, game_day), _emoji(sport)
@@ -215,8 +256,9 @@ def card_thread(sport, game_day, picks, before, markets, research) -> list[str]:
     if hook:
         head.append(hook)
     head.append(voice.pick(["Breakdown on each one 🧵👇", "Why we like each one 🧵👇"], k))
-    posts = [fit(head, keep_last=1)]
+    posts, branches = [fit(head, keep_last=1)], []
     for i, r in enumerate(picks):
+        branches.append(len(posts))                # each game: its own thread under the card post
         posts.append(fit([f"{NUM[i]} {r['label']} ({r['price_american']}) at {_book(r['book'])}"
                           + (" · LEAN (smaller bet)" if r.get("tier") == "lean" else ""),
                           f"⏰ {_when(r['commence_time'], day=True)} · good to {r['play_to']} · {stake_short(float(r['units']))}",
@@ -226,11 +268,12 @@ def card_thread(sport, game_day, picks, before, markets, research) -> list[str]:
             posts.append(m)
     total = sum(float(r["units"]) for r in picks)
     what = "fights" if sport == "mma_mixed_martial_arts" else "games"
+    branches.append(len(posts))
     posts.append(_units_note(f"the whole card is {money(total)}",
                              ("Live updates" if same_day else "Gameday reminder tomorrow, then live updates")
                              + f" during the {what}. Every pick stamped, "
                              "every result public (link in bio)."))
-    return posts                              # a real thread: one post per step, so people can reply to each
+    return Thread(posts, branches)
 
 
 def no_card_post(sport, game_day) -> str:
@@ -448,15 +491,8 @@ def _upload_media(s, path) -> str | None:
         return None
 
 
-def post_x(text: str, reply_to: str | None = None, quote: str | None = None, mirror: bool = True,
-           media=None) -> str | None:
-    """One public post: X API v2 (pay-per-use, about $0.015 for a post with no link), copied to the free
-    Telegram channel. Returns the X post id.
-
-    `media` is a picture or GIF path to attach. `quote` is ignored unless X_QUOTES is on: quote posts
-    aren't available on the pay-per-use API, so results and recaps go out as their own posts."""
-    if mirror:
-        telegram.send_media(C.TG_FREE, media, text)
+def _post_one(text: str, reply_to: str | None = None, quote: str | None = None, media=None) -> str | None:
+    """One API call: one X post of at most 280 characters. Returns its id."""
     s = _x_session()
     if not s:
         print("[x] keys not set; skipping auto-post. Text saved to data/posts/.")
@@ -477,17 +513,45 @@ def post_x(text: str, reply_to: str | None = None, quote: str | None = None, mir
     return r.json()["data"]["id"]
 
 
-def post_thread(posts: list[str], media=None) -> list[str]:
-    """Posts each item as a reply to the one before. Stops if one fails, so a thread is never half-broken.
-    `media` goes on the first post."""
-    telegram.send_media(C.TG_FREE, media, "\n\n".join(posts))   # one message on Telegram, a thread on X
-    ids, prev = [], None
-    for i, text in enumerate(posts):
-        pid = post_x(text, reply_to=prev, mirror=False, media=media if i == 0 else None)
+def _chain(text: str, reply_to=None, quote=None, media=None) -> list[str]:
+    """Posts text as one post, or as a chain of replies if it's longer than one post. Returns the ids."""
+    ids, prev = [], reply_to
+    for i, piece in enumerate(split(text)):
+        pid = _post_one(piece, reply_to=prev, quote=quote if i == 0 else None, media=media if i == 0 else None)
         if not pid:
             break
         ids.append(pid)
         prev = pid
+    return ids
+
+
+def post_x(text: str, reply_to: str | None = None, quote: str | None = None, mirror: bool = True,
+           media=None) -> str | None:
+    """A public post: X API v2 (pay-per-use, about $0.015 per post with no link), copied to the free Telegram
+    channel in one message. Text longer than one post continues as replies, never trimmed. Returns the id of
+    the last post in the chain, so the next reply lands under it.
+
+    `media` is a picture or GIF path for the first post. `quote` is ignored unless X_QUOTES is on: quote posts
+    aren't available on the pay-per-use API, so results and recaps go out as their own posts."""
+    if mirror:
+        telegram.send_media(C.TG_FREE, media, text)
+    ids = _chain(text, reply_to, quote, media)
+    return ids[-1] if ids else None
+
+
+def post_thread(posts: list[str], media=None) -> list[str]:
+    """Posts each item as a reply to the one before (items longer than one post continue as more replies).
+    Stops if one fails, so a thread is never half-broken. `media` goes on the first post. Returns all ids."""
+    telegram.send_media(C.TG_FREE, media, "\n\n".join(posts))   # one message on Telegram, a thread on X
+    branches = getattr(posts, "branch_starts", set())
+    ids, prev, root = [], None, None
+    for i, text in enumerate(posts):
+        chain = _chain(text, root if i in branches else prev, media=media if i == 0 else None)
+        if not chain:
+            break
+        root = root or chain[0]
+        ids += chain
+        prev = chain[-1]
     return ids
 
 
