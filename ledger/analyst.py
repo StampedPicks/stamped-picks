@@ -152,10 +152,11 @@ def review(sport: str, cands: list, n: int = MAX_CANDIDATES) -> list:
         print(f"[analyst] {conf}/10 {p.label} {fmt_american(p.price)}: {p.analysis['angle']}")
     # Passes are removed; un-reviewed candidates stay but rank below reviewed "bet" calls of similar edge.
     reviewed = {id(p) for p in shortlist if p.analysis}
+    passed_sides = {(p.event_id, p.market, p.side) for p in shortlist if id(p) in passed}
     out = []
     for p in cands:
-        if id(p) in passed:
-            continue
+        if id(p) in passed or (p.event_id, p.market, p.side) in passed_sides:
+            continue                               # a pass also rules out the same bet at other lines
         if id(p) not in reviewed:
             p.score *= 0.85
         out.append(p)
