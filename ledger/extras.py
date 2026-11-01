@@ -106,6 +106,55 @@ Reply with only this JSON:
     return out
 
 
+def _research_props(pool) -> list[dict]:
+    """For each prop line (both sides priced), the research picks the side the numbers support."""
+    items = []
+    for i, v in enumerate(pool, 1):
+        o, u = v["Over"], v["Under"]
+        items.append(f"{i}. {o['player']} {WORDS[o['market']]} {o['point']:g} ({o['away']} at {o['home']}, "
+                     f"{_when(o['commence_time'])}): OVER {fmt_american(o['price'])}, UNDER {fmt_american(u['price'])}. "
+                     f"Market fair chance of the over: {o['fair']:.0%}.")
+    prompt = f"""You are the lead NFL props handicapper for a betting account whose brand is credibility. Every claim is
+posted publicly, so it must be a real, checkable number from this season.
+
+Today's player prop lines:
+{chr(10).join(items)}
+
+For EACH line, search the numbers that decide it: his season average and median for this stat, his last 5 games,
+the opponent's rank and what it allows to his position, his snap/target/carry share, injuries to him or around him
+(QB, O-line, other receivers), game script (spread and total) and weather. Then pick the side the numbers support,
+OVER or UNDER, and how strongly (confidence 1-10). Say "pass" only if the numbers are a true coin flip.
+
+Rules: every reason must contain a specific number from this season. Never invent a number. Never use the words
+lock, guarantee, sure thing, can't lose, hammer or max bet. Write like a sharp bettor. Short notes between searches.
+
+Reply with only this JSON:
+{{"props": [{{"n": 1, "pick": "over" or "under" or "pass", "confidence": 1-10, "angle": "one punchy line, max 110 chars",
+"reasons": ["3-4 data points, each max 170 chars, each with a number"], "risk": "max 130 chars"}}]}}"""
+    try:
+        text, _ = research._call(prompt, 20, max_tokens=16000)
+        data = research._json(text)
+    except Exception as e:                        # noqa: BLE001
+        print(f"[extras] prop research failed: {e}")
+        return [{} for _ in pool]
+    by_n = {int(v.get("n", 0)): v for v in data.get("props", []) if isinstance(v, dict)}
+    out = []
+    for i in range(1, len(pool) + 1):
+        v = by_n.get(i) or {}
+        pick = str(v.get("pick", "")).lower()
+        out.append({"side": "Over" if pick.startswith("o") else "Under" if pick.startswith("u") else None,
+                    "confidence": max(1, min(10, int(v.get("confidence") or 1))),
+                    "angle": research._clean(v.get("angle"), 115),
+                    "reasons": [r for r in (research._clean(x, 175) for x in (v.get("reasons") or [])[:4])
+                                if r and any(c.isdigit() for c in r)],
+                    "risk": research._clean(v.get("risk"), 135)} if v else {})
+    for v, a in zip(pool, out):
+        if a.get("side"):
+            print(f"[extras] {v['Over']['player']} {WORDS[v['Over']['market']]} {v['Over']['point']:g}: "
+                  f"{a['side']} {a['confidence']}/10")
+    return out
+
+
 def _backed(a: dict) -> bool:
     return bool(a) and a.get("verdict") == "bet" and a.get("confidence", 0) >= 6 and len(a.get("reasons", [])) >= 2
 
@@ -121,26 +170,46 @@ def prop(api, now, state, post, events, slot_name: str) -> dict | None:
         print(f"[extras] props unavailable: {e}")
         return None
     print(f"[extras] {len(props)} prop prices across {len(events)} games")
+    # Every line, both sides: the research picks the side the numbers support, not just the side the prices lean.
+    lines = {}
+    for x in props:
+        if x["market"] in WORDS and x["player"]:
+            lines.setdefault((x["event_id"], x["market"], x["player"], x["point"]), {})[x["side"]] = x
+    pairs = [v for v in lines.values() if "Over" in v and "Under" in v
+             and all(1.45 <= v[s]["price"] <= 2.5 for s in ("Over", "Under"))]
+    if not pairs:
+        print("[extras] no two-sided prop lines in this slot")
+        return None
+    pairs.sort(key=lambda v: max(v["Over"]["ev"], v["Under"]["ev"]), reverse=True)
     pool, seen = [], set()
-    for x in sorted(props, key=lambda x: x["ev"], reverse=True):
-        if x["market"] not in WORDS or not (1.59 <= x["price"] <= 2.3) or x["ev"] < -0.015 or x["player"] in seen:
-            continue
-        seen.add(x["player"])
-        pool.append(x)
-        if len(pool) == 4:
+    for v in pairs:                                # the 8 best-priced lines, one per player, at least one per game
+        pl = v["Over"]["player"]
+        if pl not in seen:
+            seen.add(pl)
+            pool.append(v)
+        if len(pool) == 8:
             break
-    if not pool:
-        print("[extras] no prop with an edge in this slot")
+    for eid in {x["event_id"] for x in props} - {v["Over"]["event_id"] for v in pool}:
+        extra = next((v for v in pairs if v["Over"]["event_id"] == eid and v["Over"]["player"] not in seen), None)
+        if extra:
+            seen.add(extra["Over"]["player"])
+            pool.append(extra)
+    verdicts = _research_props(pool)
+    scored = []
+    for v, a in zip(pool, verdicts):
+        side = a.get("side")
+        if side not in ("Over", "Under") or len(a.get("reasons", [])) < 2:
+            continue
+        x = v[side]
+        if x["ev"] < -0.04:                        # never pay a big premium over the market's own price
+            continue
+        scored.append((a["confidence"], x["ev"], x, a))
+    if not scored:
+        print("[extras] research came back without a usable prop")
         return None
-    items = [f"{x['player']} {x['side'].upper()} {x['point']:g} {WORDS[x['market']]} ({fmt_american(x['price'])}), "
-             f"{x['away']} at {x['home']}, {_when(x['commence_time'])}. Market fair chance {x['fair']:.0%}, edge {x['ev']:+.1%}."
-             for x in pool]
-    verdicts = _research("player prop", items)
-    best = next(((x, a) for x, a in sorted(zip(pool, verdicts), key=lambda t: (-(t[1].get("confidence") or 0), -t[0]["ev"]))
-                 if _backed(a)), None)
-    if not best:
-        print("[extras] research didn't back any prop; no prop this slot")
-        return None
+    conf, _, x, a = max(scored, key=lambda t: (t[0], t[1]))
+    units = 1.5 if conf >= 8 else 1.0 if conf >= 6 else 0.5
+    best = (x, a)
     x, a = best
     rows = read()
     pid = f"P{len(rows) + 1}"
@@ -148,23 +217,24 @@ def prop(api, now, state, post, events, slot_name: str) -> dict | None:
     row = {"id": pid, "date": now.astimezone(TZ).date().isoformat(), "posted_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
            "event_id": x["event_id"], "commence_time": x["commence_time"], "home": x["home"], "away": x["away"],
            "market": x["market"], "player": x["player"], "side": x["side"], "point": f"{x['point']:g}", "label": label,
-           "price": f"{x['price']:.4f}", "book": x["book"], "fair": f"{x['fair']:.4f}", "ev": f"{x['ev']:.4f}", "units": "1",
+           "price": f"{x['price']:.4f}", "book": x["book"], "fair": f"{x['fair']:.4f}", "ev": f"{x['ev']:.4f}", "units": f"{units:g}",
            "result": "", "profit": "", "value": ""}
     rec = record_line()
     head = "\n".join([f"🎯 PLAYER PROP · {slot_name}", "", f"{label} ({fmt_american(x['price'])}) at {social._book(x['book'])}",
-                      f"⏰ {_when(x['commence_time'])} · 1u", "", f"🧠 {a['angle']}" if a.get("angle") else ""]
+                      f"⏰ {_when(x['commence_time'])} · {units:g}u", "", f"🧠 {a['angle']}" if a.get("angle") else ""]
                      + ([rec] if rec else []) + ["", "The numbers 🧵👇"])
     head = social.tagged(head.replace("\n\n\n", "\n\n"), "#NFL #NFLProps #PlayerProps #GamblingTwitter")
     numbers = "\n".join(["📊 The data:"] + [f"• {r}" for r in a["reasons"]]
                         + [f"• Market: the books' fair price makes this a {x['fair']:.0%} shot. "
-                           f"{social._book(x['book'])} pays {fmt_american(x['price'])}, {x['ev']:+.1%} edge."])
+                           f"{social._book(x['book'])} pays {fmt_american(x['price'])}"
+                           + (f", {x['ev']:+.1%} edge." if x["ev"] > 0.005 else ", right around fair. The data is the edge here.")])
     tail = "\n".join(([f"⚠️ Risk: {a['risk']}"] if a.get("risk") else []) + [f"Confidence: {a['confidence']}/10",
                      "Graded from the box score after the game, win or lose."])
     print(f"[extras] prop {pid}: {label} {fmt_american(x['price'])} ({a['confidence']}/10)")
     social.save_post("prop", row["date"], [head, numbers, tail])
     if post:
         ticket = {**row, "sport": NFL, "pick_no": pid.lstrip("P"), "price_american": fmt_american(x["price"]),
-                  "play_to": fmt_american(1 / x["fair"]), "units": "1",
+                  "play_to": fmt_american(1 / x["fair"]), "units": f"{units:g}",
                   "label": f"{x['player'].split()[-1]} {x['side']} {x['point']:g} {SHORT[x['market']]}".upper()}
         ids = social.post_thread([head, numbers, tail], media=_pic(ticket, "PLAYER PROP"))
         row["thread"] = ids[-1] if ids else ""
@@ -258,7 +328,8 @@ def who_wins(now, state, post, cands, slot_name, card_ids, to_row, cid, thread) 
     return row
 
 
-def run(api, now, state, post, sport, slot, events, cands, card_ids, to_row, cid, thread, force=False):
+def run(api, now, state, post, sport, slot, events, cands, card_ids, to_row, cid, thread, force=False,
+        parts=("who", "prop")):
     """card_ids: games where the card already has a side (ML/spread) bet, so who-wins picks another game."""
     if sport != NFL:
         return
@@ -269,10 +340,12 @@ def run(api, now, state, post, sport, slot, events, cands, card_ids, to_row, cid
     if cid not in done:
         done.append(cid)
     try:
-        who_wins(now, state, post, cands, name, card_ids, to_row, cid, thread)
+        if "who" in parts:
+            who_wins(now, state, post, cands, name, card_ids, to_row, cid, thread)
     except Exception as e:                        # noqa: BLE001 - extras never block anything
         print(f"[extras] who wins: {e}")
     try:
-        prop(api, now, state, post, events, name)
+        if "prop" in parts:
+            prop(api, now, state, post, events, name)
     except Exception as e:                        # noqa: BLE001
         print(f"[extras] prop: {e}")
