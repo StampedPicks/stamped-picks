@@ -90,7 +90,8 @@ def hype_post(rows, sport: str, card_id: str, n_games: int, drop_time: str) -> s
     what = "fights" if sport == "mma_mixed_martial_arts" else "games"
     emoji = C.SPORTS[sport][1]
     cid, st = last_card(rows, sport, card_id)
-    tail = f"Picks drop tonight at {drop_time} ET {emoji}"
+    tail = (f"Picks drop tonight at {drop_time} ET {emoji}" if not drop_time.endswith("AM") else
+            f"Picks drop tomorrow at {drop_time} ET, then again before the 4 PM and night games {emoji}")
     if not cid:
         return pick([f"First {name} card on the ledger this weekend {emoji}\n\n{n_games} {what} on the board and the model "
                      f"is already finding numbers we like.\n\n{tail}",
