@@ -7,6 +7,7 @@
 4. The single highest score is the Daily Play. The next best go to the members board.
 """
 from __future__ import annotations
+import math
 from dataclasses import dataclass, asdict, field
 from datetime import datetime, timedelta, timezone
 from . import config as C
@@ -96,6 +97,9 @@ class Play:
     score: float = 0.0
     units: float = 1.0
     tier: str = "edge"
+    sharp_point: float | None = None   # the sharp books' line, when it differs from the bet's line
+    analysis: dict | None = None       # the analyst's research and verdict, when available
+    sim: dict | None = None            # our game simulation's projection and hit rate, when available
 
     @property
     def label(self) -> str:
@@ -116,6 +120,55 @@ class Play:
         d = asdict(self)
         d.update(label=self.label, price_american=fmt_american(self.price), play_to=self.play_to)
         return d
+
+
+# How spread (home margin) and total outcomes are spread out, in points. Used to price a book's line against a
+# sharp line a little different from it (e.g. a total of 41.5 at DraftKings vs 42.5 at Pinnacle).
+SPREAD_SD = {"americanfootball_nfl": (13.5, 10.0), "americanfootball_ncaaf": (16.0, 14.0),
+             "basketball_nba": (12.0, 18.0), "basketball_ncaab": (11.0, 15.0)}   # (margin sd, total sd)
+MAX_SHIFT = {"americanfootball_nfl": 3.0, "americanfootball_ncaaf": 3.5, "basketball_nba": 4.0,
+             "basketball_ncaab": 4.0}
+NFL_KEYS = {3: 0.09, 7: 0.06, 6: 0.03, 10: 0.03, 4: 0.03, 14: 0.03}   # share of NFL games decided by exactly this
+
+
+def _phi(x: float) -> float:
+    return 0.5 * (1 + math.erf(x / math.sqrt(2)))
+
+
+def _phi_inv(p: float) -> float:
+    lo, hi = -8.0, 8.0
+    for _ in range(80):
+        mid = (lo + hi) / 2
+        if _phi(mid) < p:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2
+
+
+def shift_prob(sport: str, market: str, side_is_over_or_fav: bool, p0: float, from_pt: float, to_pt: float) -> float | None:
+    """Probability that a bet wins at line `to_pt`, given the sharp fair probability p0 at line `from_pt`.
+    Totals: P(total > L) on a normal curve. Spreads: same on the margin, plus NFL key numbers (3, 7...)
+    so moving across 3 is worth far more than moving across 5."""
+    if sport not in SPREAD_SD or abs(to_pt - from_pt) > MAX_SHIFT[sport] or not 0.02 < p0 < 0.98:
+        return None
+    sd = SPREAD_SD[sport][1 if market == "totals" else 0]
+    if market == "totals":
+        # p0 = P(total > from) for Over, P(total < from) for Under. Solve for the mean, then re-evaluate.
+        over0 = p0 if side_is_over_or_fav else 1 - p0
+        mu = from_pt + sd * _phi_inv(over0)
+        over1 = 1 - _phi((to_pt - mu) / sd)
+        return over1 if side_is_over_or_fav else 1 - over1
+    # spreads: the bet covers if margin + point > 0, i.e. margin > -point. More points = better for the bettor.
+    z0 = _phi_inv(p0)
+    p1 = _phi(z0 + (to_pt - from_pt) / sd)
+    if sport == "americanfootball_nfl":
+        lo, hi = sorted((abs(from_pt), abs(to_pt)))
+        crossed = sum(w for k, w in NFL_KEYS.items() if lo < k < hi or (lo < k == hi and to_pt != from_pt))
+        extra = crossed - abs(p1 - p0)
+        if extra > 0:
+            p1 += extra * (1 if to_pt > from_pt else -1) * 0.5
+    return min(max(p1, 0.01), 0.99)
 
 
 def candidates(sport: str, events: list[dict], now: datetime, history: dict | None = None,
@@ -142,26 +195,48 @@ def candidates(sport: str, events: list[dict], now: datetime, history: dict | No
                     continue
                 for o in m["outcomes"]:
                     k = (m["key"], side_key(m["key"], o))
+                    sharp_pt = None
                     if k not in fair:
-                        continue   # no sharp price at this exact line
-                    p, n, pin = fair[k]
+                        conv = _convert(sport, m["key"], o, fair)
+                        if not conv:
+                            continue   # no sharp price close enough to this line
+                        (p, n, pin), sharp_pt = conv
+                    else:
+                        p, n, pin = fair[k]
                     evv = p * o["price"] - 1
                     entry = best.setdefault(k, {"plays": []})
-                    entry["plays"].append((evv, bk["key"], o["price"], p, n, pin))
+                    entry["plays"].append((evv, bk["key"], o["price"], p, n, pin, sharp_pt))
         for (mkt, (side, point)), entry in best.items():
             plays = sorted(entry["plays"], reverse=True)
-            evv, book, price, p, n, pin = plays[0]
+            evv, book, price, p, n, pin, sharp_pt = plays[0]
             if not (C.MIN_DECIMAL <= price <= C.MAX_DECIMAL) or evv > C.MAX_EV:
                 continue
             edge_books = [b for e, b, *_ in plays if e >= C.FALLBACK_MIN_EV]
-            out.append(Play(sport, ev["id"], ev["commence_time"], ev["home_team"], ev["away_team"],
-                            mkt, side, point, book, price, p, evv, n, pin, edge_books))
+            pl = Play(sport, ev["id"], ev["commence_time"], ev["home_team"], ev["away_team"],
+                      mkt, side, point, book, price, p, evv, n, pin, edge_books)
+            pl.sharp_point = sharp_pt
+            out.append(pl)
     if history:
         for pl in out:
             pl.movement = movement(pl, history.get(pl.event_id, []))
     for pl in out:
         pl.score = score(pl)
     return out
+
+
+def _convert(sport, market, outcome, fair):
+    """Fair probability for a book's spread/total at a line the sharp books don't hang, converted from the
+    nearest sharp line for the same side. Returns ((prob, n_sources, has_pinnacle), sharp_point) or None."""
+    if market not in ("spreads", "totals") or "point" not in outcome:
+        return None
+    side, pt = outcome["name"], float(outcome["point"])
+    near = [(abs(kp - pt), kp, v) for (mk, (sd, kp)), v in fair.items()
+            if mk == market and sd == side and kp is not None]
+    if not near:
+        return None
+    _, kp, (p0, n, pin) = min(near)
+    p1 = shift_prob(sport, market, side != "Under", p0, kp, pt)
+    return ((p1, n, pin), kp) if p1 is not None else None
 
 
 def movement(pl: Play, older: list[dict]) -> float:
@@ -181,6 +256,7 @@ def score(pl: Play) -> float:
     conf *= 1.0 if pl.has_pinnacle else 0.8            # Pinnacle is the gold standard
     conf *= 1.0 if pl.n_sources >= 2 else 0.9          # more sharp books agreeing = more trust
     conf *= 1.0 if len(pl.books_with_edge) >= 2 else 0.85   # one-book outliers often get pulled
+    conf *= 0.9 if pl.sharp_point is not None else 1.0         # priced from a nearby sharp line: a bit less sure
     m = max(-0.03, min(0.03, pl.movement))
     conf *= 1 + m * 5                                   # +/-15% for line moving with/against us
     return pl.ev * conf
