@@ -13,6 +13,8 @@ import csv
 import json
 import re
 import statistics
+import tempfile
+from pathlib import Path
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
@@ -268,12 +270,13 @@ def run(api, now, state, post, sport, day, cands, events, card_ids: set, to_row,
     card_rows = [r for r in rows if r.get("card") == card_id]
     slate_id = f"{card_id}|slate"
     prem = premium(now, state, post, key, cands, card_ids, to_row, card_id)
+    rows = store.read(store.LEDGER)               # re-read: the premium pick took a number
     slate = []
     for p in best_per_game(cands, 1.8, 2.25):
         if p.event_id in card_ids or (prem and p.event_id == prem["event_id"]):
             continue
         p.units, p.tier = 0.5, "slate"
-        row = to_row(p, key, now, "slate", pick_no=str(len(rows) + len(slate) + 1), card=slate_id)
+        row = to_row(p, key, now, "slate", pick_no=store.next_no(rows, len(slate)), card=slate_id)
         slate.append(row)
     for row in slate:
         store.append(store.LEDGER, row)
@@ -313,40 +316,112 @@ def _nick(team: str) -> str:
     return team.split()[-1] if team else team
 
 
+def _solid(p) -> bool:
+    """Premium has to be a play we'd stand behind: researched and backed (confidence 6+), or a full edge."""
+    a = getattr(p, "analysis", None) or {}
+    if a.get("verdict") == "pass" or (getattr(p, "sim", None) or {}).get("agrees") is False:
+        return False
+    return a.get("confidence", 0) >= 6 or p.ev >= C.MIN_EV
+
+
+def member_text(row, p=None) -> str:
+    when = parse_time(row["commence_time"]).astimezone(TZ).strftime("%a %-I:%M %p ET")
+    lines = [f"🔒 PREMIUM PICK · {C.SPORTS.get(row['sport'], (row['sport'],))[0]}", "",
+             f"{row['label']} ({row['price_american']}) at {_book(row['book'])}",
+             f"{float(row['units']):g}u (${float(row['units']) * C.UNIT_DOLLARS:,.0f} at ${C.UNIT_DOLLARS}/unit)",
+             f"⏰ {when} · good to {row['play_to']}",
+             f"🕒 Stamped {parse_time(row['posted_at']).astimezone(TZ):%a %-I:%M %p} ET"]
+    if p is not None:
+        lines += [""] + social.market_reasons(row, len(p.books_with_edge)) + sim.line(p)
+        a = getattr(p, "analysis", None)
+        if a:
+            lines += [f"🎯 {a['angle']}"] + [f"• {x}" for x in a.get("reasons", [])]
+            if a.get("risk"):
+                lines.append(f"⚠️ Risk: {a['risk']}")
+    return "\n".join(lines)
+
+
+def _board(cands, p) -> dict:
+    """The market for the premium game, as shown on the teaser board (best price per side)."""
+    best = {}
+    for c in cands:
+        if c.event_id != p.event_id:
+            continue
+        k = (c.market, c.side)
+        if k not in best or c.price > best[k].price:
+            best[k] = c
+    out = {"away": {}, "home": {}}
+    for (mk, side), c in best.items():
+        price = fmt_american(c.price)
+        if mk == "h2h":
+            out["home" if side == p.home else "away"]["money"] = price
+        elif mk == "spreads" and c.point is not None:
+            out["home" if side == p.home else "away"]["spread"] = f"{c.point:+g} {price}"
+        elif mk == "totals" and c.point is not None:
+            out["away" if side == "Over" else "home"]["total"] = f"{'O' if side == 'Over' else 'U'} {c.point:g} {price}"
+    return out
+
+
+def _record_line(sport) -> str:
+    rows = [r for r in store.read(store.LEDGER) if r["sport"] == sport]
+    st = store.stats(rows)
+    if st["wins"] + st["losses"] < 5 or st["profit"] <= 0:
+        return ""                                  # only brag when it's real and worth it
+    name = C.SPORTS.get(sport, (sport,))[0]
+    return f"{name} record: {st['wins']}-{st['losses']}{'-' + str(st['pushes']) if st['pushes'] else ''}, {st['profit']:+.2f}u 📈"
+
+
 def premium(now, state, post, key, cands, card_ids, to_row, card_id) -> dict | None:
-    """The strongest play off the public card goes to members only. The public gets a teaser with the game
-    and kickoff time, never the side. The result is posted publicly after the game either way."""
+    """The strongest play off the public card goes to members only, sealed in the vault (the repo is public)
+    until its game starts. The public gets the hook: an odds board for the game and a line with some
+    attitude, then the promo, then a reply-to-win giveaway. Never the side. The result posts after the game."""
+    from . import writer, giveaway
     pool = [p for p in sorted(cands, key=lambda p: p.score, reverse=True)
-            if p.event_id not in card_ids and 1.6 <= p.price <= 2.6 and p.ev >= C.LEAN_FLOOR]
+            if p.event_id not in card_ids and 1.6 <= p.price <= 2.6 and p.ev >= C.LEAN_FLOOR and _solid(p)]
     if not pool:
+        print("[premium] nothing solid enough off the card this time")
         return None
     p = pool[0]
     p.units, p.tier = (1.5 if p.ev >= C.MIN_EV else 1.0), "premium"
-    rows = store.read(store.LEDGER)
-    row = to_row(p, key, now, "premium", pick_no=str(len(rows) + 1), card=f"{card_id}|premium")
-    store.append(store.LEDGER, row)
+    row = to_row(p, key, now, "premium", pick_no=store.next_no(store.read(store.LEDGER)), card=f"{card_id}|premium")
+    store.vault_hold(row)
     when = parse_time(row["commence_time"]).astimezone(TZ).strftime("%-I:%M %p ET")
     game = f"{_nick(row['away'])}-{_nick(row['home'])}"
-    member_text = "\n".join([f"🔒 PREMIUM PICK · NFL", "", f"{row['label']} ({row['price_american']}) at {_book(row['book'])}",
-                             f"{float(row['units']):g}u (${float(row['units']) * C.UNIT_DOLLARS:,.0f} at ${C.UNIT_DOLLARS}/unit)",
-                             f"⏰ {when} · good to {row['play_to']}",
-                             f"🕒 Stamped {now.astimezone(TZ):%a %-I:%M %p} ET"] + [""] + social.market_reasons(row, len(p.books_with_edge))
-                            + sim.line(p) + ([f"🎯 {p.analysis['angle']}"] + [f"• {x}" for x in p.analysis.get("reasons", [])]
-                                             if getattr(p, "analysis", None) else []))
-    teaser = "\n".join([f"🔒 We have a PREMIUM pick for today's {when} {game} game.", "",
-                         "We really like this spot. Our strongest number of the day that isn't on the free card.",
-                         "", "Members get it now. Result posts here after the game, win or lose. Link in bio 👀"])
-    teaser = social.tagged(teaser, f"#NFL #{_nick(row['home'])} #{_nick(row['away'])}")
-    social.save_post("premium_teaser_nfl", key, teaser)
-    print(f"[premium] #{row['pick_no']} {row['label']} {row['price_american']} edge {p.ev:+.1%}")
+    board = _board(cands, p)
+    facts = (f"Game: {row['away']} at {row['home']}, {when} today.\n"
+             f"Market: {row['home']} spread {board['home'].get('spread', 'n/a')}, moneyline {board['home'].get('money', 'n/a')}; "
+             f"{row['away']} spread {board['away'].get('spread', 'n/a')}, moneyline {board['away'].get('money', 'n/a')}; "
+             f"total {board['away'].get('total', 'n/a')} / {board['home'].get('total', 'n/a')}.\n"
+             "We have a premium play on this game. Write a one or two line hook about the line or the game "
+             "that makes people curious, like 'The Packers are 3.5 point favorites. This line is stupid 😂'.")
+    hook = writer.hook("premium teaser (posted with a picture of the odds board)", facts, limit=160, secret=True) \
+        or f"{_nick(row['away'])} at {_nick(row['home'])}, {when}. Somebody hung the wrong number here 👀"
+    hook = social.tagged(hook, f"{tags.SPORT.get(row['sport'], '')} #{_nick(row['home'])} #{_nick(row['away'])}")
+    rec = _record_line(row["sport"])
+    link = next((url for k, _, _, url in C.SALES if k == "pick" and url), "")
+    cta = f"Get it now: {link}" if link else "Members get it now. DM us for access 🔒"
+    promo = "\n".join([f"🔒 PREMIUM PLAY · {game} · {when}", ""] + ([rec, ""] if rec else [])
+                       + [cta, "", "Result posts here after the game, win or lose."])
+    social.save_post("premium_teaser", key, [hook, promo])
+    print(f"[premium] #{row['pick_no']} sealed until {when} (edge {p.ev:+.1%})")
     if post:
         for chat in (C.TG_PREMIUM, C.TG_VIP, C.TG_OWNER):
             if chat:
-                telegram.send(chat, member_text)
-        pid = social.post_x(teaser, mirror=False)
-        telegram.send(C.TG_FREE, teaser, telegram.sales_buttons() if telegram.selling() else None)
-        if pid:
-            state.setdefault("threads", {})[f"{card_id}|premium"] = {"main": pid, "last": pid}
+                telegram.send(chat, member_text(row, p))
+        pic = None
+        try:
+            from . import graphics
+            day = parse_time(row["commence_time"]).astimezone(TZ).strftime("%a %b %-d · %-I:%M %p ET").upper()
+            pic = graphics.save(graphics.odds_board(row["away"], row["home"], day,
+                                                    C.SPORTS.get(row["sport"], (row["sport"],))[0], board),
+                                Path(tempfile.gettempdir()) / f"board_{row['pick_no']}.png")
+        except Exception as ex:                   # noqa: BLE001 - a picture is never worth a missed post
+            print(f"[premium] board image failed: {ex}")
+        ids = social.post_thread([hook, promo], media=pic)
+        telegram.send(C.TG_FREE, hook + "\n\n" + promo, telegram.sales_buttons() if telegram.selling() else None)
+        if ids:
+            state.setdefault("threads", {})[f"{card_id}|premium"] = {"main": ids[0], "last": ids[-1]}
+        giveaway.schedule(state, now, row, post, when)
     return row
 
 
