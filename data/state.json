@@ -11,7 +11,8 @@
     "reminder:mma_mixed_martial_arts:2026-11-01": "2026-11-01T18:06:45.381335+00:00",
     "hype:boxing_boxing:2026-11-02": "2026-11-01T18:06:45.381335+00:00",
     "reminder:boxing_boxing:2026-11-01": "2026-11-01T18:06:45.381335+00:00",
-    "card:americanfootball_nfl:2026-11-01:late": "2026-11-01T18:37:00.814365+00:00"
+    "card:americanfootball_nfl:2026-11-01:late": "2026-11-01T18:37:00.814365+00:00",
+    "card:americanfootball_nfl:2026-11-01:night": "2026-11-01T23:18:05.691335+00:00"
   },
   "pregame": {
     "13": true,
@@ -35,11 +36,15 @@
     "2": [
       "half"
     ],
-    "3": [],
+    "3": [
+      "half"
+    ],
     "4": [
       "half"
     ],
-    "15": [],
+    "15": [
+      "half"
+    ],
     "14": [
       "half"
     ]
@@ -90,7 +95,7 @@
     },
     "americanfootball_nfl|2026-11-01": {
       "main": "2116954157198319678",
-      "last": "2117025795143238023"
+      "last": "2117033471470162167"
     },
     "americanfootball_nfl|2026-11-01|slate": {
       "main": "2116954195970412619",
@@ -102,7 +107,7 @@
     },
     "americanfootball_nfl|2026-11-01|late|side": {
       "main": "2116985359393595856",
-      "last": "2116990877851697340"
+      "last": "2117033475026846115"
     },
     "americanfootball_nfl|2026-11-01|night": {
       "main": "2117032248436261305",
@@ -256,8 +261,8 @@
       }
     },
     "_last": {
-      "americanfootball_nfl": "2026-11-01T22:47:34Z",
-      "icehockey_nhl": "2026-11-01T22:47:34Z"
+      "americanfootball_nfl": "2026-11-01T23:18:05Z",
+      "icehockey_nhl": "2026-11-01T23:18:05Z"
     }
   },
   "whale_promos": {
