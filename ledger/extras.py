@@ -235,13 +235,34 @@ def prop(api, now, state, post, events, slot_name: str) -> dict | None:
     social.save_post("prop", row["date"], [head, numbers, tail])
     if post:
         ticket = {**row, "sport": NFL, "pick_no": pid.lstrip("P"), "price_american": fmt_american(x["price"]),
-                  "play_to": fmt_american(1 / x["fair"]), "units": f"{units:g}",
+                  "play_to": fmt_american(1 / x["fair"]), "units": f"{units:g}", "confidence": a["confidence"],
                   "label": f"{x['player'].split()[-1]} {x['side']} {x['point']:g} {SHORT[x['market']]}".upper()}
         ids = social.post_thread([head, numbers, tail], media=_pic(ticket, "PLAYER PROP"))
         row["thread"] = ids[-1] if ids else ""
     rows.append(row)
     write(rows)
     return row
+
+
+def repost_data(post=True):
+    """Re-posts the latest prop's data reply, cleaned (fix for a reply that went out with markup in it)."""
+    rows = read()
+    if not rows:
+        return
+    r = rows[-1]
+    f = C.DATA / "posts" / f"{r['date']}_prop.txt"
+    if not f.exists():
+        return
+    entry = [e for e in f.read_text().split("========") if r["label"] in e][-1]
+    parts = [p.strip() for p in entry.split("---- next post in thread ----")]
+    data = next((p for p in parts if p.startswith("📊")), None)
+    if not data:
+        return
+    lines = [ln if not ln.startswith("• ") else "• " + research._clean(ln[2:], 400) for ln in data.split("\n")]
+    text = "\n".join(lines).replace("📊 The data:", "📊 The data (clean copy):", 1)
+    print(text)
+    if post:
+        social.post_x(text, reply_to=r.get("thread") or None)
 
 
 def record_line() -> str:
