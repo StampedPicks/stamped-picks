@@ -13,7 +13,10 @@
     "reminder:boxing_boxing:2026-11-01": "2026-11-01T18:06:45.381335+00:00",
     "card:americanfootball_nfl:2026-11-01:late": "2026-11-01T18:37:00.814365+00:00"
   },
-  "pregame": {},
+  "pregame": {
+    "13": true,
+    "2": true
+  },
   "closed": {},
   "live": {},
   "announced": [],
@@ -62,7 +65,7 @@
     },
     "americanfootball_nfl|2026-11-01": {
       "main": "2116954157198319678",
-      "last": "2116954157198319678"
+      "last": "2116983882797273457"
     },
     "americanfootball_nfl|2026-11-01|slate": {
       "main": "2116954195970412619",
