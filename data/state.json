@@ -29,13 +29,20 @@
   },
   "live": {
     "13": [
-      "p1"
+      "p1",
+      "p2"
     ],
-    "2": [],
+    "2": [
+      "half"
+    ],
     "3": [],
-    "4": [],
+    "4": [
+      "half"
+    ],
     "15": [],
-    "14": []
+    "14": [
+      "half"
+    ]
   },
   "announced": [],
   "recapped": [],
@@ -83,7 +90,7 @@
     },
     "americanfootball_nfl|2026-11-01": {
       "main": "2116954157198319678",
-      "last": "2116990874051567894"
+      "last": "2117025795143238023"
     },
     "americanfootball_nfl|2026-11-01|slate": {
       "main": "2116954195970412619",
@@ -91,7 +98,7 @@
     },
     "americanfootball_nfl|2026-11-01|whale": {
       "main": "2116983471793156249",
-      "last": "2116983471793156249"
+      "last": "2117025799283044379"
     },
     "americanfootball_nfl|2026-11-01|late|side": {
       "main": "2116985359393595856",
@@ -233,11 +240,15 @@
       "maveric lamoureux": {
         "status": "out",
         "post": null
+      },
+      "hunter henry": {
+        "status": "questionable to return",
+        "post": "2117025841704247344"
       }
     },
     "_last": {
-      "americanfootball_nfl": "2026-11-01T22:13:42Z",
-      "icehockey_nhl": "2026-11-01T22:13:42Z"
+      "americanfootball_nfl": "2026-11-01T22:47:34Z",
+      "icehockey_nhl": "2026-11-01T22:47:34Z"
     }
   },
   "whale_promos": {
