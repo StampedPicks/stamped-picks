@@ -201,8 +201,14 @@ def line(p) -> list[str]:
     if not s:
         return []
     nick = lambda t: t.split()[-1]
-    what = {"h2h": f"{nick(p.side)} win", "spreads": f"{p.label} covers",
-            "totals": f"the {p.side} {p.point:g} hits"}.get(p.market, p.label)
+    if p.market == "h2h":
+        what = f"{nick(p.side)} win"
+    elif p.market == "spreads":
+        what = f"{p.label} covers"
+    elif p.market == "totals" and p.point is not None:
+        what = f"the {p.side} {p.point:g} hits"
+    else:
+        what = p.label
     tail = {True: " The sim backs it.", False: " The sim is lower on it than the market, so it's a smaller bet.",
             None: ""}[s.get("agrees")]
     return [f"• Our sim ({s['runs']:,} games): {nick(p.away)} {s['away_proj']:.1f}, {nick(p.home)} "
