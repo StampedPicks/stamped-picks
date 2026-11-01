@@ -67,6 +67,10 @@
     "americanfootball_nfl|2026-11-01|slate": {
       "main": "2116954195970412619",
       "last": "2116954195970412619"
+    },
+    "americanfootball_nfl|2026-11-01|whale": {
+      "main": "2116983471793156249",
+      "last": "2116983471793156249"
     }
   },
   "parlays_posted": [
@@ -209,5 +213,17 @@
     "_last": {
       "americanfootball_nfl": "2026-11-01T19:24:21Z"
     }
-  }
+  },
+  "whale_promos": {
+    "14": {
+      "last_call": "2026-11-01T20:05:00Z",
+      "sport": "americanfootball_nfl",
+      "units": "5",
+      "done": false,
+      "reply_to": "2116983471793156249"
+    }
+  },
+  "extras_posted": [
+    "americanfootball_nfl|2026-11-01|late"
+  ]
 }
