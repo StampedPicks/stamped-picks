@@ -31,7 +31,7 @@ from pathlib import Path
 from datetime import date, datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
-from ledger import config as C, store, social, seal, render, research, espn, live, voice, telegram, members, tags
+from ledger import config as C, store, social, seal, render, research, espn, live, voice, telegram, members, tags, analyst, sim
 from ledger.model import candidates, choose, choose_card, parse_time
 from ledger.grading import grade, closing, clv
 from ledger.oddsapi import OddsAPI
@@ -207,6 +207,9 @@ def save_writeup(pick_no, market, notes):
 def run_daily(api, now, state, post):
     date_ = today(now)
     plays = scan(api, now, DAILY_SPORTS, budget=C.SCAN_CREDIT_BUDGET)
+    for sp in {p.sport for p in plays}:
+        sim.apply(sp, [p for p in plays if p.sport == sp], now)
+    plays = analyst.review(None, plays)
     daily, board, tier = choose(plays)
     board = [b for b in board if b.ev >= C.MIN_EV]     # paid plays are full edges only, never leans
     if not daily:
@@ -222,8 +225,8 @@ def run_daily(api, now, state, post):
     store.append(store.LEDGER, row)          # on the record before anything is posted
     print(f"[daily] #{row['pick_no']} {row['label']} {row['price_american']} @ {row['book']} "
           f"edge {float(row['ev']):+.1%} · {row['units']}u ({tier})")
-    market = social.market_reasons(row, len(daily.books_with_edge))
-    notes = research.pick_research(row)
+    market = social.market_reasons(row, len(daily.books_with_edge)) + sim.line(daily)
+    notes = analyst.notes(daily) or research.pick_research(row)
     save_writeup(row["pick_no"], market, notes)
     th = social.daily_thread(row, rows, market, notes)
     th[0] = social.tagged(th[0], tags.for_rows([row]))
@@ -283,6 +286,7 @@ def run_card(api, now, state, post, sport, day):
             return
     window = (max(s, now + timedelta(minutes=20)), e)   # "today" cards skip games starting within 20 minutes
     cands = candidates(sport, events, now, hist, window=window)
+    cands = analyst.review(sport, sim.apply(sport, cands, now))      # our sims, then research + verdicts
     picks = choose_card(cands, cfg["max_picks"], cfg.get("min_picks", 0))
     cid = card_id(sport, day)
     if not picks:
@@ -299,8 +303,8 @@ def run_card(api, now, state, post, sport, day):
         row = to_row(p, day.isoformat(), now, p.tier, pick_no=str(len(before) + len(new) + 1), card=cid)
         store.append(store.LEDGER, row)
         new.append(row)
-        markets[row["pick_no"]] = social.market_reasons(row, len(p.books_with_edge))
-        notes[row["pick_no"]] = research.pick_research(row)
+        markets[row["pick_no"]] = social.market_reasons(row, len(p.books_with_edge)) + sim.line(p)
+        notes[row["pick_no"]] = analyst.notes(p) or research.pick_research(row)
         save_writeup(row["pick_no"], markets[row["pick_no"]], notes[row["pick_no"]])
         print(f"[card] {cid} #{row['pick_no']} {row['label']} {row['price_american']} edge {p.ev:+.1%} {row['units']}u")
     th = social.card_thread(sport, day, new, before, markets, notes)
