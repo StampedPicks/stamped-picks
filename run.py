@@ -204,6 +204,26 @@ def save_writeup(pick_no, market, notes):
     f.write_text(json.dumps({"market": market, "research": notes}, indent=1))
 
 
+def _facts(pairs) -> str:
+    """What the writer may use for a hook: the picks, times, our angle and the sim. Nothing else."""
+    out = []
+    for row, p in pairs:
+        t = parse_time(row["commence_time"]).astimezone(TZ).strftime("%a %-I:%M %p ET")
+        a = getattr(p, "analysis", None) or {}
+        s = getattr(p, "sim", None) or {}
+        out.append(f"- {row['label']} ({row['price_american']}), {row['away']} at {row['home']}, {t}, {row['units']}u"
+                   + (f"; our angle: {a['angle']}" if a.get("angle") else "")
+                   + (f"; one fact: {a['reasons'][0]}" if a.get("reasons") else "")
+                   + (f"; our sim: {row['away']} {s['away_proj']:.1f}, {row['home']} {s['home_proj']:.1f}" if s else ""))
+    return "\n".join(out)
+
+
+def with_hook(text: str, kind: str, pairs) -> str:
+    from ledger import writer
+    h = writer.hook(kind, _facts(pairs))
+    return f"{h}\n\n{text}" if h else text
+
+
 # ---------------------------------------------------------------- Daily Play
 def run_daily(api, now, state, post):
     date_ = today(now)
@@ -227,7 +247,7 @@ def run_daily(api, now, state, post):
         print("[daily] no play today")
         return
     rows = store.read(store.LEDGER)
-    row = to_row(daily, date_, now, tier, pick_no=str(len(rows) + 1))
+    row = to_row(daily, date_, now, tier, pick_no=store.next_no(rows))
     store.append(store.LEDGER, row)          # on the record before anything is posted
     print(f"[daily] #{row['pick_no']} {row['label']} {row['price_american']} @ {row['book']} "
           f"edge {float(row['ev']):+.1%} · {row['units']}u ({tier})")
@@ -235,7 +255,8 @@ def run_daily(api, now, state, post):
     notes = analyst.notes(daily) or research.pick_research(row)
     save_writeup(row["pick_no"], market, notes)
     th = social.daily_thread(row, rows, market, notes)
-    th[0] = social.tagged(th[0], tags.for_rows([row]))
+    th[0] = social.tagged(with_hook(th[0], "Daily Play (one pick, posted with the breakdown in replies)", [(row, daily)]),
+                          tags.for_rows([row]))
     social.save_post("daily", date_, th)
     brows = [to_row(b, date_, now, tier) for b in board]
     if brows and C.BOARD_KEY:
@@ -318,10 +339,10 @@ def run_card(api, now, state, post, sport, day, slot=None):
     window = (max(s, now + timedelta(minutes=5)), e)    # "today" cards skip games starting within 5 minutes
     cands = candidates(sport, events, now, hist, window=window)
     taken = {(r["event_id"], r["market"], r["side"]) for r in store.read(store.LEDGER) if r.get("date") == day.isoformat()}
-    taken_games = {r["event_id"] for r in store.read(store.LEDGER)
+    taken_games = {r["event_id"] for r in store.read(store.LEDGER) + store.vault_read()
                    if r.get("date") == day.isoformat() and r.get("tier") in ("edge", "lean", "premium", "whale")}
     cands = [p for p in cands if p.event_id not in taken_games and (p.event_id, p.market, p.side) not in taken]
-    cands = analyst.review(sport, sim.apply(sport, cands, now))      # our sims, then research + verdicts
+    cands = analyst.review(sport, sim.apply(sport, cands, now), all_games=True)   # sims, then every game researched
     picks = choose_card(cands, cfg["max_picks"], 1 if slot else cfg.get("min_picks", 0))
     cid = card_id(sport, day) + (f"|{slot}" if slot else "")
     if not picks:
@@ -335,7 +356,7 @@ def run_card(api, now, state, post, sport, day, slot=None):
     before = store.read(store.LEDGER)
     new, markets, notes = [], {}, {}
     for p in picks:
-        row = to_row(p, day.isoformat(), now, p.tier, pick_no=str(len(before) + len(new) + 1), card=cid)
+        row = to_row(p, day.isoformat(), now, p.tier, pick_no=store.next_no(before, len(new)), card=cid)
         store.append(store.LEDGER, row)
         new.append(row)
         markets[row["pick_no"]] = social.market_reasons(row, len(p.books_with_edge)) + sim.line(p)
@@ -343,7 +364,8 @@ def run_card(api, now, state, post, sport, day, slot=None):
         save_writeup(row["pick_no"], markets[row["pick_no"]], notes[row["pick_no"]])
         print(f"[card] {cid} #{row['pick_no']} {row['label']} {row['price_american']} edge {p.ev:+.1%} {row['units']}u")
     th = social.card_thread(sport, day, new, before, markets, notes)
-    th[0] = social.tagged(th[0], tags.for_rows(new, event_name(state, sport, day)))
+    th[0] = social.tagged(with_hook(th[0], f"{card_title(sport)} card (picks for this kickoff window)",
+                                    list(zip(new, picks))), tags.for_rows(new, event_name(state, sport, day)))
     social.save_post(f"card_{sport}", day.isoformat(), th)
     if post:
         pic = (art("ticket", new, card_title(sport), name=f"card_{sport}_{day}") if len(new) == 1
@@ -680,6 +702,13 @@ def tick(api, now, post=True, feed=None):
     if d.weekday() == 6 and due(state, f"recap:{d}", at(d, C.SCHEDULE["recap"]), now):
         mark(state, f"recap:{d}", now)
         run_recap(now, post)
+    if store.vault_release(now):                  # premium picks go on the public ledger once their game starts
+        print("[vault] released premium picks to the ledger")
+    try:                                          # reply-to-win premium giveaways that are due
+        from ledger import giveaway, parlays as _pl
+        giveaway.run(now, state, post, _pl.member_text)
+    except Exception as ex:                       # noqa: BLE001
+        print(f"[giveaway] {ex}")
     rows = store.read(store.LEDGER)
     changed = run_pregame(api, now, state, rows, post)
     graded = run_live(now, state, rows, feed, post)
