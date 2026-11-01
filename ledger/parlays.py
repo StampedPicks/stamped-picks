@@ -31,7 +31,7 @@ NUM = social.NUM
 TD_VIG = 1.12            # anytime-TD markets carry roughly 10-15% hold; strip it to estimate a fair chance
 
 KINDS = {   # name, emoji, units, legs
-    "ladder": ("ONE LEG PER GAME", "🎟️", 0.5, (3, 4)),
+    "ladder": ("ONE LEG PER GAME", "🎟️", 0.5, (3, 16)),
     "td": ("TD PARLAY", "🎯", 0.25, (3, 5)),
     "flyer": ("FLYER", "🚀", 0.25, (4, 6)),
 }
@@ -71,54 +71,123 @@ def best_per_game(cands, lo=1.0, hi=99.0) -> list:
     return sorted(best.values(), key=lambda p: p.score, reverse=True)
 
 
-def td_legs(api, events, books) -> list[dict]:
-    """Anytime-TD scorers: per game, the player whose best price beats the rest of the market by the most,
-    among likely scorers (-200 to +250). One Odds API call per game."""
-    out = []
+PROP_MARKETS = ["player_anytime_td", "player_rush_yds", "player_reception_yds", "spreads_h1"]
+PROP_WORDS = {"player_rush_yds": "rush yds", "player_reception_yds": "rec yds"}
+
+
+def prop_markets(api) -> list[str]:
+    """All prop markets when credits allow; on a squeezed free plan, TD scorers only (1 credit per game)."""
+    try:
+        left = int(float(api.remaining)) if api.remaining is not None else None
+    except (TypeError, ValueError):
+        left = None
+    if C.ODDS_PLAN == "free" and (left is None or left < 150):
+        return ["player_anytime_td"]
+    return PROP_MARKETS
+
+
+def _pair_key(market, o):
+    pt = o.get("point")
+    return (o.get("description") or "", abs(pt) if market.startswith("spreads") and pt is not None else pt)
+
+
+def prop_legs(api, events, books, markets=None) -> tuple[list[dict], list[dict]]:
+    """One Odds API call per game for its props. Returns (TD legs, other prop legs).
+    TD: per game, the scorer whose best price beats the rest of the market by the most (-200 to +250).
+    Yards and 1st-half spreads are two-sided, so each book's pair is de-vigged and the median is the fair
+    chance; every option gets its best price and its edge, and build() takes the best one per game."""
+    markets = markets or ["player_anytime_td"]
+    tds, props = [], []
     for ev in events:
         try:
-            data = api.event_odds(NFL, ev["id"], ["player_anytime_td"], books)
+            data = api.event_odds(NFL, ev["id"], markets, books)
         except SystemExit:
             raise
         except Exception as e:                    # noqa: BLE001
-            print(f"[parlays] TD odds failed for {ev.get('away_team')} @ {ev.get('home_team')}: {e}")
+            print(f"[parlays] props failed for {ev.get('away_team')} @ {ev.get('home_team')}: {e}")
             continue
-        prices = {}
+        base = {"event_id": ev["id"], "commence_time": ev["commence_time"], "home": ev["home_team"],
+                "away": ev["away_team"]}
+        td_prices, opts = {}, {}
         for bk in data.get("bookmakers", []):
             for m in bk.get("markets", []):
-                for o in m.get("outcomes", []):
-                    if o.get("name") == "No":
+                mk, outs = m.get("key"), m.get("outcomes", [])
+                if mk == "player_anytime_td":
+                    for o in outs:
+                        player = o.get("description") or o.get("name")
+                        if o.get("name") != "No" and player:
+                            td_prices.setdefault(player, []).append((o["price"], bk["key"]))
+                    continue
+                pairs = {}
+                for o in outs:
+                    pairs.setdefault(_pair_key(mk, o), []).append(o)
+                for pair in pairs.values():
+                    if len(pair) != 2:
                         continue
-                    player = o.get("description") or o.get("name")
-                    if player:
-                        prices.setdefault(player, []).append((o["price"], bk["key"]))
+                    inv = [1 / o["price"] for o in pair]
+                    for o, q in zip(pair, inv):
+                        k = (mk, o.get("description") or "", o["name"], o.get("point"))
+                        opts.setdefault(k, []).append((q / sum(inv), o["price"], bk["key"]))
         best = None
-        for player, ps in prices.items():
+        for player, ps in td_prices.items():
             if len(ps) < 2:
                 continue
             top, book = max(ps)
             if not (1.5 <= top <= 3.5):
                 continue
-            fair_p = statistics.median(1 / x for x, _ in ps) / TD_VIG
-            value = fair_p * top - 1
+            value = statistics.median(1 / x for x, _ in ps) / TD_VIG * top - 1
             if best is None or value > best["ev"]:
-                best = {"kind": "td", "event_id": ev["id"], "commence_time": ev["commence_time"],
-                        "home": ev["home_team"], "away": ev["away_team"], "player": player,
-                        "label": f"{player} anytime TD", "price": round(top, 4), "book": book, "ev": value}
+                best = {**base, "kind": "td", "player": player, "label": f"{player} anytime TD",
+                        "price": round(top, 4), "book": book, "ev": value}
         if best:
-            out.append(best)
-    return sorted(out, key=lambda x: x["ev"], reverse=True)
+            tds.append(best)
+        for (mk, player, side, point), ps in opts.items():
+            if len(ps) < 2 or point is None:
+                continue
+            fair = statistics.median(f for f, _, _ in ps)
+            price, _, book = max((x, -i, b) for i, (_, x, b) in enumerate(ps))
+            if mk == "spreads_h1":
+                label = f"{side} {point:+g} 1st half"
+            else:
+                label = f"{player} {side.lower()} {point:g} {PROP_WORDS.get(mk, mk)}"
+            props.append({**base, "kind": "prop", "market": mk, "player": player, "side": side, "point": point,
+                          "label": label, "price": round(price, 4), "book": book, "ev": fair * price - 1,
+                          "fair": fair})
+    return sorted(tds, key=lambda x: x["ev"], reverse=True), props
 
 
-def build(cands, tds, exclude=frozenset()) -> dict:
+def td_legs(api, events, books) -> list[dict]:
+    return prop_legs(api, events, books)[0]
+
+
+def ladder_legs(cands, tds, props, exclude=frozenset(), lo=1.5, hi=2.4) -> list[dict]:
+    """ONE LEG PER GAME, every game on the day: for each game the single best-value bet we can find, whether
+    it's a side, a total, a 1st-half spread, a player's yards or an anytime TD, priced -200 to +140."""
+    best = {}
+    def offer(eid, ev, leg):
+        if eid not in exclude and (eid not in best or ev > best[eid][0]):
+            best[eid] = (ev, leg)
+    for p in cands:
+        if lo <= p.price <= hi:
+            offer(p.event_id, p.ev, game_leg(p))
+    for x in props:
+        if lo <= x["price"] <= hi:
+            offer(x["event_id"], x["ev"], {k: v for k, v in x.items() if k not in ("ev", "fair")})
+    for t in tds:
+        if lo <= t["price"] <= hi:
+            offer(t["event_id"], t["ev"], {k: v for k, v in t.items() if k != "ev"})
+    return sorted((leg for _, leg in best.values()), key=lambda l: (l["commence_time"], l["label"]))
+
+
+def build(cands, tds, exclude=frozenset(), props=None) -> dict:
     """{kind: [legs]} for the three parlays. Every leg is from a different game; games in `exclude` (the
     premium pick's game) are left out so a public parlay never gives the premium side away."""
     cands = [p for p in cands if p.event_id not in exclude]
     tds = [t for t in tds if t["event_id"] not in exclude]
     out = {}
-    ladder = [game_leg(p) for p in best_per_game(cands, 1.6, 2.3)[:4]]
-    if len(ladder) >= 3:
-        out["ladder"] = ladder
+    out_ladder = ladder_legs(cands, tds, props or [], exclude)
+    if len(out_ladder) >= 3:
+        out["ladder"] = out_ladder
     if len(tds) >= 3:
         out["td"] = tds[:4] if len(tds) >= 4 else tds[:3]
     flyer = []
@@ -179,15 +248,22 @@ def slate_post(rows, card_rows, now) -> str:
                          "#NFL #NFLSunday #GamblingTwitter")
 
 
-def run(api, now, state, post, sport, day, cands, events, card_ids: set, to_row, card_id: str):
-    """Called by run_card for NFL after the card is picked. Records and posts the slate and the parlays."""
+def posted_today(state, day) -> bool:
+    return day.isoformat() in state.get("parlays_posted", [])
+
+
+def run(api, now, state, post, sport, day, cands, events, card_ids: set, to_row, card_id: str,
+        day_cands=None, day_events=None):
+    """Called by run_card for NFL after the card is picked. The premium pick and every-game slate cover this
+    card's games; the parlays (once a day, with the first card) cover every game left on the day."""
     if sport != NFL:
         return
+    day_cands, day_events = day_cands or cands, day_events or events
     done = state.setdefault("parlays_posted", [])
     key = day.isoformat()
-    if key in done:
+    if card_id in done:                           # premium + every-game picks: once per card (each kickoff slot)
         return
-    done.append(key)
+    done.append(card_id)
     rows = store.read(store.LEDGER)
     card_rows = [r for r in rows if r.get("card") == card_id]
     slate_id = f"{card_id}|slate"
@@ -208,12 +284,15 @@ def run(api, now, state, post, sport, day, cands, events, card_ids: set, to_row,
             pid = social.post_x(text)
             if pid:
                 state.setdefault("threads", {}).setdefault(slate_id, {}).update(main=pid, last=pid)
-    tds = []
+    if key in done:                               # parlays: once a day, with the first card
+        return
+    done.append(key)
+    tds, props = [], []
     try:
-        tds = td_legs(api, events, list(C.BET_BOOKS))
+        tds, props = prop_legs(api, day_events, list(C.BET_BOOKS), prop_markets(api))
     except SystemExit as e:
-        print(f"[parlays] TD props unavailable: {e}")
-    built = build(cands, tds, {prem["event_id"]} if prem else frozenset())
+        print(f"[parlays] props unavailable: {e}")
+    built = build(day_cands, tds, {prem["event_id"]} if prem else frozenset(), props)
     prs = read()
     for kind, legs in built.items():
         name, emoji, units, _ = KINDS[kind]
@@ -304,12 +383,62 @@ def _summary(game_id) -> dict:
         return {}
 
 
+def _cmp(value, side, point) -> str:
+    diff = (value - point) if side in ("Over",) else (point - value) if side == "Under" else value + point
+    return "win" if diff > 0 else "loss" if diff < 0 else "push"
+
+
+def player_stat(summary, player, group) -> float | None:
+    """A player's yards from ESPN's box score ('rushing' or 'receiving'); None if he has no line."""
+    want = _norm(player)
+    for team in (summary.get("boxscore") or {}).get("players", []):
+        for st in team.get("statistics", []):
+            if st.get("name") != group:
+                continue
+            labels = [x.upper() for x in st.get("labels", [])]
+            if "YDS" not in labels:
+                continue
+            for a in st.get("athletes", []):
+                if _norm((a.get("athlete") or {}).get("displayName", "")) == want:
+                    try:
+                        return float(str(a["stats"][labels.index("YDS")]).replace(",", ""))
+                    except (ValueError, IndexError, KeyError):
+                        return None
+    return None
+
+
+def prop_result(leg, summary) -> str | None:
+    if not summary:
+        return None
+    if leg["market"] == "spreads_h1":
+        comp = ((summary.get("header") or {}).get("competitions") or [{}])[0]
+        pts = {}
+        for c in comp.get("competitors", []):
+            ls = c.get("linescores") or []
+            if len(ls) < 2:
+                return None
+            name = _norm((c.get("team") or {}).get("displayName", ""))
+            pts[name] = sum(float(x.get("displayValue", x.get("value", 0)) or 0) for x in ls[:2])
+        mine = next((v for k, v in pts.items() if k == _norm(leg["side"]) or k.split()[-1] == _norm(leg["side"]).split()[-1]), None)
+        if mine is None or len(pts) != 2:
+            return None
+        other = sum(pts.values()) - mine
+        return _cmp(mine - other, leg["side"], float(leg["point"]))
+    group = {"player_rush_yds": "rushing", "player_reception_yds": "receiving"}.get(leg["market"])
+    v = player_stat(summary, leg["player"], group) if group else None
+    if v is None:
+        return "push" if group else None          # no line in the box score = didn't play: books void it
+    return _cmp(v, leg["side"], float(leg["point"]))
+
+
 def leg_result(leg, feed) -> str | None:
     g, swapped = espn.lookup(feed, {"sport": NFL, **leg})
     if not g or not g.get("completed"):
         return None
     if leg["kind"] == "td":
         return "win" if scored(leg["player"], _summary(g["id"]).get("scoringPlays") or []) else "loss"
+    if leg["kind"] == "prop":
+        return prop_result(leg, _summary(g["id"]))
     home, away = (g["away"], g["home"]) if swapped else (g["home"], g["away"])
     game = {"completed": True, "home_team": leg["home"], "away_team": leg["away"],
             "scores": [{"name": leg["home"], "score": home["score"]}, {"name": leg["away"], "score": away["score"]}]}
