@@ -115,7 +115,7 @@ BOARD_KEY = os.getenv("BOARD_KEY", "")   # Fernet key that seals the members boa
 # a game-day reminder, then live updates. All times are Eastern. A "game day" runs 6 AM to 6 AM ET,
 # so a UFC main event after midnight still counts as Saturday's card.
 CARD_SPORTS = {
-    "americanfootball_nfl": {"name": "NFL", "max_picks": 3, "min_picks": 3, "hype": "12:00", "card": "20:00", "reminder": "10:00",
+    "americanfootball_nfl": {"name": "NFL", "max_picks": 3, "min_picks": 3, "hype": "12:00", "card": "09:00", "reminder": "10:00",
                              "min_games_for_hype": 4},   # Sundays get hype; TNF/MNF just get the card
     "mma_mixed_martial_arts": {"name": "UFC", "max_picks": 3, "min_picks": 2, "hype": "12:00", "card": "20:00", "reminder": "12:00",
                                "min_games_for_hype": 5},
@@ -124,6 +124,17 @@ CARD_SPORTS = {
                       "min_games_for_hype": 1},
 }
 BIG_FIGHT_MIN_BOOKS = 5
+# NFL cards go out on game day, one per kickoff slot: (slot, run time ET). Monday's night game runs at 9 AM.
+NFL_SLOT_TIMES = (("early", "09:00"), ("late", "13:00"), ("night", "18:00"))
+NFL_MONDAY_NIGHT = "09:00"
+# Diamond Whale: one per sport per week. sport: (weekday 0=Mon, time ET, hours ahead to look). Runs after the
+# week's injury news (NFL Friday reports, UFC weigh-ins) so the research sees the final picture.
+WHALE_SCHEDULE = {
+    "americanfootball_nfl": (4, "12:00", 84),       # Friday noon: Sat, Sun and Monday night games
+    "mma_mixed_martial_arts": (4, "13:00", 36),     # Friday after weigh-ins: Saturday's card
+    "americanfootball_ncaaf": (4, "14:00", 36),     # Friday: Saturday's slate
+    "basketball_nba": (0, "12:00", 36),             # Monday: Mon/Tue games
+}
 DAY_START_HOUR = 6
 # Daily Play and the other jobs, Eastern time.
 SCHEDULE = {"grade": "06:00", "daily": "11:00", "recap": "23:00"}   # recap runs on Sundays
