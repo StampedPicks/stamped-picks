@@ -26,6 +26,7 @@ from .model import parse_time, fmt_american
 TZ = ZoneInfo(C.DISPLAY_TZ)
 MAX_CANDIDATES = 8
 MAX_SEARCHES = 20
+GAMES_PER_CALL = 5         # all-games research: games per research call
 
 
 def _bet_text(p) -> str:
@@ -105,55 +106,75 @@ Reply with only this JSON, nothing else:
 "context": ["..."], "risk": "..."}}]}}"""
 
 
-def review(sport: str, cands: list, n: int = MAX_CANDIDATES, extra: str = "", searches: int = MAX_SEARCHES) -> list:
-    """Returns the candidates with analyst verdicts applied: passes removed from the shortlist, scores
-    re-weighted by confidence, and p.analysis filled in. Candidates outside the shortlist are kept as-is
-    (they can still fill a card as leans). If the analyst can't run, returns cands unchanged."""
+def _batches(cands, all_games: bool, n: int) -> list[list]:
+    """Which candidates the analyst researches, in batches of one research call each.
+    Default: the best n candidates (at most two per game), one call. all_games: every game in the slate gets
+    researched (its two best options), GAMES_PER_CALL games per call, so nothing we post goes out unchecked."""
+    if not all_games:
+        return [_shortlist(cands, n)]
+    games = {}
+    for p in sorted(cands, key=lambda p: p.score, reverse=True):
+        if len(games.setdefault(p.event_id, [])) < 2:
+            games[p.event_id].append(p)
+    order = list(games.values())                   # best games first
+    return [[p for g in order[i:i + GAMES_PER_CALL] for p in g] for i in range(0, len(order), GAMES_PER_CALL)]
+
+
+def _research(sport, shortlist, extra, searches):
+    prompt = _prompt(sport, shortlist, extra)
+    text, sources = research._call(prompt, searches, max_tokens=16000)
+    try:
+        return research._json(text), sources
+    except Exception:                              # noqa: BLE001 - long search turns sometimes end without the JSON
+        print("[analyst] no verdict JSON after research; asking for it from the notes")
+        follow = (prompt + "\n\nHere are the research notes you already gathered:\n\n" + text[-20000:]
+                  + "\n\nDo not search again. Using only these notes, reply now with ONLY the JSON described above. "
+                  "Where the notes have nothing on a candidate, give it verdict bet, confidence 5, and leave its "
+                  "context empty; pass only on a specific fact in the notes.")
+        text2, _ = research._call(follow, 1, max_tokens=8000)
+        return research._json(text2), sources
+
+
+def review(sport: str, cands: list, n: int = MAX_CANDIDATES, extra: str = "", searches: int = MAX_SEARCHES,
+           all_games: bool = False) -> list:
+    """Returns the candidates with analyst verdicts applied: passes removed, scores re-weighted by confidence,
+    and p.analysis filled in. Candidates not researched are kept but ranked lower. If the analyst can't run,
+    returns cands unchanged."""
     if not C.ANTHROPIC_API_KEY or not cands:
         return cands
-    shortlist = _shortlist(cands, n)
-    prompt = _prompt(sport, shortlist, extra)
-    try:
-        text, sources = research._call(prompt, searches, max_tokens=16000)
+    passed, shortlisted = set(), []
+    for shortlist in _batches(cands, all_games, n):
+        shortlisted += shortlist
         try:
-            data = research._json(text)
-        except Exception:                          # noqa: BLE001 - long search turns sometimes end without the JSON
-            print("[analyst] no verdict JSON after research; asking for it from the notes")
-            follow = (prompt + "\n\nHere are the research notes you already gathered:\n\n" + text[-20000:]
-                      + "\n\nDo not search again. Using only these notes, reply now with ONLY the JSON described above. "
-                      "Where the notes have nothing on a candidate, give it verdict bet, confidence 5, and leave its "
-                      "context empty; pass only on a specific fact in the notes.")
-            text2, _ = research._call(follow, 1, max_tokens=8000)
-            data = research._json(text2)
-    except Exception as e:                        # noqa: BLE001 - research never blocks the pick
-        print(f"[analyst] skipped: {e}")
-        return cands
-    verdicts = {int(v.get("n", 0)): v for v in data.get("picks", []) if isinstance(v, dict)}
-    passed = set()
-    for i, p in enumerate(shortlist, 1):
-        v = verdicts.get(i)
-        if not v:
+            data, sources = _research(sport, shortlist, extra, searches)
+        except Exception as e:                    # noqa: BLE001 - research never blocks the pick
+            print(f"[analyst] batch skipped: {e}")
             continue
-        conf = max(1, min(10, int(v.get("confidence") or 5)))
-        reasons = [r for r in (research._clean(x, 185) for x in (v.get("reasons") or [])[:5]) if r]
-        p.analysis = {
-            "verdict": "pass" if str(v.get("verdict", "")).lower().startswith("pass") else "bet",
-            "confidence": conf,
-            "angle": research._clean(v.get("angle"), 115),
-            "reasons": reasons,
-            "context": [c for c in (research._clean(x, 165) for x in (v.get("context") or [])[:6]) if c],
-            "risk": research._clean(v.get("risk"), 145),
-            "sources": sources[:8],
-        }
-        if p.analysis["verdict"] == "pass":
-            passed.add(id(p))
-            print(f"[analyst] PASS {p.label} {fmt_american(p.price)}: {p.analysis['risk'] or p.analysis['angle']}")
-            continue
-        p.score *= 0.6 + 0.08 * conf               # confidence 5 = x1.0, 10 = x1.4, 1 = x0.68
-        print(f"[analyst] {conf}/10 {p.label} {fmt_american(p.price)}: {p.analysis['angle']}")
+        verdicts = {int(v.get("n", 0)): v for v in data.get("picks", []) if isinstance(v, dict)}
+        for i, p in enumerate(shortlist, 1):
+            v = verdicts.get(i)
+            if not v:
+                continue
+            conf = max(1, min(10, int(v.get("confidence") or 5)))
+            reasons = [r for r in (research._clean(x, 185) for x in (v.get("reasons") or [])[:5]) if r]
+            p.analysis = {
+                "verdict": "pass" if str(v.get("verdict", "")).lower().startswith("pass") else "bet",
+                "confidence": conf,
+                "angle": research._clean(v.get("angle"), 115),
+                "reasons": reasons,
+                "context": [c for c in (research._clean(x, 165) for x in (v.get("context") or [])[:6]) if c],
+                "risk": research._clean(v.get("risk"), 145),
+                "sources": sources[:8],
+            }
+            if p.analysis["verdict"] == "pass":
+                passed.add(id(p))
+                print(f"[analyst] PASS {p.label} {fmt_american(p.price)}: {p.analysis['risk'] or p.analysis['angle']}")
+                continue
+            p.score *= 0.6 + 0.08 * conf           # confidence 5 = x1.0, 10 = x1.4, 1 = x0.68
+            print(f"[analyst] {conf}/10 {p.label} {fmt_american(p.price)}: {p.analysis['angle']}")
     # Passes are removed; un-reviewed candidates stay but rank below reviewed "bet" calls of similar edge.
-    reviewed = {id(p) for p in shortlist if p.analysis}
-    passed_sides = {(p.event_id, p.market, p.side) for p in shortlist if id(p) in passed}
+    reviewed = {id(p) for p in shortlisted if getattr(p, "analysis", None)}
+    passed_sides = {(p.event_id, p.market, p.side) for p in shortlisted if id(p) in passed}
     out = []
     for p in cands:
         if id(p) in passed or (p.event_id, p.market, p.side) in passed_sides:
