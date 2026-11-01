@@ -136,7 +136,10 @@ def ticket(row: dict, title: str) -> Image.Image:
     bw = (W - 136 - 70 - 2 * 24) // 3
     _box(d, 136, 780, bw, 180, "BET", f"{u:g}U", f"{_money(u)} at ${C.UNIT_DOLLARS}/unit")
     _box(d, 136 + bw + 24, 780, bw, 180, "GOOD TO", row["play_to"], "worst price to take")
-    _box(d, 136 + 2 * (bw + 24), 780, bw, 180, "EDGE", f"{float(row['ev']):+.1%}", "vs sharp fair price")
+    if row.get("confidence") and float(row["ev"]) <= 0.005:     # no price edge to brag about: show the research grade
+        _box(d, 136 + 2 * (bw + 24), 780, bw, 180, "CONFIDENCE", f"{row['confidence']}/10", "from the research")
+    else:
+        _box(d, 136 + 2 * (bw + 24), 780, bw, 180, "EDGE", f"{float(row['ev']):+.1%}", "vs sharp fair price")
     _paste_center(im, _stamp(_stamped(row), INK, 38, seed=int(row.get("pick_no") or 3)), 470, 1060)
     _footer(im)
     return im
