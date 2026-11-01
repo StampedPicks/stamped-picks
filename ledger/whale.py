@@ -75,7 +75,7 @@ def run(api, now, state, post, sport, hours, books, markets, to_row, hist, threa
     best.units, best.tier = SIZE[min(conf, 10)], "whale"
     game_day = parse_time(best.commence_time).astimezone(TZ).date().isoformat()
     rows = store.read(store.LEDGER)
-    row = to_row(best, game_day, now, "whale", pick_no=str(len(rows) + 1), card=f"{sport}|{game_day}|whale")
+    row = to_row(best, game_day, now, "whale", pick_no=store.next_no(rows), card=f"{sport}|{game_day}|whale")
     store.append(store.LEDGER, row)
     print(f"[whale] {sport} #{row['pick_no']} {row['label']} {row['price_american']} {conf}/10 {row['units']}u")
     posts = thread_posts(row, best, conf)
@@ -91,7 +91,13 @@ def thread_posts(row, p, conf) -> list[str]:
     name = NAMES.get(row["sport"], C.SPORTS.get(row["sport"], (row["sport"],))[0])
     when = parse_time(row["commence_time"]).astimezone(TZ).strftime("%a %-I:%M %p ET")
     u = float(row["units"])
-    head = "\n".join([
+    from . import writer
+    a = getattr(p, "analysis", None) or {}
+    opener = writer.hook("Diamond Whale opener: our biggest play of the week, posted as a thread. Story style, "
+                         "e.g. 'Spent all week digging into this one. It's not what you'd expect...'",
+                         f"Pick: {row['label']} ({row['price_american']}), {row['away']} at {row['home']}, {when}.\n"
+                         f"Our angle: {a.get('angle', '')}\nFacts: " + "; ".join(a.get("reasons", [])[:3]), limit=200)
+    head = "\n".join(([opener, ""] if opener else []) + [
         f"💎🐋 DIAMOND WHALE · {name}",
         "",
         f"{row['label']} ({row['price_american']})",
@@ -110,7 +116,7 @@ def result_post(r) -> str:
     u, prof = float(r["units"]), float(r["profit"])
     head = {"win": f"💎🐋 DIAMOND WHALE CASHED ✅", "loss": "💎 Diamond Whale missed ❌",
             "push": "💎 Diamond Whale pushed ➖"}[r["result"]]
-    tail = {"win": "Biggest play of the week, stamped before kickoff. 💰",
+    tail = {"win": f"Biggest play of the week, stamped before {social.start_word(r['sport'])}. 💰",
             "loss": "Big swing, big miss. It's on the record like every other play.",
             "push": "Money back."}[r["result"]]
     return f"{head}\n\n{r['label']} ({r['price_american']}) · {u:g}u\n{prof:+.2f}u ({'+' if prof >= 0 else '-'}${abs(prof) * C.UNIT_DOLLARS:,.0f})\n\n{tail}"
