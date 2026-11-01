@@ -60,6 +60,8 @@ ALWAYS_PICK = os.getenv("ALWAYS_PICK", "true").lower() == "true"
 # board, marked as leans and bet smaller. A lean must be within this much of the sharp fair price (-0.02 = the
 # best number on the board is no worse than 2% under fair). Set ALWAYS_PICK=false to go back to "no edge, no bet".
 LEAN_FLOOR = float(os.getenv("LEAN_FLOOR", "-0.02"))
+# Game simulations (ledger/sim.py) blended with the sharp market: 0.3 = 30% sim, 70% market. 0 turns sims off.
+SIM_WEIGHT = float(os.getenv("SIM_WEIGHT", "0.3"))
 MAX_EV = 0.10                 # anything above 10% is almost always a stale/bad line: skip it
 MIN_DECIMAL, MAX_DECIMAL = 1.50, 3.00   # -200 to +200 only. No longshots, no heavy chalk.
 EARLIEST_START_MIN = 60       # game must start at least 60 min after the pick
