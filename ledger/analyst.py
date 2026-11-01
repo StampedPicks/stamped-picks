@@ -106,9 +106,17 @@ def review(sport: str, cands: list, n: int = MAX_CANDIDATES) -> list:
     if not C.ANTHROPIC_API_KEY or not cands:
         return cands
     shortlist = _shortlist(cands, n)
+    prompt = _prompt(sport, shortlist)
     try:
-        text, sources = research._call(_prompt(sport, shortlist), MAX_SEARCHES, max_tokens=8000)
-        data = research._json(text)
+        text, sources = research._call(prompt, MAX_SEARCHES, max_tokens=8000)
+        try:
+            data = research._json(text)
+        except Exception:                          # noqa: BLE001 - long search turns sometimes end without the JSON
+            print("[analyst] no verdict JSON after research; asking for it from the notes")
+            follow = (prompt + "\n\nHere are the research notes you already gathered:\n\n" + text[-20000:]
+                      + "\n\nDo not search again. Using only these notes, reply now with ONLY the JSON described above.")
+            text2, _ = research._call(follow, 1, max_tokens=6000)
+            data = research._json(text2)
     except Exception as e:                        # noqa: BLE001 - research never blocks the pick
         print(f"[analyst] skipped: {e}")
         return cands
