@@ -30,18 +30,18 @@ def _bet_words(row):
     return f"{row['side']} to win outright (the {who}) against {vs} ({sport})"
 
 
-def _call(prompt: str, max_searches: int) -> tuple[str, list[str]]:
+def _call(prompt: str, max_searches: int, max_tokens: int = 1500) -> tuple[str, list[str]]:
     headers = {"x-api-key": C.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01",
                "content-type": "application/json"}
     body = {
-        "model": C.ANTHROPIC_MODEL, "max_tokens": 1500,
+        "model": C.ANTHROPIC_MODEL, "max_tokens": max_tokens,
         "messages": [{"role": "user", "content": prompt}],
         "tools": [{"type": "web_search_20250305", "name": "web_search", "max_uses": max_searches,
                    "user_location": {"type": "approximate", "country": "US", "timezone": C.DISPLAY_TZ}}],
     }
     text, sources = "", []
-    for _ in range(4):   # a long search turn can pause; send it back to continue
-        r = requests.post(API, headers=headers, json=body, timeout=180)
+    for _ in range(6):   # a long search turn can pause; send it back to continue
+        r = requests.post(API, headers=headers, json=body, timeout=300)
         r.raise_for_status()
         data = r.json()
         for block in data.get("content", []):
