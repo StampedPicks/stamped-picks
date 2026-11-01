@@ -41,6 +41,7 @@ BOOKS = list(C.PRICING_BOOKS) + list(C.BET_BOOKS)
 DAILY_SPORTS = [s for s in C.SPORTS if s not in C.CARD_SPORTS]
 CURRENT_FEED = None      # the live-score feed for this run (set by tick)
 MMA = "mma_mixed_martial_arts"
+NFL = "americanfootball_nfl"
 
 
 # ---------------------------------------------------------------- time and state helpers
@@ -211,6 +212,11 @@ def run_daily(api, now, state, post):
         sim.apply(sp, [p for p in plays if p.sport == sp], now)
     plays = analyst.review(None, plays)
     daily, board, tier = choose(plays)
+    try:                                          # the weekly $10 -> $1,000 ladder: today's rung
+        from ledger import ladder
+        ladder.step(now, state, post, plays, daily)
+    except Exception as ex:                       # noqa: BLE001 - the ladder never blocks the Daily Play
+        print(f"[ladder] {ex}")
     board = [b for b in board if b.ev >= C.MIN_EV]     # paid plays are full edges only, never leans
     if not daily:
         text = social.no_play_post(date_)
@@ -252,6 +258,16 @@ def run_daily(api, now, state, post):
                 telegram.send(C.TG_FREE, social.vip_teaser(brows), members.menu_buttons())
 
 
+# ---------------------------------------------------------------- Diamond Whale
+def run_whale(api, now, state, post, sport, hours=84):
+    from ledger import whale
+    try:
+        whale.run(api, now, state, post, sport, hours, BOOKS, markets_for(sport), to_row,
+                  store.snapshot_history(sport, now), thread)
+    except SystemExit as e:
+        print(f"[whale] {sport}: {e}")
+
+
 # ---------------------------------------------------------------- card days
 def run_hype(api, now, state, post, sport, day):
     s, e = game_day_window(day)
@@ -270,6 +286,16 @@ def run_hype(api, now, state, post, sport, day):
 
 
 SLOTS = {"early": ("00:00", "15:00"), "late": ("15:00", "18:00"), "night": ("18:00", "23:59")}   # ET kickoff windows
+
+
+def slot_of(commence_time: str) -> str:
+    hhmm = et(parse_time(commence_time)).strftime("%H:%M")
+    return next(k for k, (a, b) in SLOTS.items() if a <= hhmm < b or k == "night")
+
+
+def slot_carded(sport, day, slot) -> bool:
+    return any(r["sport"] == sport and r.get("date") == day.isoformat() and r.get("tier") in ("edge", "lean")
+               and slot_of(r["commence_time"]) == slot for r in store.read(store.LEDGER))
 
 
 def run_card(api, now, state, post, sport, day, slot=None):
@@ -293,11 +319,11 @@ def run_card(api, now, state, post, sport, day, slot=None):
     cands = candidates(sport, events, now, hist, window=window)
     taken = {(r["event_id"], r["market"], r["side"]) for r in store.read(store.LEDGER) if r.get("date") == day.isoformat()}
     taken_games = {r["event_id"] for r in store.read(store.LEDGER)
-                   if r.get("date") == day.isoformat() and r.get("tier") in ("edge", "lean", "premium")}
+                   if r.get("date") == day.isoformat() and r.get("tier") in ("edge", "lean", "premium", "whale")}
     cands = [p for p in cands if p.event_id not in taken_games and (p.event_id, p.market, p.side) not in taken]
     cands = analyst.review(sport, sim.apply(sport, cands, now))      # our sims, then research + verdicts
-    picks = choose_card(cands, cfg["max_picks"], cfg.get("min_picks", 0))
-    cid = card_id(sport, day)
+    picks = choose_card(cands, cfg["max_picks"], 1 if slot else cfg.get("min_picks", 0))
+    cid = card_id(sport, day) + (f"|{slot}" if slot else "")
     if not picks:
         print(f"[card] {cid}: no edges")
         if n_games >= cfg["min_games_for_hype"]:
@@ -330,7 +356,17 @@ def run_card(api, now, state, post, sport, day, slot=None):
     try:                                          # NFL: every-game picks + parlays, posted with the card
         from ledger import parlays
         upcoming = [ev for ev in events if parse_time(ev["commence_time"]) >= window[0]]
-        parlays.run(api, now, state, post, sport, day, cands, upcoming, {p.event_id for p in picks}, to_row, cid)
+        day_cands, day_events = cands, upcoming
+        if slot and sport == NFL and not parlays.posted_today(state, day):   # parlays cover every game of the day
+            _, day_end = game_day_window(day)
+            day_events = [ev for ev in api.odds(sport, markets_for(sport), BOOKS, window[0], day_end)
+                          if parse_time(ev["commence_time"]) >= window[0]]
+            seen = {ev["id"] for ev in upcoming}
+            extra = candidates(sport, [ev for ev in day_events if ev["id"] not in seen], now, hist,
+                               window=(window[0], day_end))
+            day_cands = cands + sim.apply(sport, extra, now)
+        parlays.run(api, now, state, post, sport, day, cands, upcoming, {p.event_id for p in picks}, to_row, cid,
+                    day_cands=day_cands, day_events=day_events)
     except Exception as ex:                       # noqa: BLE001 - extras never block the card
         print(f"[parlays] {ex}")
 
@@ -477,7 +513,14 @@ def announce(state, rows, post):
                    key=lambda r: (r["commence_time"], int(r["pick_no"])))
     for r in fresh:
         done.add(r["pick_no"])
-        if not r.get("card"):
+        if r.get("tier") == "whale":
+            from ledger import whale
+            text = social.tagged(whale.result_post(r), tags.for_rows([r]))
+            social.save_post(f"result_{r['pick_no']}", r["date"], text)
+            if post:
+                social.post_x(text, quote=thread(state, r["card"]).get("main"),
+                              media=art("result", [r], "DIAMOND WHALE"))
+        elif not r.get("card"):
             text = social.tagged(social.daily_result(r, rows), tags.for_rows([r]))
             social.save_post(f"result_{r['pick_no']}", r["date"], text)
             if post:
@@ -496,7 +539,7 @@ def announce(state, rows, post):
     recapped = set(state.setdefault("recapped", []))
     for cid in sorted({r["card"] for r in rows if r.get("card")}):
         card_rows = [x for x in rows if x.get("card") == cid]
-        if cid in recapped or not all(x.get("result") for x in card_rows):
+        if cid in recapped or cid.endswith("|whale") or not all(x.get("result") for x in card_rows):
             continue
         recapped.add(cid)
         text = social.card_recap(cid.split("|")[0], card_day(cid), card_rows, rows)
@@ -609,6 +652,18 @@ def tick(api, now, post=True, feed=None):
         if due(state, f"hype:{sport}:{tomorrow}", at(d, cfg["hype"]), now):
             mark(state, f"hype:{sport}:{tomorrow}", now)
             run_hype(api, now, state, post, sport, tomorrow)
+        if sport == NFL:                          # game-day cards: 9 AM (1 PM games), 1 PM (4 PM games), 6 PM (night)
+            for slot, hhmm in C.NFL_SLOT_TIMES:
+                if slot == "night" and d.weekday() == 0:
+                    hhmm = C.NFL_MONDAY_NIGHT
+                key = f"card:{sport}:{d}:{slot}"
+                if due(state, key, at(d, hhmm), now):
+                    mark(state, key, now)
+                    if slot_carded(sport, d, slot):
+                        continue                  # already posted by hand
+                    store.save_state(state)
+                    run_card(api, now, state, post, sport, d, slot)
+            continue
         if due(state, f"card:{sport}:{tomorrow}", at(d, cfg["card"]), now):
             mark(state, f"card:{sport}:{tomorrow}", now)
             store.save_state(state)
@@ -616,6 +671,12 @@ def tick(api, now, post=True, feed=None):
         if due(state, f"reminder:{sport}:{d}", at(d, cfg["reminder"]), now):
             mark(state, f"reminder:{sport}:{d}", now)
             run_reminder(api, now, state, post, sport, d)
+    for sport, (dow, hhmm, hours) in C.WHALE_SCHEDULE.items():     # 💎 Diamond Whale, once a week per sport
+        key = f"whale:{sport}:{d}"
+        if d.weekday() == dow and due(state, key, at(d, hhmm), now):
+            mark(state, key, now)
+            store.save_state(state)
+            run_whale(api, now, state, post, sport, hours)
     if d.weekday() == 6 and due(state, f"recap:{d}", at(d, C.SCHEDULE["recap"]), now):
         mark(state, f"recap:{d}", now)
         run_recap(now, post)
@@ -636,6 +697,16 @@ def tick(api, now, post=True, feed=None):
         parlays.settle(now, state, feed, post)
     except Exception as ex:                       # noqa: BLE001
         print(f"[parlays] settle: {ex}")
+    try:                                          # injury desk: pre-kickoff reports and in-game alerts
+        from ledger import injuries
+        injuries.run(now, state, feed, post, store.read(store.LEDGER))
+    except Exception as ex:                       # noqa: BLE001
+        print(f"[injuries] {ex}")
+    try:                                          # grade the ladder's rung
+        from ledger import ladder
+        ladder.settle(now, state, feed, post)
+    except Exception as ex:                       # noqa: BLE001
+        print(f"[ladder] settle: {ex}")
     store.save_state(state)
 
 
@@ -658,7 +729,7 @@ def cmd_settle(pick_no, result, final, post=True):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("cmd", choices=["tick", "daily", "card", "grade", "settle", "recap", "render", "newkey", "demo",
+    ap.add_argument("cmd", choices=["tick", "daily", "card", "whale", "grade", "settle", "recap", "render", "newkey", "demo",
                                     "menu", "tgchats", "reset"])
     ap.add_argument("args", nargs="*", help="card: nfl|ufc · settle: play number, win|loss|push, optional final")
     ap.add_argument("--no-post", action="store_true", help="save the text without posting")
@@ -690,7 +761,7 @@ def main():
         from ledger import parlays
         parlays.write([p for p in parlays.read() if not (sport == parlays.NFL and p["date"] == day)])
         st = store.load_state()
-        st["parlays_posted"] = [d for d in st.get("parlays_posted", []) if not (sport == parlays.NFL and d == day)]
+        st["parlays_posted"] = [d for d in st.get("parlays_posted", []) if not (sport == parlays.NFL and day in d)]
         st["threads"] = {k: v for k, v in st.get("threads", {}).items() if not (sport in k and day in k)}
         store.save_state(st)
         return print(f"[reset] removed {len(rows) - len(keep)} ungraded {sport} picks for {day}")
@@ -714,6 +785,12 @@ def main():
             day -= timedelta(days=1)
         slot = next((x.lower() for x in a.args[2:] if x.lower() in SLOTS), None)
         run_card(api, now, state, post, sport, day, slot)
+    elif a.cmd == "whale":                         # whale nfl|ufc|ncaaf|nba [hours]: run this week's whale now
+        sport = {"nfl": NFL, "ufc": MMA, "mma": MMA, "ncaaf": "americanfootball_ncaaf", "cfb": "americanfootball_ncaaf",
+                 "nba": "basketball_nba"}.get((a.args or [""])[0].lower())
+        if not sport:
+            raise SystemExit("usage: python run.py whale nfl|ufc|ncaaf|nba [hours]")
+        run_whale(api, now, state, post, sport, int(a.args[1]) if len(a.args) > 1 else C.WHALE_SCHEDULE.get(sport, (0, "", 84))[2])
     elif a.cmd == "grade":
         backup_grade(api, now, state)
         announce(state, store.read(store.LEDGER), post)
