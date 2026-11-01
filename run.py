@@ -400,7 +400,7 @@ def run_card(api, now, state, post, sport, day, slot=None):
             print(f"[extras] {ex}")
 
 
-def run_extras(api, now, state, post, sport, day, slot):
+def run_extras(api, now, state, post, sport, day, slot, parts=("who", "prop")):
     """Player prop + who-wins for a slot whose card already went out (e.g. added after the card)."""
     from ledger import extras
     s, e = game_day_window(day)
@@ -409,11 +409,12 @@ def run_extras(api, now, state, post, sport, day, slot):
     if not events:
         return print(f"[extras] no games left in the {slot} slot")
     cands = candidates(sport, events, now, store.snapshot_history(sport, now), window=(s, e))
-    cands = analyst.review(sport, sim.apply(sport, cands, now), all_games=True)
+    if "who" in parts:                            # the game research is only needed for the side pick
+        cands = analyst.review(sport, sim.apply(sport, cands, now), all_games=True)
     on_card = {r["event_id"] for r in store.read(store.LEDGER) if r.get("date") == day.isoformat()
                and r.get("tier") in ("edge", "lean", "side") and r["market"] in ("h2h", "spreads")}
     extras.run(api, now, state, post, sport, slot, events, cands, on_card, to_row,
-               card_id(sport, day) + f"|{slot}", thread, force=True)
+               card_id(sport, day) + f"|{slot}", thread, force=True, parts=parts)
 
 
 def run_reminder(api, now, state, post, sport, day):
@@ -856,7 +857,8 @@ def main():
     elif a.cmd == "extras":                        # extras nfl today late|night: prop + who wins for a slot now
         day = et(now).date()
         slot = next((x.lower() for x in a.args if x.lower() in SLOTS), "late")
-        run_extras(api, now, state, post, NFL, day, slot)
+        parts = tuple(x.lower() for x in a.args if x.lower() in ("who", "prop")) or ("who", "prop")
+        run_extras(api, now, state, post, NFL, day, slot, parts)
     elif a.cmd == "grade":
         backup_grade(api, now, state)
         announce(state, store.read(store.LEDGER), post)
