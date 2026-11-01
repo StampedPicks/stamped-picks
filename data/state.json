@@ -10,7 +10,8 @@
     "hype:mma_mixed_martial_arts:2026-11-02": "2026-11-01T18:06:45.381335+00:00",
     "reminder:mma_mixed_martial_arts:2026-11-01": "2026-11-01T18:06:45.381335+00:00",
     "hype:boxing_boxing:2026-11-02": "2026-11-01T18:06:45.381335+00:00",
-    "reminder:boxing_boxing:2026-11-01": "2026-11-01T18:06:45.381335+00:00"
+    "reminder:boxing_boxing:2026-11-01": "2026-11-01T18:06:45.381335+00:00",
+    "card:americanfootball_nfl:2026-11-01:late": "2026-11-01T18:37:00.814365+00:00"
   },
   "pregame": {},
   "closed": {},
@@ -70,5 +71,20 @@
   },
   "parlays_posted": [
     "2026-11-01"
-  ]
+  ],
+  "injuries": {
+    "2026-11-01": {
+      "lamar jackson": {
+        "status": "out",
+        "post": "2116962773448245678"
+      },
+      "jake ferguson": {
+        "status": "questionable to return",
+        "post": "2116962777038569644"
+      }
+    },
+    "_last": {
+      "americanfootball_nfl": "2026-11-01T18:37:00Z"
+    }
+  }
 }
