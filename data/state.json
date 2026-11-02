@@ -56,7 +56,9 @@
       "half",
       "q4"
     ],
-    "16": []
+    "16": [
+      "half"
+    ]
   },
   "announced": [
     "2",
@@ -129,7 +131,7 @@
     },
     "americanfootball_nfl|2026-11-01|night": {
       "main": "2117032248436261305",
-      "last": "2117049311322341772"
+      "last": "2117094020384002125"
     },
     "americanfootball_nfl|2026-11-01|night|slate": {
       "main": "2117032271119106270",
@@ -279,7 +281,7 @@
       }
     },
     "_last": {
-      "americanfootball_nfl": "2026-11-02T02:27:35Z",
+      "americanfootball_nfl": "2026-11-02T03:18:41Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z"
     }
   },
