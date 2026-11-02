@@ -220,7 +220,7 @@ def _facts(pairs) -> str:
 
 def with_hook(text: str, kind: str, pairs) -> str:
     from ledger import writer
-    h = writer.hook(kind, _facts(pairs))
+    h = writer.hook(kind, _facts(pairs), sport=(pairs[0][0].get("sport", "") if pairs else ""))
     return f"{h}\n\n{text}" if h else text
 
 
@@ -755,6 +755,11 @@ def tick(api, now, post=True, feed=None):
         injuries.run(now, state, feed, post, store.read(store.LEDGER))
     except Exception as ex:                       # noqa: BLE001
         print(f"[injuries] {ex}")
+    try:                                          # about once an hour: quote the top post about a game we're on
+        from ledger import engage
+        engage.run(now, state, post, store.read(store.LEDGER))
+    except Exception as ex:                       # noqa: BLE001 - engagement never blocks picks
+        print(f"[engage] {ex}")
     try:                                          # player props: grade from the box score
         from ledger import extras
         extras.settle(now, state, feed, post)
