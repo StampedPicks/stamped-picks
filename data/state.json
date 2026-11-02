@@ -14,7 +14,8 @@
     "card:americanfootball_nfl:2026-11-01:late": "2026-11-01T18:37:00.814365+00:00",
     "card:americanfootball_nfl:2026-11-01:night": "2026-11-01T23:18:05.691335+00:00",
     "card:mma_mixed_martial_arts:2026-11-02": "2026-11-02T01:33:38.122162+00:00",
-    "card:boxing_boxing:2026-11-02": "2026-11-02T01:33:38.122162+00:00"
+    "card:boxing_boxing:2026-11-02": "2026-11-02T01:33:38.122162+00:00",
+    "recap:2026-11-01": "2026-11-02T04:20:07.989857+00:00"
   },
   "pregame": {
     "13": true,
@@ -57,7 +58,8 @@
       "q4"
     ],
     "16": [
-      "half"
+      "half",
+      "q4"
     ]
   },
   "announced": [
@@ -131,7 +133,7 @@
     },
     "americanfootball_nfl|2026-11-01|night": {
       "main": "2117032248436261305",
-      "last": "2117094020384002125"
+      "last": "2117109483209892221"
     },
     "americanfootball_nfl|2026-11-01|night|slate": {
       "main": "2117032271119106270",
@@ -278,10 +280,14 @@
       "hunter henry": {
         "status": "questionable to return",
         "post": "2117025841704247344"
+      },
+      "saquon barkley": {
+        "status": "returned",
+        "post": "2117109528382550405"
       }
     },
     "_last": {
-      "americanfootball_nfl": "2026-11-02T03:18:41Z",
+      "americanfootball_nfl": "2026-11-02T04:20:07Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z"
     }
   },
