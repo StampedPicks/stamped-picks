@@ -68,10 +68,12 @@
     "4",
     "13",
     "14",
-    "15"
+    "15",
+    "16"
   ],
   "recapped": [
-    "americanfootball_nfl|2026-11-01"
+    "americanfootball_nfl|2026-11-01",
+    "americanfootball_nfl|2026-11-01|night"
   ],
   "fightnight": {
     "600061420": {
@@ -133,7 +135,7 @@
     },
     "americanfootball_nfl|2026-11-01|night": {
       "main": "2117032248436261305",
-      "last": "2117109483209892221"
+      "last": "2117125322365874628"
     },
     "americanfootball_nfl|2026-11-01|night|slate": {
       "main": "2117032271119106270",
@@ -289,7 +291,8 @@
     "_last": {
       "americanfootball_nfl": "2026-11-02T04:20:07Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z"
-    }
+    },
+    "2026-11-02": {}
   },
   "whale_promos": {
     "14": {
