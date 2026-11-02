@@ -3,27 +3,9 @@
   {
    "week": 1,
    "monday": "2026-11-02",
-   "stack": 10.0,
+   "stack": 10,
    "status": "climbing",
-   "rungs": [
-    {
-     "sport": "basketball_nba",
-     "event_id": "4f6688e4d1818bd8bb3e65352c7a0406",
-     "commence_time": "2026-11-03T00:40:00Z",
-     "home": "New York Knicks",
-     "away": "Brooklyn Nets",
-     "market": "spreads",
-     "side": "Brooklyn Nets",
-     "point": "15.5",
-     "label": "Brooklyn Nets +15.5",
-     "price": 1.87,
-     "book": "betmgm",
-     "kind": "game",
-     "date": "2026-11-02",
-     "stack": 10.0,
-     "result": ""
-    }
-   ]
+   "rungs": []
   }
  ]
 }
