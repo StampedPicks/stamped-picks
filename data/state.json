@@ -336,5 +336,12 @@
     "americanfootball_nfl|2026-11-01|late",
     "americanfootball_nfl|2026-11-01|night",
     "americanfootball_nfl|2026-11-02|night"
-  ]
+  ],
+  "engage": {
+    "last": "2026-11-02T21:27:19Z",
+    "done": [
+      "2117366413358944719"
+    ],
+    "me": "1599826577948393491"
+  }
 }
