@@ -54,6 +54,23 @@ def start_word(sport: str) -> str:
     return START_WORD.get(sport, "game time")
 
 
+FIGHTS = ("mma_mixed_martial_arts", "boxing_boxing")
+MATCHES = ("tennis", "soccer")
+
+
+def event_word(sport: str, n: int | None = None) -> str:
+    """What the thing is called: fights for UFC and boxing, matches for tennis and soccer, games for the rest.
+    With n, singular or plural to match ('1 fight', '5 games')."""
+    one, many = (("fight", "fights") if sport in FIGHTS else
+                 ("match", "matches") if sport.split("_")[0] in MATCHES else ("game", "games"))
+    return one if n == 1 else many
+
+
+def day_word(sport: str) -> str:
+    """'Fight day' for combat sports, 'gameday' for the rest."""
+    return "fight day" if sport in FIGHTS else "gameday"
+
+
 def stake_short(units: float) -> str:
     return f"{units:g}u ({money(units)})"
 
@@ -277,10 +294,10 @@ def card_thread(sport, game_day, picks, before, markets, research) -> list[str]:
         if m:
             posts.append(m)
     total = sum(float(r["units"]) for r in picks)
-    what = "fights" if sport == "mma_mixed_martial_arts" else "games"
+    what = event_word(sport)
     branches.append(len(posts))
     posts.append(_units_note(f"the whole card is {money(total)}",
-                             ("Live updates" if same_day else "Gameday reminder tomorrow, then live updates")
+                             ("Live updates" if same_day else f"{day_word(sport).capitalize()} reminder tomorrow, then live updates")
                              + f" during the {what}. Every pick stamped, "
                              "every result public (link in bio)."))
     return Thread(posts, branches)
@@ -295,8 +312,9 @@ def no_card_post(sport, game_day) -> str:
 def reminder_post(sport, game_day, picks, quotes) -> str:
     name = voice.card_name(sport, game_day)
     k = f"rem{sport}{game_day}"
-    opener = voice.pick(["It's FIGHT DAY 🥊", "Fight day is here 🥊"], k) if sport == "mma_mixed_martial_arts" \
-        else voice.pick(["☀️ GAMEDAY.", "Gameday is here 🏈", "It's gameday 🏈"], k)
+    e = _emoji(sport)
+    opener = voice.pick([f"It's FIGHT DAY {e}", f"Fight day is here {e}"], k) if sport in FIGHTS \
+        else voice.pick(["☀️ GAMEDAY.", f"Gameday is here {e}", f"It's gameday {e}"], k)
     lines = [f"{opener} Today's {name} card:", ""]
     for i, r in enumerate(picks):
         p, f = quotes.get(r["pick_no"], (None, None))

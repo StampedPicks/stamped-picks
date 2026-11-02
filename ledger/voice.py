@@ -87,22 +87,24 @@ def last_card(rows, sport: str, before: str) -> tuple[str, dict] | tuple[None, N
 
 def hype_post(rows, sport: str, card_id: str, n_games: int, drop_time: str) -> str:
     name = C.CARD_SPORTS[sport]["name"]
-    what = "fights" if sport == "mma_mixed_martial_arts" else "games"
+    from .social import event_word
+    what, what_n = event_word(sport), event_word(sport, n_games)
     emoji = C.SPORTS[sport][1]
     cid, st = last_card(rows, sport, card_id)
     tail = (f"Picks drop tonight at {drop_time} ET {emoji}" if not drop_time.endswith("AM") else
-            f"Picks drop tomorrow at {drop_time} ET, then again before the 4 PM and night games {emoji}")
+            (f"Picks drop tomorrow at {drop_time} ET, then again before the 4 PM and night games {emoji}"
+             if sport == "americanfootball_nfl" else f"Picks drop tomorrow at {drop_time} ET {emoji}"))
     if not cid:
-        return pick([f"First {name} card on the ledger this weekend {emoji}\n\n{n_games} {what} on the board and the model "
+        return pick([f"First {name} card on the ledger this weekend {emoji}\n\n{n_games} {what_n} on the board and the model "
                      f"is already finding numbers we like.\n\n{tail}",
-                     f"{name} week is here {emoji}\n\nWe've been running every line on tomorrow's {n_games} {what}.\n\n{tail}"],
+                     f"{name} week is here {emoji}\n\nWe've been running every line on tomorrow's {n_games} {what_n}.\n\n{tail}"],
                     card_id)
     rec = f"{st['wins']}-{st['losses']}" + (f"-{st['pushes']}" if st["pushes"] else "")
     um = units_money(st["profit"])
     if st["profit"] > 0:
         return pick([f"Last week we CASHED on {name}: {rec}, {um} 💰\n\nWe plan to do the same this week.\n\n{tail}",
                      f"Last {name} card: {rec}, {um} ✅\n\nLooking to run it back tomorrow.\n\n{tail}",
-                     f"{name} last week? {rec} and {um} 💰\n\nSame process this week. {n_games} {what} on the board.\n\n{tail}"],
+                     f"{name} last week? {rec} and {um} 💰\n\nSame process this week. {n_games} {what_n} on the board.\n\n{tail}"],
                     card_id)
     if st["profit"] < 0:
         return pick([f"Last week was a tough one on the {name} card ({rec}, {um}).\n\nWe've been grinding the numbers on "
@@ -140,7 +142,7 @@ def live_mood(margin: float, close: float, *key) -> str:
         return pick(["Down a little, plenty of time left.", "Need a small push from here.",
                      "Not where we want it, but very much alive."], *key)
     return pick(["Not our half. Need a big push from here.", "Tough spot right now. Need a comeback.",
-                 "Trailing for now. We'll see what the rest of the game brings."], *key)
+                 "Trailing for now. Plenty left."], *key)
 
 
 def win_shout(key) -> str:

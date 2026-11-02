@@ -24,6 +24,12 @@ Voice: a sharp bettor talking to his followers. Human, casual, a little cocky, n
 Have a take. One or two emojis at most. Vary it: questions, hot takes, "nobody's talking about...", "this line
 is stupid", "spent all week on this one", stories. Never sound like a press release or a bot.
 
+Talk like someone who actually watches the sport:
+- UFC / MMA and boxing: fights, the card, fight night, the main event, first bell, rounds. NEVER "game",
+  "kickoff" or "gameday".
+- NBA / college hoops: games, tip-off, quarters/halves. NFL / college football: kickoff, gameday.
+  NHL: puck drop, periods. MLB: first pitch, innings. Tennis and soccer: matches.
+
 Hard rules:
 - Use ONLY the facts given below. Never invent a stat, injury, trend, record or quote.
 - Never use: lock, guarantee, guaranteed, can't lose, sure thing, free money, max bet, hammer.
@@ -31,6 +37,8 @@ Hard rules:
 - If told the side is SECRET, do not reveal or hint which side or which way on the total we're betting.
 - At most {limit} characters. Reply with only the line(s), nothing else."""
 BANNED = re.compile(r"\b(lock|guarantee\w*|can'?t lose|sure thing|free money|max bet|hammer\w*)\b|#|@|https?://", re.I)
+
+FOOTBALL_TALK = re.compile(r"\b(game\w*|kick ?off|kicks off)\b", re.I)
 
 
 def _ask(prompt: str, max_tokens: int = 1000) -> str:
@@ -54,7 +62,7 @@ def _ask(prompt: str, max_tokens: int = 1000) -> str:
     return ""
 
 
-def hook(kind: str, facts: str, limit: int = 180, secret: bool = False) -> str | None:
+def hook(kind: str, facts: str, limit: int = 180, secret: bool = False, sport: str = "") -> str | None:
     """A human first line for a post. kind: what the post is (e.g. 'premium teaser', 'card'). facts: everything
     the writer may use. Returns None if the writer is off or what it wrote breaks a rule."""
     if not C.ANTHROPIC_API_KEY or not getattr(C, "WRITER", True):
@@ -66,6 +74,8 @@ def hook(kind: str, facts: str, limit: int = 180, secret: bool = False) -> str |
     except Exception as e:                        # noqa: BLE001 - a hook is never worth a missed post
         print(f"[writer] skipped: {e}")
         return None
+    if sport in ("mma_mixed_martial_arts", "boxing_boxing") and FOOTBALL_TALK.search(text):
+        text = ""                                  # "game" for a fight reads like a bot
     if not text or len(text) > limit + 20 or BANNED.search(text):
         print(f"[writer] rejected: {text[:120]!r}")
         return None

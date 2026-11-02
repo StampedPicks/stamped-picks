@@ -394,14 +394,15 @@ def premium(now, state, post, key, cands, card_ids, to_row, card_id) -> dict | N
              f"total {board['away'].get('total', 'n/a')} / {board['home'].get('total', 'n/a')}.\n"
              "We have a premium play on this game. Write a one or two line hook about the line or the game "
              "that makes people curious, like 'The Packers are 3.5 point favorites. This line is stupid 😂'.")
-    hook = writer.hook("premium teaser (posted with a picture of the odds board)", facts, limit=160, secret=True) \
+    hook = writer.hook("premium teaser (posted with a picture of the odds board)", facts, limit=160, secret=True,
+                       sport=row["sport"]) \
         or f"{_nick(row['away'])} at {_nick(row['home'])}, {when}. Somebody hung the wrong number here 👀"
     hook = social.tagged(hook, f"{tags.SPORT.get(row['sport'], '')} #{_nick(row['home'])} #{_nick(row['away'])}")
     rec = _record_line(row["sport"])
     link = next((url for k, _, _, url in C.SALES if k == "pick" and url), "")
     cta = f"Get it now: {link}" if link else "Members get it now. DM us for access 🔒"
     promo = "\n".join([f"🔒 PREMIUM PLAY · {game} · {when}", ""] + ([rec, ""] if rec else [])
-                       + [cta, "", "Result posts here after the game, win or lose."])
+                       + [cta, "", f"Result posts here after the {social.event_word(row['sport'], 1)}, win or lose."])
     social.save_post("premium_teaser", key, [hook, promo])
     print(f"[premium] #{row['pick_no']} sealed until {when} (edge {p.ev:+.1%})")
     if post:

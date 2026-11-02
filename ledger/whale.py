@@ -117,12 +117,12 @@ def promo_post(row, conf) -> str:
         f"💎🐋 THE DIAMOND WHALE IS IN · {name}",
         "",
         f"Our best bet of the day. {u:g} units. Confidence {conf}/10.",
-        f"Priced -200 to +100, kicks off {when}.",
+        f"Priced -200 to +100. {social.start_word(row['sport']).capitalize()} is {when}.",
         "",
         "Every angle checked: injuries, matchups, our 10,000-game sims, the sharp market.",
         "",
-        "DM us \"WHALE\" to get it before kickoff 🔒",
-        "Result posts here after the game, win or lose."]), "#DiamondWhale #NFLPicks #SportsBetting #GamblingTwitter")
+        f"DM us \"WHALE\" to get it before {social.start_word(row['sport'])} 🔒",
+        f"Result posts here after the {social.event_word(row['sport'], 1)}, win or lose."]), "#DiamondWhale #NFLPicks #SportsBetting #GamblingTwitter")
 
 
 def last_calls(now, state, post):
@@ -133,7 +133,8 @@ def last_calls(now, state, post):
         w["done"] = True
         if now > parse_time(w["last_call"]) + timedelta(minutes=50):
             continue                               # too late to be useful
-        text = social.tagged(f"⏰ Last call: the 💎🐋 Diamond Whale ({float(w['units']):g}u) kicks off in about an hour.\n\n"
+        text = social.tagged(f"⏰ Last call: the 💎🐋 Diamond Whale ({float(w['units']):g}u). "
+                             f"{social.start_word(w.get('sport', '')).capitalize()} is in about an hour.\n\n"
                              "DM us \"WHALE\" now 🔒", "#DiamondWhale #GamblingTwitter")
         if post:
             social.post_x(text, reply_to=w.get("reply_to"), mirror=False)
@@ -148,7 +149,8 @@ def thread_posts(row, p, conf) -> list[str]:
     opener = writer.hook("Diamond Whale opener: our biggest play of the week, posted as a thread. Story style, "
                          "e.g. 'Spent all week digging into this one. It's not what you'd expect...'",
                          f"Pick: {row['label']} ({row['price_american']}), {row['away']} at {row['home']}, {when}.\n"
-                         f"Our angle: {a.get('angle', '')}\nFacts: " + "; ".join(a.get("reasons", [])[:3]), limit=200)
+                         f"Our angle: {a.get('angle', '')}\nFacts: " + "; ".join(a.get("reasons", [])[:3]), limit=200,
+                         sport=row["sport"])
     head = "\n".join(([opener, ""] if opener else []) + [
         f"💎🐋 DIAMOND WHALE · {name}",
         "",
