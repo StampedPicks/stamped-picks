@@ -1,0 +1,23 @@
+date,sport,commence_time,tier,label,units,price_american,result,profit,note
+2026-10-31,americanfootball_ncaaf,2026-10-31T19:30:00Z,premium,Oregon ML / Indiana ML / BYU ML parlay,6.11,-112,win,5.46,manual premium slip
+2026-10-31,mma_mixed_martial_arts,2026-11-01T01:15:00Z,premium,UFC parlay: Durden-Osbourne o1.5 / Nolan-Moicano o1.5 / Smith-Brown o1.5,1,+340,win,3.40,manual premium slip
+2026-10-31,mma_mixed_martial_arts,2026-11-01T01:15:00Z,premium,UFC parlay: Durden-Osbourne o1.5 / Jacobe Smith ML / Tom Nolan ML,1,+324,win,3.24,manual premium slip
+2026-11-01,americanfootball_ncaaf,2026-11-01T03:30:00Z,premium,Fresno St -11.5 (live),1.15,-115,win,1.00,manual premium slip
+2026-11-01,americanfootball_ncaaf,2026-11-01T03:30:00Z,premium,Fresno St -11.5 (live),1.15,-115,win,1.00,manual premium slip
+2026-11-01,americanfootball_ncaaf,2026-11-01T03:30:00Z,premium,Fresno St -14.5 (live),1.15,-115,win,1.00,manual premium slip
+2026-11-01,americanfootball_nfl,2026-11-01T18:00:00Z,premium,Jaguars 1H -9.5 (live),5,-140,win,3.57,manual premium slip
+2026-11-01,americanfootball_nfl,2026-11-01T18:00:00Z,premium,Jaguars team total o27.5 (live),1.1,-110,win,1.00,manual premium slip
+2026-11-01,americanfootball_nfl,2026-11-01T18:00:00Z,premium,Jaguars -0.5 3Q (live),1,+105,win,1.05,manual premium slip
+2026-11-01,americanfootball_nfl,2026-11-01T18:00:00Z,premium,Jaguars -4.5 3Q (live),1.15,-115,win,1.00,manual premium slip
+2026-11-01,americanfootball_nfl,2026-11-01T18:00:00Z,premium,Jaguars SGP: -2.5 / Lawrence 200+ / Keenan Allen 30+,1,+175,win,1.75,manual premium slip
+2026-11-01,americanfootball_nfl,2026-11-01T18:00:00Z,premium,Parlay: Steelers -3.5 / Jaguars ML,2,+128,win,2.56,manual premium slip
+2026-11-01,americanfootball_nfl,2026-11-01T18:00:00Z,premium,Bills/Ravens SGP: Ravens +7.5 / Zay Flowers 70+,2.5,,loss,-2.50,manual premium slip
+2026-11-01,americanfootball_nfl,2026-11-01T21:05:00Z,premium,Parlay: Rams ML / Patriots ML,1.42,-142,win,1.00,manual premium slip
+2026-11-01,americanfootball_nfl,2026-11-01T21:05:00Z,premium,Parlay: Rams -5.5 (bought) / Patriots-Dolphins o41,1,+240,win,2.40,manual premium slip
+2026-11-01,americanfootball_nfl,2026-11-01T21:05:00Z,premium,Rams 1H -3.5,1.15,,loss,-1.15,manual premium slip
+2026-11-01,americanfootball_nfl,2026-11-01T21:05:00Z,premium,Rams SGP: Stafford 200+ / Rams -2.5 / Herbert u1.5 TD,1,,loss,-1.00,manual premium slip
+2026-11-01,americanfootball_nfl,2026-11-02T01:20:00Z,premium,Commanders SGP: +3.5 / Daniels 150+ / McKee 150+ / o30.5,0.75,+140,win,1.05,manual premium slip
+2026-11-01,americanfootball_nfl,2026-11-02T01:20:00Z,premium,Commanders SGP: McKee 150+ / Diggs 30+ / Daniels 200+ pass+rush,2.5,+120,win,3.00,manual premium slip
+2026-11-01,americanfootball_nfl,2026-11-02T01:20:00Z,premium,Commanders 1H ML (live),1,+475,win,4.75,manual premium slip
+2026-11-01,americanfootball_nfl,2026-11-02T01:20:00Z,premium,Commanders -8.5 (live),5,-150,win,3.33,manual premium slip
+2026-11-01,americanfootball_nfl,2026-11-02T01:20:00Z,premium,Eagles team total o23.5 (live),1.15,,loss,-1.15,manual premium slip
