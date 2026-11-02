@@ -19,7 +19,8 @@
     "2": true,
     "3": true,
     "4": true,
-    "15": true
+    "15": true,
+    "16": true
   },
   "closed": {
     "13": true,
@@ -38,14 +39,16 @@
       "q4"
     ],
     "3": [
-      "half"
+      "half",
+      "q4"
     ],
     "4": [
       "half",
       "q4"
     ],
     "15": [
-      "half"
+      "half",
+      "q4"
     ],
     "14": [
       "half",
@@ -53,7 +56,9 @@
     ]
   },
   "announced": [
-    "13"
+    "2",
+    "13",
+    "14"
   ],
   "recapped": [],
   "fightnight": {
@@ -100,7 +105,7 @@
     },
     "americanfootball_nfl|2026-11-01": {
       "main": "2116954157198319678",
-      "last": "2117041798359196011"
+      "last": "2117049340736995606"
     },
     "americanfootball_nfl|2026-11-01|slate": {
       "main": "2116954195970412619",
@@ -112,11 +117,11 @@
     },
     "americanfootball_nfl|2026-11-01|late|side": {
       "main": "2116985359393595856",
-      "last": "2117033475026846115"
+      "last": "2117049319488631071"
     },
     "americanfootball_nfl|2026-11-01|night": {
       "main": "2117032248436261305",
-      "last": "2117032248436261305"
+      "last": "2117049311322341772"
     },
     "americanfootball_nfl|2026-11-01|night|slate": {
       "main": "2117032271119106270",
@@ -266,7 +271,7 @@
       }
     },
     "_last": {
-      "americanfootball_nfl": "2026-11-01T23:51:10Z",
+      "americanfootball_nfl": "2026-11-02T00:20:58Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z"
     }
   },
