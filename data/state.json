@@ -16,7 +16,9 @@
     "card:mma_mixed_martial_arts:2026-11-02": "2026-11-02T01:33:38.122162+00:00",
     "card:boxing_boxing:2026-11-02": "2026-11-02T01:33:38.122162+00:00",
     "recap:2026-11-01": "2026-11-02T04:20:07.989857+00:00",
-    "grade:2026-11-02": "2026-11-02T11:30:00.971748+00:00"
+    "grade:2026-11-02": "2026-11-02T11:30:00.971748+00:00",
+    "card:americanfootball_nfl:2026-11-02:early": "2026-11-02T14:39:01.561296+00:00",
+    "card:americanfootball_nfl:2026-11-02:night": "2026-11-02T14:39:01.561296+00:00"
   },
   "pregame": {
     "13": true,
@@ -141,11 +143,21 @@
     "americanfootball_nfl|2026-11-01|night|slate": {
       "main": "2117032271119106270",
       "last": "2117032271119106270"
+    },
+    "americanfootball_nfl|2026-11-02|night": {
+      "main": "2117265441420939761",
+      "last": "2117265441420939761"
+    },
+    "americanfootball_nfl|2026-11-02|night|slate": {
+      "main": "2117265460307939480",
+      "last": "2117265460307939480"
     }
   },
   "parlays_posted": [
     "2026-11-01",
-    "americanfootball_nfl|2026-11-01|night"
+    "americanfootball_nfl|2026-11-01|night",
+    "americanfootball_nfl|2026-11-02|night",
+    "2026-11-02"
   ],
   "injuries": {
     "2026-11-01": {
@@ -306,6 +318,7 @@
   },
   "extras_posted": [
     "americanfootball_nfl|2026-11-01|late",
-    "americanfootball_nfl|2026-11-01|night"
+    "americanfootball_nfl|2026-11-01|night",
+    "americanfootball_nfl|2026-11-02|night"
   ]
 }
