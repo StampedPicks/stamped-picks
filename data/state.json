@@ -34,7 +34,8 @@
     "3": true,
     "4": true,
     "15": true,
-    "16": true
+    "16": true,
+    "17": true
   },
   "closed": {
     "13": true,
@@ -154,7 +155,7 @@
     },
     "americanfootball_nfl|2026-11-02|night": {
       "main": "2117265441420939761",
-      "last": "2117265441420939761"
+      "last": "2117418399869345816"
     },
     "americanfootball_nfl|2026-11-02|night|slate": {
       "main": "2117265460307939480",
