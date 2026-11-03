@@ -75,7 +75,9 @@
       "half",
       "q4"
     ],
-    "17": []
+    "17": [
+      "half"
+    ]
   },
   "announced": [
     "2",
@@ -158,7 +160,7 @@
     },
     "americanfootball_nfl|2026-11-02|night": {
       "main": "2117265441420939761",
-      "last": "2117418399869345816"
+      "last": "2117457679345963459"
     },
     "americanfootball_nfl|2026-11-02|night|slate": {
       "main": "2117265460307939480",
@@ -322,7 +324,7 @@
       }
     },
     "_last": {
-      "americanfootball_nfl": "2026-11-03T02:31:31Z",
+      "americanfootball_nfl": "2026-11-03T03:23:44Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z"
     },
     "2026-11-02": {}
@@ -342,17 +344,19 @@
     "americanfootball_nfl|2026-11-02|night"
   ],
   "engage": {
-    "last": "2026-11-03T01:46:45Z",
+    "last": "2026-11-03T03:23:44Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
       "2117405604490719690",
-      "2117433235315831157"
+      "2117433235315831157",
+      "2117457658596802882"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Pinning them at the 1 sets the whole tone, and that emotion carries. Keeping it simple: Bears/Seahawks Under 46.5, stamped before the 8:20 kickoff."
+      "Pinning them at the 1 sets the whole tone, and that emotion carries. Keeping it simple: Bears/Seahawks Under 46.5, stamped before the 8:20 kickoff.",
+      "Nice run by Swift, respect. But 20-9 is only 29 combined, so the Over still needs 18 more points. We stamped Under 46.5 (-108) before kickoff and we're staying put. \ud83c\udfc8"
     ],
-    "angle": 1
+    "angle": 2
   }
 }
