@@ -76,7 +76,8 @@
       "q4"
     ],
     "17": [
-      "half"
+      "half",
+      "q4"
     ]
   },
   "announced": [
@@ -160,7 +161,7 @@
     },
     "americanfootball_nfl|2026-11-02|night": {
       "main": "2117265441420939761",
-      "last": "2117457679345963459"
+      "last": "2117471484075454811"
     },
     "americanfootball_nfl|2026-11-02|night|slate": {
       "main": "2117265460307939480",
@@ -324,10 +325,15 @@
       }
     },
     "_last": {
-      "americanfootball_nfl": "2026-11-03T03:23:44Z",
+      "americanfootball_nfl": "2026-11-03T04:18:35Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z"
     },
-    "2026-11-02": {}
+    "2026-11-02": {
+      "leonard williams": {
+        "status": "questionable to return",
+        "post": "2117471519051796880"
+      }
+    }
   },
   "whale_promos": {
     "14": {
