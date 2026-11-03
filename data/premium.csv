@@ -23,3 +23,4 @@ date,sport,commence_time,tier,label,units,price_american,result,profit,note
 2026-11-01,americanfootball_nfl,2026-11-02T01:20:00Z,premium,Eagles team total o23.5 (live),1.15,,loss,-1.15,manual premium slip
 2026-11-02,americanfootball_nfl,2026-11-03T01:15:00Z,premium,Bears -3.5 (live),10,-105,win,9.52,manual premium slip
 2026-11-02,americanfootball_nfl,2026-11-03T01:15:00Z,premium,Bears -12.5 (live),6.86,-130,win,5.28,manual premium slip
+2026-11-02,americanfootball_nfl,2026-11-03T01:15:00Z,premium,Bears +3.5,5,-110,win,4.55,pregame premium play
