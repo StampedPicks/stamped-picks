@@ -26,7 +26,9 @@
     "hype:boxing_boxing:2026-11-03": "2026-11-02T17:29:19.166749+00:00",
     "reminder:boxing_boxing:2026-11-02": "2026-11-02T17:29:19.166749+00:00",
     "whale:basketball_nba:2026-11-02": "2026-11-02T17:29:19.166749+00:00",
-    "card:americanfootball_nfl:2026-11-02:late": "2026-11-02T18:22:08.906228+00:00"
+    "card:americanfootball_nfl:2026-11-02:late": "2026-11-02T18:22:08.906228+00:00",
+    "card:mma_mixed_martial_arts:2026-11-03": "2026-11-03T01:46:45.963404+00:00",
+    "card:boxing_boxing:2026-11-03": "2026-11-03T01:46:45.963404+00:00"
   },
   "pregame": {
     "13": true,
@@ -72,7 +74,8 @@
     "16": [
       "half",
       "q4"
-    ]
+    ],
+    "17": []
   },
   "announced": [
     "2",
@@ -319,7 +322,7 @@
       }
     },
     "_last": {
-      "americanfootball_nfl": "2026-11-02T04:20:07Z",
+      "americanfootball_nfl": "2026-11-03T01:46:45Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z"
     },
     "2026-11-02": {}
@@ -339,12 +342,17 @@
     "americanfootball_nfl|2026-11-02|night"
   ],
   "engage": {
-    "last": "2026-11-02T23:57:49Z",
+    "last": "2026-11-03T01:46:45Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
-      "2117405604490719690"
+      "2117405604490719690",
+      "2117433235315831157"
     ],
-    "me": "1599826577948393491"
+    "me": "1599826577948393491",
+    "recent": [
+      "Pinning them at the 1 sets the whole tone, and that emotion carries. Keeping it simple: Bears/Seahawks Under 46.5, stamped before the 8:20 kickoff."
+    ],
+    "angle": 1
   }
 }
