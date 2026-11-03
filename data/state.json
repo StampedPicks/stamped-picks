@@ -87,11 +87,13 @@
     "13",
     "14",
     "15",
-    "16"
+    "16",
+    "17"
   ],
   "recapped": [
     "americanfootball_nfl|2026-11-01",
-    "americanfootball_nfl|2026-11-01|night"
+    "americanfootball_nfl|2026-11-01|night",
+    "americanfootball_nfl|2026-11-02|night"
   ],
   "fightnight": {
     "600061420": {
@@ -333,7 +335,8 @@
         "status": "questionable to return",
         "post": "2117471519051796880"
       }
-    }
+    },
+    "2026-11-03": {}
   },
   "whale_promos": {
     "14": {
