@@ -230,6 +230,12 @@ def run_daily(api, now, state, post):
     plays = scan(api, now, DAILY_SPORTS, budget=C.SCAN_CREDIT_BUDGET)
     for sp in {p.sport for p in plays}:
         sim.apply(sp, [p for p in plays if p.sport == sp], now)
+    if not plays and C.ALWAYS_PICK:              # never a day without a play: look further ahead (to 36h out)
+        print("[daily] nothing in today's window, widening to the next 36 hours")
+        plays = scan(api, now, DAILY_SPORTS, window=(now + timedelta(minutes=C.EARLIEST_START_MIN),
+                                                     now + timedelta(hours=36)), budget=C.SCAN_CREDIT_BUDGET)
+        for sp in {p.sport for p in plays}:
+            sim.apply(sp, [p for p in plays if p.sport == sp], now)
     plays = analyst.review(None, plays)
     daily, board, tier = choose(plays)
     try:                                          # the weekly $10 -> $1,000 ladder: today's rung
