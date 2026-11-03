@@ -50,6 +50,7 @@ BET_BOOKS = {
     "williamhill_us": "Caesars",
     "betrivers": "BetRivers",
     "fanatics": "Fanatics",
+    "betonlineag": "BetOnline",     # owner bets here; also a pricing book, so its own edge is damped
 }
 
 # ---------------------------------------------------------------- model rules
