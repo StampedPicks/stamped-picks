@@ -70,6 +70,7 @@ MAX_QUOTE_AGE_MIN = 90        # ignore prices a book hasn't refreshed in 90 min
 CLOSE_WINDOW_MIN = 60         # start capturing the closing line this close to game time
 BOARD_SIZE = 5                # how many edges go to the paid members board
 UNIT_MODE = os.getenv("UNIT_MODE", "tiered")   # "tiered" = 1u / 1.5u / 2u by edge, 0.5u on leans. "flat" = always 1u.
+BIG_MAX_UNITS = float(os.getenv("BIG_MAX_UNITS", "5"))   # top size for a big, confirmed edge
 UNIT_DOLLARS = int(os.getenv("UNIT_DOLLARS", "100"))   # posts translate units to dollars at this amount per unit
 
 # ---------------------------------------------------------------- outputs

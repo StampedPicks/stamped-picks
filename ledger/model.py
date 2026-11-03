@@ -263,13 +263,21 @@ def score(pl: Play) -> float:
 
 
 def size(pl: Play, tier: str = "edge") -> float:
-    """Units to bet. Bigger edge = bigger bet, capped at 2u. Leans (thin edges) are half size."""
+    """Units to bet, scaled to the edge. There is always a play, so thin days just bet small:
+      lean (best number on a thin board)        0.5u, or 1u if it still clears FALLBACK_MIN_EV
+      normal edge                               1u, 1.5u from 3.5%
+      big edge (Pinnacle-priced, 2+ books)      2u from 5%, 3u from 6.5%, BIG_MAX_UNITS (5u) from 8%
+    Big sizes need confirmation because one-book or non-Pinnacle "edges" are usually stale lines."""
     if tier == "lean":
         return 1.0 if pl.ev >= C.FALLBACK_MIN_EV else 0.5
     if C.UNIT_MODE != "tiered":
         return 1.0
-    confirmed = pl.has_pinnacle and len(pl.books_with_edge) >= 2   # big edges are often stale lines
-    if pl.ev >= 0.06 and confirmed:
+    confirmed = pl.has_pinnacle and len(pl.books_with_edge) >= 2
+    if confirmed and pl.ev >= 0.08 and pl.n_sources >= 2:
+        return float(C.BIG_MAX_UNITS)
+    if confirmed and pl.ev >= 0.065:
+        return 3.0
+    if confirmed and pl.ev >= 0.05:
         return 2.0
     return 1.5 if pl.ev >= 0.035 else 1.0
 
