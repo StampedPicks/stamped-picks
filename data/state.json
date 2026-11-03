@@ -37,7 +37,8 @@
     "reminder:mma_mixed_martial_arts:2026-11-03": "2026-11-03T17:18:29.318322+00:00",
     "hype:boxing_boxing:2026-11-04": "2026-11-03T17:18:29.318322+00:00",
     "reminder:boxing_boxing:2026-11-03": "2026-11-03T17:18:29.318322+00:00",
-    "card:americanfootball_nfl:2026-11-03:late": "2026-11-03T18:04:43.582604+00:00"
+    "card:americanfootball_nfl:2026-11-03:late": "2026-11-03T18:04:43.582604+00:00",
+    "card:americanfootball_nfl:2026-11-03:night": "2026-11-03T23:21:35.655513+00:00"
   },
   "pregame": {
     "13": true,
@@ -366,7 +367,7 @@
     "americanfootball_nfl|2026-11-02|night"
   ],
   "engage": {
-    "last": "2026-11-03T21:59:24Z",
+    "last": "2026-11-03T23:21:35Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
