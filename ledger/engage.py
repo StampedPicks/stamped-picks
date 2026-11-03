@@ -119,9 +119,56 @@ def facts(row, kind, post_text) -> str:
 
 
 KIND = ("Quote post on someone else's popular post about this {what}. One or two short sentences. Be friendly "
-        "and respectful to the person who posted it: agree, add something, or politely see it differently. Then "
-        "our {thing} in plain words. Sound like a real bettor chatting, not an ad. No @mentions, no links, no "
-        "hashtags, don't say 'DM us', don't mention premium.")
+        "and respectful to the person who posted it. React to what THEY actually said (their specific point, "
+        "number or take), never a generic line that could sit under any post. {angle} Sound like a real bettor "
+        "chatting, not an ad. No @mentions, no links, no hashtags, don't say 'DM us', don't mention premium.{avoid}")
+
+# Each reply takes a different approach, so a run of them never reads like a template. Rotated in order and
+# skipped if the last few replies already used the same one.
+ANGLES = [
+    "Agree with their take and add one specific detail that backs it up, then mention our {thing} in a few words.",
+    "Politely push back on one part of their take with a concrete reason, then give our {thing}.",
+    "Pick out the single detail in their post you find most interesting and build on it. Bring up our {thing} "
+    "only at the end, briefly.",
+    "Ask them a short, genuine question about their take, then add our {thing} as a quick aside.",
+    "Lead with our {thing}, then tie it back to something specific they said.",
+    "Add a matchup or injury angle they didn't mention (only from the facts given), then our {thing}.",
+    "Keep it light and conversational, one sentence that reacts to their post, a second with our {thing}.",
+]
+RECENT = 12                                # how many of our past replies the writer must not echo
+
+
+def _words(t: str) -> list[str]:
+    return re.findall(r"[a-z0-9']+", (t or "").lower())
+
+
+def _grams(t: str, n: int = 3) -> set:
+    w = _words(t)
+    return {tuple(w[i:i + n]) for i in range(max(0, len(w) - n + 1))}
+
+
+def too_similar(text: str, recent: list[str]) -> bool:
+    """True if a draft opens like, or shares too many phrases with, one of our recent replies."""
+    w = _words(text)
+    g = _grams(text)
+    for old in recent:
+        ow = _words(old)
+        if w[:3] and w[:3] == ow[:3]:                 # same three-word opening
+            return True
+        og = _grams(old)
+        if g and og and len(g & og) / len(g | og) > 0.25:
+            return True
+        if _grams(text, 5) & _grams(old, 5):           # any copied five-word phrase
+            return True
+    return False
+
+
+def _avoid(recent: list[str]) -> str:
+    if not recent:
+        return ""
+    shown = "\n".join(f"- {t}" for t in recent[-6:])
+    return ("\n\nOur last few replies are below. Yours must be clearly different: different opening words, "
+            f"different structure, no reused phrases.\n{shown}")
 
 
 def _quote(s, text, tid):
@@ -159,10 +206,21 @@ def run(now, state, post, rows=None):
         if not best:
             continue
         what = social.event_word(row["sport"], 1)
-        text = writer.hook(KIND.format(what=what, thing="pick" if kind == "pick" else "result (we cashed it)"),
-                           facts(row, kind, best.get("text", "")), limit=230, sport=row["sport"])
+        thing = "pick" if kind == "pick" else "result (we cashed it)"
+        recent = st.setdefault("recent", [])
+        text = None
+        for attempt in range(3):                           # up to 3 drafts, each with the next angle
+            i = (st.get("angle", 0) + attempt) % len(ANGLES)
+            draft = writer.hook(KIND.format(what=what, angle=ANGLES[i].format(thing=thing), avoid=_avoid(recent)),
+                                facts(row, kind, best.get("text", "")), limit=230, sport=row["sport"])
+            if draft and not too_similar(draft, recent):
+                text, st["angle"] = draft, i + 1
+                break
+            if draft:
+                print(f"[engage] too close to a recent reply, redrafting: {draft[:80]!r}")
         if not text:
             continue
+        st["recent"] = (recent + [text])[-RECENT:]
         st["done"] = (st["done"] + [best["id"]])[-300:]
         link = f"https://x.com/{best['username']}/status/{best['id']}"
         pid = _quote(s, text, best["id"])
