@@ -43,7 +43,12 @@
     "card:boxing_boxing:2026-11-04": "2026-11-04T01:44:07.695129+00:00",
     "grade:2026-11-04": "2026-11-04T11:37:22.216450+00:00",
     "card:americanfootball_nfl:2026-11-04:early": "2026-11-04T14:38:30.789334+00:00",
-    "daily:2026-11-04": "2026-11-04T16:25:37.108330+00:00"
+    "daily:2026-11-04": "2026-11-04T16:25:37.108330+00:00",
+    "hype:americanfootball_nfl:2026-11-05": "2026-11-04T17:20:40.730681+00:00",
+    "hype:mma_mixed_martial_arts:2026-11-05": "2026-11-04T17:20:40.730681+00:00",
+    "reminder:mma_mixed_martial_arts:2026-11-04": "2026-11-04T17:20:40.730681+00:00",
+    "hype:boxing_boxing:2026-11-05": "2026-11-04T17:20:40.730681+00:00",
+    "reminder:boxing_boxing:2026-11-04": "2026-11-04T17:20:40.730681+00:00"
   },
   "pregame": {
     "13": true,
@@ -386,21 +391,23 @@
     "americanfootball_nfl|2026-11-02|night"
   ],
   "engage": {
-    "last": "2026-11-04T01:44:07Z",
+    "last": "2026-11-04T17:20:40Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
       "2117405604490719690",
       "2117433235315831157",
       "2117457658596802882",
-      "2117582604367016097"
+      "2117582604367016097",
+      "2118027005082087475"
     ],
     "me": "1599826577948393491",
     "recent": [
       "Pinning them at the 1 sets the whole tone, and that emotion carries. Keeping it simple: Bears/Seahawks Under 46.5, stamped before the 8:20 kickoff.",
       "Nice run by Swift, respect. But 20-9 is only 29 combined, so the Over still needs 18 more points. We stamped Under 46.5 (-108) before kickoff and we're staying put. \ud83c\udfc8",
-      "Good breakdown. The number I keep coming back to is whether 10.5 is too many for K-State at home. We say no, so we're on Kansas St -10.5 (-114), stamped before tip-off."
+      "Good breakdown. The number I keep coming back to is whether 10.5 is too many for K-State at home. We say no, so we're on Kansas St -10.5 (-114), stamped before tip-off.",
+      "Arm or stinger, I still want to see him warm up. Do you buy the \"fine tonight\" line? Our play: Nets ML (+147), stamped before tip."
     ],
-    "angle": 3
+    "angle": 4
   }
 }
