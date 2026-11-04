@@ -38,7 +38,7 @@ from ledger.oddsapi import OddsAPI
 
 TZ = ZoneInfo(C.DISPLAY_TZ)
 BOOKS = list(C.PRICING_BOOKS) + list(C.BET_BOOKS)
-DAILY_SPORTS = [s for s in C.SPORTS if s not in C.CARD_SPORTS]
+DAILY_SPORTS = list(getattr(C, "FOCUS_SPORTS", None) or [s for s in C.SPORTS if s not in C.CARD_SPORTS])   # owner: NFL + UFC only for now
 CURRENT_FEED = None      # the live-score feed for this run (set by tick)
 MMA = "mma_mixed_martial_arts"
 NFL = "americanfootball_nfl"
@@ -237,6 +237,11 @@ def run_daily(api, now, state, post):
         for sp in {p.sport for p in plays}:
             sim.apply(sp, [p for p in plays if p.sport == sp], now)
     plays = analyst.review(None, plays)
+    taken = {r["event_id"] for r in store.read(store.LEDGER) if r.get("date") == date_}
+    plays = [p for p in plays if p.event_id not in taken]     # never repeat a game a card already picked today
+    if not plays:                                 # no focus-sport game today: stay quiet, no "no play" post
+        print("[daily] no NFL/UFC games in the window today")
+        return
     daily, board, tier = choose(plays)
     try:                                          # the weekly $10 -> $1,000 ladder: today's rung
         from ledger import ladder
@@ -700,6 +705,8 @@ def tick(api, now, post=True, feed=None):
         store.save_state(state)
         run_daily(api, now, state, post)
     for sport, cfg in C.CARD_SPORTS.items():
+        if sport not in DAILY_SPORTS:             # focus sports only (NFL + UFC)
+            continue
         tomorrow = d + timedelta(days=1)
         if due(state, f"hype:{sport}:{tomorrow}", at(d, cfg["hype"]), now):
             mark(state, f"hype:{sport}:{tomorrow}", now)
@@ -724,6 +731,8 @@ def tick(api, now, post=True, feed=None):
             mark(state, f"reminder:{sport}:{d}", now)
             run_reminder(api, now, state, post, sport, d)
     for sport, (dow, hhmm, hours) in C.WHALE_SCHEDULE.items():     # 💎 Diamond Whale, once a week per sport
+        if sport not in DAILY_SPORTS:             # focus sports only (NFL + UFC)
+            continue
         key = f"whale:{sport}:{d}"
         if d.weekday() == dow and due(state, key, at(d, hhmm), now):
             mark(state, key, now)
