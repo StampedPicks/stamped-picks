@@ -3,7 +3,7 @@
   {
    "week": 1,
    "monday": "2026-11-02",
-   "stack": 10,
+   "stack": 22.3,
    "status": "climbing",
    "rungs": [
     {
@@ -21,7 +21,7 @@
      "kind": "game",
      "date": "2026-11-03",
      "stack": 10,
-     "result": ""
+     "result": "win"
     }
    ]
   }
