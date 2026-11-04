@@ -33,6 +33,7 @@ SPORTS = {
     "mma_mixed_martial_arts": ("UFC/MMA", "🥊"),
     "boxing_boxing": ("Boxing", "🥊"),
 }
+FOCUS_SPORTS = ["americanfootball_nfl", "mma_mixed_martial_arts"]   # owner: only NFL + UFC picks until the NFL model is mastered
 MARKETS = ["h2h", "spreads", "totals"]
 # Sports that only have some markets. Fights are winner-only (moneyline).
 SPORT_MARKETS = {"mma_mixed_martial_arts": ["h2h"], "boxing_boxing": ["h2h"]}
