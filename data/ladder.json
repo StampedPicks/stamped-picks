@@ -22,6 +22,23 @@
      "date": "2026-11-03",
      "stack": 10,
      "result": "win"
+    },
+    {
+     "sport": "basketball_nba",
+     "event_id": "6b33f8632d4dd100cba8453db82213fa",
+     "commence_time": "2026-11-05T00:30:00Z",
+     "home": "Brooklyn Nets",
+     "away": "Charlotte Hornets",
+     "market": "h2h",
+     "side": "Brooklyn Nets",
+     "point": "",
+     "label": "Brooklyn Nets ML",
+     "price": 2.47,
+     "book": "betonlineag",
+     "kind": "game",
+     "date": "2026-11-04",
+     "stack": 22.3,
+     "result": ""
     }
    ]
   }
