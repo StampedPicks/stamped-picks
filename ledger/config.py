@@ -57,7 +57,7 @@ BET_BOOKS = {
 # ---------------------------------------------------------------- model rules
 MIN_EV = float(os.getenv("MIN_EV", "0.015"))            # 1.5% edge to qualify as a full play
 FALLBACK_MIN_EV = float(os.getenv("FALLBACK_MIN_EV", "0.005"))  # used only if nothing clears MIN_EV
-ALWAYS_PICK = os.getenv("ALWAYS_PICK", "false").lower() == "true"   # off: no forced leans (they were the losing picks)
+ALWAYS_PICK = os.getenv("ALWAYS_PICK", "true").lower() == "true"   # owner: never a day without a pick (best play on the board, sized as a lean when no full edge)
 # When nothing clears MIN_EV, the Daily Play and NFL/UFC cards still go out with the best-priced plays on the
 # board, marked as leans and bet smaller. A lean must be within this much of the sharp fair price (-0.02 = the
 # best number on the board is no worse than 2% under fair). Set ALWAYS_PICK=false to go back to "no edge, no bet".
