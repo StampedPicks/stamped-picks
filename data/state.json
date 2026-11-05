@@ -230,147 +230,6 @@
     "2026-11-02"
   ],
   "injuries": {
-    "2026-11-01": {
-      "lamar jackson": {
-        "status": "out",
-        "post": "2116962773448245678"
-      },
-      "jake ferguson": {
-        "status": "questionable to return",
-        "post": "2116962777038569644"
-      },
-      "tyler huntley": {
-        "status": "questionable to return",
-        "post": "2116974711754158320"
-      },
-      "jeremiyah love": {
-        "status": "left game went to medical tent",
-        "post": "2116974716573430028"
-      },
-      "amonra st brown": {
-        "status": "evaluated for concussion back on sideline",
-        "post": "2116974721354826178"
-      },
-      "demetrius knight jr": {
-        "status": "returned",
-        "post": "2116974724999770338"
-      },
-      "_report:basketball_nba:2026-11-01:15": true,
-      "mitchell robinson": {
-        "status": "out",
-        "post": null
-      },
-      "paolo banchero": {
-        "status": "out",
-        "post": null
-      },
-      "jalen suggs": {
-        "status": "out",
-        "post": null
-      },
-      "jonathan isaac": {
-        "status": "out",
-        "post": null
-      },
-      "noah penda": {
-        "status": "out",
-        "post": null
-      },
-      "_report:americanfootball_nfl:2026-11-01:16": true,
-      "derwin james jr": {
-        "status": "out",
-        "post": null
-      },
-      "kayode awosika": {
-        "status": "out",
-        "post": null
-      },
-      "deane leonard": {
-        "status": "out",
-        "post": null
-      },
-      "brenen thompson": {
-        "status": "out",
-        "post": null
-      },
-      "donte jackson": {
-        "status": "gametime decision",
-        "post": null
-      },
-      "rodney shelley": {
-        "status": "gametime decision",
-        "post": null
-      },
-      "ladd mcconkey": {
-        "status": "active returning",
-        "post": null
-      },
-      "tre harris": {
-        "status": "active returning",
-        "post": null
-      },
-      "trent mcduffie": {
-        "status": "gametime decision",
-        "post": null
-      },
-      "coleman shelton": {
-        "status": "gametime decision",
-        "post": null
-      },
-      "colby parkinson": {
-        "status": "gametime decision",
-        "post": null
-      },
-      "jordan whittington": {
-        "status": "gametime decision",
-        "post": null
-      },
-      "joe cardona": {
-        "status": "doubtful",
-        "post": null
-      },
-      "nate landman": {
-        "status": "active returning",
-        "post": null
-      },
-      "_report:icehockey_nhl:2026-11-01:16": true,
-      "travis konecny": {
-        "status": "gametime decision",
-        "post": null
-      },
-      "owen tippett": {
-        "status": "gametime decision",
-        "post": null
-      },
-      "rasmus ristolainen": {
-        "status": "out",
-        "post": null
-      },
-      "nikita grebenkin": {
-        "status": "out",
-        "post": null
-      },
-      "john marino": {
-        "status": "out",
-        "post": null
-      },
-      "michael carcone": {
-        "status": "out",
-        "post": null
-      },
-      "maveric lamoureux": {
-        "status": "out",
-        "post": null
-      },
-      "hunter henry": {
-        "status": "questionable to return",
-        "post": "2117025841704247344"
-      },
-      "saquon barkley": {
-        "status": "returned",
-        "post": "2117109528382550405"
-      }
-    },
     "_last": {
       "americanfootball_nfl": "2026-11-03T04:18:35Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
@@ -389,7 +248,8 @@
         "status": "out",
         "post": "2118170703442710906"
       }
-    }
+    },
+    "2026-11-05": {}
   },
   "whale_promos": {
     "14": {
