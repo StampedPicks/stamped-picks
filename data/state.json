@@ -58,7 +58,8 @@
     "hype:americanfootball_nfl:2026-11-06": "2026-11-05T17:39:55.982340+00:00",
     "hype:mma_mixed_martial_arts:2026-11-06": "2026-11-05T17:39:55.982340+00:00",
     "reminder:mma_mixed_martial_arts:2026-11-05": "2026-11-05T17:39:55.982340+00:00",
-    "card:americanfootball_nfl:2026-11-05:late": "2026-11-05T18:23:03.150759+00:00"
+    "card:americanfootball_nfl:2026-11-05:late": "2026-11-05T18:23:03.150759+00:00",
+    "card:americanfootball_nfl:2026-11-05:night": "2026-11-05T23:14:21.658969+00:00"
   },
   "pregame": {
     "13": true,
@@ -230,13 +231,23 @@
     "daily19": {
       "main": "2118017110580539900",
       "last": "2118170677869986053"
+    },
+    "americanfootball_nfl|2026-11-05|night": {
+      "main": "2118482231844909510",
+      "last": "2118482231844909510"
+    },
+    "americanfootball_nfl|2026-11-05|night|slate": {
+      "main": "2118482247577710921",
+      "last": "2118482247577710921"
     }
   },
   "parlays_posted": [
     "2026-11-01",
     "americanfootball_nfl|2026-11-01|night",
     "americanfootball_nfl|2026-11-02|night",
-    "2026-11-02"
+    "2026-11-02",
+    "americanfootball_nfl|2026-11-05|night",
+    "2026-11-05"
   ],
   "injuries": {
     "_last": {
@@ -272,10 +283,11 @@
   "extras_posted": [
     "americanfootball_nfl|2026-11-01|late",
     "americanfootball_nfl|2026-11-01|night",
-    "americanfootball_nfl|2026-11-02|night"
+    "americanfootball_nfl|2026-11-02|night",
+    "americanfootball_nfl|2026-11-05|night"
   ],
   "engage": {
-    "last": "2026-11-05T03:28:06Z",
+    "last": "2026-11-05T23:14:21Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -287,7 +299,8 @@
       "2118052688198070331",
       "2118104670342393943",
       "2118127348985844149",
-      "2118182732714967326"
+      "2118182732714967326",
+      "2118482440209760598"
     ],
     "me": "1599826577948393491",
     "recent": [
@@ -298,8 +311,9 @@
       "Brooklyn ML at +147 is our free play, stamped before the 7:30 tip. You're right that the lineup and minutes shake out fast, and that's where a plus-money number starts to look interesting.",
       "Over 213.5 is a fair thing to build a card around, I'm not going to argue. We're on a different angle: Brooklyn ML (+147) for the 7:30 tip.",
       "Knueppel's season debut is the headline, but a debut can come with a minutes limit, and I'm not paying Charlotte for the hype. We're on Brooklyn ML (+147), stamped before the ball goes up at 7:30.",
-      "Ten points over Charlotte and you can hear the relief in \"we needed that win.\" Respect to Brooklyn for closing it out. Our Nets ML at +147 cashed too, so we're happy with that one. \ud83c\udfc0"
+      "Ten points over Charlotte and you can hear the relief in \"we needed that win.\" Respect to Brooklyn for closing it out. Our Nets ML at +147 cashed too, so we're happy with that one. \ud83c\udfc0",
+      "Nine offensive coordinators 35 or under is wild. Do you think young play-callers actually change the scheme, or just the name on the sheet? We're on Jaguars/Ravens Under 40 (-112), stamped before the 8:15 kickoff."
     ],
-    "angle": 3
+    "angle": 4
   }
 }
