@@ -50,7 +50,8 @@
     "hype:boxing_boxing:2026-11-05": "2026-11-04T17:20:40.730681+00:00",
     "reminder:boxing_boxing:2026-11-04": "2026-11-04T17:20:40.730681+00:00",
     "card:americanfootball_nfl:2026-11-04:late": "2026-11-04T18:11:33.098212+00:00",
-    "card:americanfootball_nfl:2026-11-04:night": "2026-11-04T23:06:52.109139+00:00"
+    "card:americanfootball_nfl:2026-11-04:night": "2026-11-04T23:06:52.109139+00:00",
+    "card:mma_mixed_martial_arts:2026-11-05": "2026-11-05T01:42:18.560489+00:00"
   },
   "pregame": {
     "13": true,
@@ -107,7 +108,8 @@
     ],
     "18": [
       "half"
-    ]
+    ],
+    "19": []
   },
   "announced": [
     "2",
@@ -369,7 +371,8 @@
     "_last": {
       "americanfootball_nfl": "2026-11-03T04:18:35Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
-      "basketball_ncaab": "2026-11-04T02:29:23Z"
+      "basketball_ncaab": "2026-11-04T02:29:23Z",
+      "basketball_nba": "2026-11-05T01:42:18Z"
     },
     "2026-11-02": {
       "leonard williams": {
@@ -378,7 +381,12 @@
       }
     },
     "2026-11-03": {},
-    "2026-11-04": {}
+    "2026-11-04": {
+      "kon knueppel": {
+        "status": "questionable to return",
+        "post": "2118156969362264554"
+      }
+    }
   },
   "whale_promos": {
     "14": {
@@ -395,7 +403,7 @@
     "americanfootball_nfl|2026-11-02|night"
   ],
   "engage": {
-    "last": "2026-11-04T23:45:32Z",
+    "last": "2026-11-05T01:42:18Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
