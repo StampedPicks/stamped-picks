@@ -137,12 +137,14 @@
     "16",
     "17",
     "18",
-    "19"
+    "19",
+    "20"
   ],
   "recapped": [
     "americanfootball_nfl|2026-11-01",
     "americanfootball_nfl|2026-11-01|night",
-    "americanfootball_nfl|2026-11-02|night"
+    "americanfootball_nfl|2026-11-02|night",
+    "americanfootball_nfl|2026-11-05|night"
   ],
   "fightnight": {
     "600061420": {
@@ -240,7 +242,7 @@
     },
     "americanfootball_nfl|2026-11-05|night": {
       "main": "2118482231844909510",
-      "last": "2118546521251594497"
+      "last": "2118561453116461322"
     },
     "americanfootball_nfl|2026-11-05|night|slate": {
       "main": "2118482247577710921",
