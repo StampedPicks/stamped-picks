@@ -63,7 +63,11 @@
     "card:mma_mixed_martial_arts:2026-11-06": "2026-11-06T01:50:17.907360+00:00",
     "grade:2026-11-06": "2026-11-06T11:29:59.305552+00:00",
     "card:americanfootball_nfl:2026-11-06:early": "2026-11-06T14:32:50.362546+00:00",
-    "daily:2026-11-06": "2026-11-06T16:07:50.969690+00:00"
+    "daily:2026-11-06": "2026-11-06T16:07:50.969690+00:00",
+    "hype:americanfootball_nfl:2026-11-07": "2026-11-06T17:41:38.641720+00:00",
+    "hype:mma_mixed_martial_arts:2026-11-07": "2026-11-06T17:41:38.641720+00:00",
+    "reminder:mma_mixed_martial_arts:2026-11-06": "2026-11-06T17:41:38.641720+00:00",
+    "whale:americanfootball_nfl:2026-11-06": "2026-11-06T17:41:38.641720+00:00"
   },
   "pregame": {
     "13": true,
@@ -329,5 +333,8 @@
       "Twenty-three points on the board with 15 to go, and Baltimore's chasing a 17-point hole. We've got the Under 40 (-112), so this one's been fun to watch from here."
     ],
     "angle": 1
+  },
+  "event_names": {
+    "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker"
   }
 }
