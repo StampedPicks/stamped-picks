@@ -123,7 +123,8 @@
       "half"
     ],
     "20": [
-      "half"
+      "half",
+      "q4"
     ]
   },
   "announced": [
@@ -239,7 +240,7 @@
     },
     "americanfootball_nfl|2026-11-05|night": {
       "main": "2118482231844909510",
-      "last": "2118533794303184974"
+      "last": "2118546521251594497"
     },
     "americanfootball_nfl|2026-11-05|night|slate": {
       "main": "2118482247577710921",
@@ -256,7 +257,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-06T02:39:50Z",
+      "americanfootball_nfl": "2026-11-06T03:30:24Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -292,7 +293,7 @@
     "americanfootball_nfl|2026-11-05|night"
   ],
   "engage": {
-    "last": "2026-11-06T01:50:17Z",
+    "last": "2026-11-06T03:30:24Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -306,7 +307,8 @@
       "2118127348985844149",
       "2118182732714967326",
       "2118482440209760598",
-      "2118521262708293885"
+      "2118521262708293885",
+      "2118545711696425292"
     ],
     "me": "1599826577948393491",
     "recent": [
@@ -319,8 +321,9 @@
       "Knueppel's season debut is the headline, but a debut can come with a minutes limit, and I'm not paying Charlotte for the hype. We're on Brooklyn ML (+147), stamped before the ball goes up at 7:30.",
       "Ten points over Charlotte and you can hear the relief in \"we needed that win.\" Respect to Brooklyn for closing it out. Our Nets ML at +147 cashed too, so we're happy with that one. \ud83c\udfc0",
       "Nine offensive coordinators 35 or under is wild. Do you think young play-callers actually change the scheme, or just the name on the sheet? We're on Jaguars/Ravens Under 40 (-112), stamped before the 8:15 kickoff.",
-      "Heisman on Heisman is a fun headline, but I'm betting the total,"
+      "Heisman on Heisman is a fun headline, but I'm betting the total,",
+      "Twenty-three points on the board with 15 to go, and Baltimore's chasing a 17-point hole. We've got the Under 40 (-112), so this one's been fun to watch from here."
     ],
-    "angle": 6
+    "angle": 1
   }
 }
