@@ -86,7 +86,8 @@
     "daily:2026-11-08": "2026-11-08T16:01:34.427945+00:00",
     "hype:americanfootball_nfl:2026-11-09": "2026-11-08T17:14:16.220674+00:00",
     "hype:mma_mixed_martial_arts:2026-11-09": "2026-11-08T17:14:16.220674+00:00",
-    "reminder:mma_mixed_martial_arts:2026-11-08": "2026-11-08T17:14:16.220674+00:00"
+    "reminder:mma_mixed_martial_arts:2026-11-08": "2026-11-08T17:14:16.220674+00:00",
+    "card:americanfootball_nfl:2026-11-08:late": "2026-11-08T18:19:38.882283+00:00"
   },
   "pregame": {
     "13": true,
@@ -174,7 +175,14 @@
     "23": [
       "half",
       "q4"
-    ]
+    ],
+    "24": [],
+    "25": [],
+    "26": [],
+    "27": [],
+    "28": [],
+    "29": [],
+    "30": []
   },
   "announced": [
     "2",
@@ -367,7 +375,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-08T17:14:16Z",
+      "americanfootball_nfl": "2026-11-08T18:19:38Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -394,7 +402,7 @@
     "americanfootball_nfl|2026-11-08|early"
   ],
   "engage": {
-    "last": "2026-11-08T17:14:16Z",
+    "last": "2026-11-08T18:19:38Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -415,11 +423,11 @@
       "2119088472212537798",
       "2119184313082110005",
       "2119460800842609013",
-      "2119478280239886772"
+      "2119478280239886772",
+      "2119494636947313069"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Over 213.5 is a fair thing to build a card around, I'm not going to argue. We're on a different angle: Brooklyn ML (+147) for the 7:30 tip.",
       "Knueppel's season debut is the headline, but a debut can come with a minutes limit, and I'm not paying Charlotte for the hype. We're on Brooklyn ML (+147), stamped before the ball goes up at 7:30.",
       "Ten points over Charlotte and you can hear the relief in \"we needed that win.\" Respect to Brooklyn for closing it out. Our Nets ML at +147 cashed too, so we're happy with that one. \ud83c\udfc0",
       "Nine offensive coordinators 35 or under is wild. Do you think young play-callers actually change the scheme, or just the name on the sheet? We're on Jaguars/Ravens Under 40 (-112), stamped before the 8:15 kickoff.",
@@ -430,9 +438,10 @@
       "Three crowns and two fire picks, that's a real card. Respect the Suarez call. We're on Gabriella Fernandes ML (+185) over Karine Silva, 7:30 PM ET. Not crowning anyone, just taking the price.",
       "Bruno's been the easy target for years, so the captaincy debate doesn't surprise me. Different sport, same grind for us: Gabriella Fernandes ML (+185) before the 7:30 PM ET first bell.",
       "Love the breakdown. Chase is the headline, but I'd argue Burrow going 18 of 22 with a rushing TD is what's driving that 24-10. We had Bengals -3.5 (+100) stamped before kickoff, so this half was fun.",
-      "Big Fella's on the under 52.5 for $26k while 56% are on the over. Now that's a man who doesn't care what the crowd thinks. We've got Bengals -3.5 (+100) before the 9:30 AM ET kickoff."
+      "Big Fella's on the under 52.5 for $26k while 56% are on the over. Now that's a man who doesn't care what the crowd thinks. We've got Bengals -3.5 (+100) before the 9:30 AM ET kickoff.",
+      "Daniels going three of four is the part I keep coming back to. Do you think they can get Stafford uncomfortable enough to matter? Our free play is Washington Commanders +4.5 (+100) ahead of the 1 PM ET kickoff."
     ],
-    "angle": 3
+    "angle": 4
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker"
