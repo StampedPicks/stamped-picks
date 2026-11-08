@@ -81,7 +81,8 @@
     "card:americanfootball_nfl:2026-11-07:late": "2026-11-07T18:27:39.362214+00:00",
     "card:americanfootball_nfl:2026-11-07:night": "2026-11-07T23:20:46.989668+00:00",
     "card:mma_mixed_martial_arts:2026-11-08": "2026-11-08T01:42:03.061401+00:00",
-    "grade:2026-11-08": "2026-11-08T11:21:33.826228+00:00"
+    "grade:2026-11-08": "2026-11-08T11:21:33.826228+00:00",
+    "card:americanfootball_nfl:2026-11-08:early": "2026-11-08T14:16:55.589683+00:00"
   },
   "pregame": {
     "13": true,
@@ -95,7 +96,8 @@
     "19": true,
     "20": true,
     "21": true,
-    "22": true
+    "22": true,
+    "23": true
   },
   "closed": {
     "13": true,
@@ -105,7 +107,8 @@
     "15": true,
     "18": true,
     "19": true,
-    "21": true
+    "21": true,
+    "23": true
   },
   "live": {
     "13": [
@@ -303,6 +306,26 @@
     "daily22": {
       "main": "2119100446912446750",
       "last": "2119208491936038989"
+    },
+    "americanfootball_nfl|2026-11-08|early": {
+      "main": "2119434771315163152",
+      "last": "2119435848626372837"
+    },
+    "americanfootball_nfl|2026-11-08|early|slate": {
+      "main": "2119434803712024988",
+      "last": "2119434803712024988"
+    },
+    "parlay:2026-11-08-ladder": {
+      "main": "2119434818060763299",
+      "last": "2119434818060763299"
+    },
+    "parlay:2026-11-08-td": {
+      "main": "2119434822703870256",
+      "last": "2119434822703870256"
+    },
+    "parlay:2026-11-08-flyer": {
+      "main": "2119434827170738528",
+      "last": "2119434827170738528"
     }
   },
   "parlays_posted": [
@@ -311,7 +334,9 @@
     "americanfootball_nfl|2026-11-02|night",
     "2026-11-02",
     "americanfootball_nfl|2026-11-05|night",
-    "2026-11-05"
+    "2026-11-05",
+    "americanfootball_nfl|2026-11-08|early",
+    "2026-11-08"
   ],
   "injuries": {
     "_last": {
@@ -338,7 +363,8 @@
     "americanfootball_nfl|2026-11-01|late",
     "americanfootball_nfl|2026-11-01|night",
     "americanfootball_nfl|2026-11-02|night",
-    "americanfootball_nfl|2026-11-05|night"
+    "americanfootball_nfl|2026-11-05|night",
+    "americanfootball_nfl|2026-11-08|early"
   ],
   "engage": {
     "last": "2026-11-07T23:53:49Z",
