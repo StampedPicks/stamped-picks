@@ -176,13 +176,27 @@
       "half",
       "q4"
     ],
-    "24": [],
-    "25": [],
-    "26": [],
-    "27": [],
-    "28": [],
-    "29": [],
-    "30": []
+    "24": [
+      "half"
+    ],
+    "25": [
+      "half"
+    ],
+    "26": [
+      "half"
+    ],
+    "27": [
+      "half"
+    ],
+    "28": [
+      "half"
+    ],
+    "29": [
+      "half"
+    ],
+    "30": [
+      "half"
+    ]
   },
   "announced": [
     "2",
@@ -340,11 +354,11 @@
     },
     "americanfootball_nfl|2026-11-08|early": {
       "main": "2119434771315163152",
-      "last": "2119487104073842856"
+      "last": "2119517612669280765"
     },
     "americanfootball_nfl|2026-11-08|early|slate": {
       "main": "2119434803712024988",
-      "last": "2119478766959522260"
+      "last": "2119517621171167361"
     },
     "parlay:2026-11-08-ladder": {
       "main": "2119434818060763299",
@@ -375,7 +389,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-08T19:09:31Z",
+      "americanfootball_nfl": "2026-11-08T19:49:11Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -387,6 +401,10 @@
       "jaylen waddle": {
         "status": "questionable to return",
         "post": "2119507671732597219"
+      },
+      "patrick mahomes": {
+        "status": "returned",
+        "post": "2119517655480569883"
       }
     }
   },
@@ -407,7 +425,7 @@
     "americanfootball_nfl|2026-11-08|early"
   ],
   "engage": {
-    "last": "2026-11-08T18:19:38Z",
+    "last": "2026-11-08T19:49:11Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -429,11 +447,11 @@
       "2119184313082110005",
       "2119460800842609013",
       "2119478280239886772",
-      "2119494636947313069"
+      "2119494636947313069",
+      "2119517248058712328"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Knueppel's season debut is the headline, but a debut can come with a minutes limit, and I'm not paying Charlotte for the hype. We're on Brooklyn ML (+147), stamped before the ball goes up at 7:30.",
       "Ten points over Charlotte and you can hear the relief in \"we needed that win.\" Respect to Brooklyn for closing it out. Our Nets ML at +147 cashed too, so we're happy with that one. \ud83c\udfc0",
       "Nine offensive coordinators 35 or under is wild. Do you think young play-callers actually change the scheme, or just the name on the sheet? We're on Jaguars/Ravens Under 40 (-112), stamped before the 8:15 kickoff.",
       "Heisman on Heisman is a fun headline, but I'm betting the total,",
@@ -444,9 +462,10 @@
       "Bruno's been the easy target for years, so the captaincy debate doesn't surprise me. Different sport, same grind for us: Gabriella Fernandes ML (+185) before the 7:30 PM ET first bell.",
       "Love the breakdown. Chase is the headline, but I'd argue Burrow going 18 of 22 with a rushing TD is what's driving that 24-10. We had Bengals -3.5 (+100) stamped before kickoff, so this half was fun.",
       "Big Fella's on the under 52.5 for $26k while 56% are on the over. Now that's a man who doesn't care what the crowd thinks. We've got Bengals -3.5 (+100) before the 9:30 AM ET kickoff.",
-      "Daniels going three of four is the part I keep coming back to. Do you think they can get Stafford uncomfortable enough to matter? Our free play is Washington Commanders +4.5 (+100) ahead of the 1 PM ET kickoff."
+      "Daniels going three of four is the part I keep coming back to. Do you think they can get Stafford uncomfortable enough to matter? Our free play is Washington Commanders +4.5 (+100) ahead of the 1 PM ET kickoff.",
+      "Eight carries for 53 yards and a short TD for Corum, that's a real day. Still on Washington +4.5 (+100). Rams up 3 is right where that number wants them."
     ],
-    "angle": 4
+    "angle": 7
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker"
