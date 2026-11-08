@@ -83,7 +83,10 @@
     "card:mma_mixed_martial_arts:2026-11-08": "2026-11-08T01:42:03.061401+00:00",
     "grade:2026-11-08": "2026-11-08T11:21:33.826228+00:00",
     "card:americanfootball_nfl:2026-11-08:early": "2026-11-08T14:16:55.589683+00:00",
-    "daily:2026-11-08": "2026-11-08T16:01:34.427945+00:00"
+    "daily:2026-11-08": "2026-11-08T16:01:34.427945+00:00",
+    "hype:americanfootball_nfl:2026-11-09": "2026-11-08T17:14:16.220674+00:00",
+    "hype:mma_mixed_martial_arts:2026-11-09": "2026-11-08T17:14:16.220674+00:00",
+    "reminder:mma_mixed_martial_arts:2026-11-08": "2026-11-08T17:14:16.220674+00:00"
   },
   "pregame": {
     "13": true,
@@ -98,7 +101,14 @@
     "20": true,
     "21": true,
     "22": true,
-    "23": true
+    "23": true,
+    "24": true,
+    "25": true,
+    "26": true,
+    "27": true,
+    "28": true,
+    "29": true,
+    "30": true
   },
   "closed": {
     "13": true,
@@ -155,7 +165,8 @@
       "q4"
     ],
     "23": [
-      "half"
+      "half",
+      "q4"
     ]
   },
   "announced": [
@@ -313,11 +324,11 @@
     },
     "americanfootball_nfl|2026-11-08|early": {
       "main": "2119434771315163152",
-      "last": "2119469508813328410"
+      "last": "2119478770877001825"
     },
     "americanfootball_nfl|2026-11-08|early|slate": {
       "main": "2119434803712024988",
-      "last": "2119434803712024988"
+      "last": "2119478766959522260"
     },
     "parlay:2026-11-08-ladder": {
       "main": "2119434818060763299",
@@ -348,7 +359,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-08T16:38:02Z",
+      "americanfootball_nfl": "2026-11-08T17:14:16Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -375,7 +386,7 @@
     "americanfootball_nfl|2026-11-08|early"
   ],
   "engage": {
-    "last": "2026-11-08T16:01:34Z",
+    "last": "2026-11-08T17:14:16Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -395,11 +406,11 @@
       "2118751056330977397",
       "2119088472212537798",
       "2119184313082110005",
-      "2119460800842609013"
+      "2119460800842609013",
+      "2119478280239886772"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Brooklyn ML at +147 is our free play, stamped before the 7:30 tip. You're right that the lineup and minutes shake out fast, and that's where a plus-money number starts to look interesting.",
       "Over 213.5 is a fair thing to build a card around, I'm not going to argue. We're on a different angle: Brooklyn ML (+147) for the 7:30 tip.",
       "Knueppel's season debut is the headline, but a debut can come with a minutes limit, and I'm not paying Charlotte for the hype. We're on Brooklyn ML (+147), stamped before the ball goes up at 7:30.",
       "Ten points over Charlotte and you can hear the relief in \"we needed that win.\" Respect to Brooklyn for closing it out. Our Nets ML at +147 cashed too, so we're happy with that one. \ud83c\udfc0",
@@ -410,9 +421,10 @@
       "Tickets on Johnny Walker, money on Tatiana Suarez. Is the public chasing the price or the name? Our free play is Lucas Gabriel ML (+120) before the 9 PM first bell.",
       "Three crowns and two fire picks, that's a real card. Respect the Suarez call. We're on Gabriella Fernandes ML (+185) over Karine Silva, 7:30 PM ET. Not crowning anyone, just taking the price.",
       "Bruno's been the easy target for years, so the captaincy debate doesn't surprise me. Different sport, same grind for us: Gabriella Fernandes ML (+185) before the 7:30 PM ET first bell.",
-      "Love the breakdown. Chase is the headline, but I'd argue Burrow going 18 of 22 with a rushing TD is what's driving that 24-10. We had Bengals -3.5 (+100) stamped before kickoff, so this half was fun."
+      "Love the breakdown. Chase is the headline, but I'd argue Burrow going 18 of 22 with a rushing TD is what's driving that 24-10. We had Bengals -3.5 (+100) stamped before kickoff, so this half was fun.",
+      "Big Fella's on the under 52.5 for $26k while 56% are on the over. Now that's a man who doesn't care what the crowd thinks. We've got Bengals -3.5 (+100) before the 9:30 AM ET kickoff."
     ],
-    "angle": 2
+    "angle": 3
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker"
