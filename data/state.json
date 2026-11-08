@@ -375,7 +375,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-08T18:19:38Z",
+      "americanfootball_nfl": "2026-11-08T19:09:31Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -383,7 +383,12 @@
     "2026-11-05": {},
     "2026-11-06": {},
     "2026-11-07": {},
-    "2026-11-08": {}
+    "2026-11-08": {
+      "jaylen waddle": {
+        "status": "questionable to return",
+        "post": "2119507671732597219"
+      }
+    }
   },
   "whale_promos": {
     "14": {
