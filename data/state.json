@@ -87,7 +87,8 @@
     "hype:americanfootball_nfl:2026-11-09": "2026-11-08T17:14:16.220674+00:00",
     "hype:mma_mixed_martial_arts:2026-11-09": "2026-11-08T17:14:16.220674+00:00",
     "reminder:mma_mixed_martial_arts:2026-11-08": "2026-11-08T17:14:16.220674+00:00",
-    "card:americanfootball_nfl:2026-11-08:late": "2026-11-08T18:19:38.882283+00:00"
+    "card:americanfootball_nfl:2026-11-08:late": "2026-11-08T18:19:38.882283+00:00",
+    "card:americanfootball_nfl:2026-11-08:night": "2026-11-08T23:16:56.670079+00:00"
   },
   "pregame": {
     "13": true,
@@ -205,7 +206,9 @@
       "half",
       "q4"
     ],
-    "31": []
+    "31": [
+      "half"
+    ]
   },
   "announced": [
     "2",
@@ -392,7 +395,15 @@
     },
     "daily31": {
       "main": "2119460831729750260",
-      "last": "2119525657734500752"
+      "last": "2119570771819499909"
+    },
+    "americanfootball_nfl|2026-11-08|night": {
+      "main": "2119570081017692522",
+      "last": "2119570081017692522"
+    },
+    "americanfootball_nfl|2026-11-08|night|slate": {
+      "main": "2119570094758170895",
+      "last": "2119570094758170895"
     }
   },
   "parlays_posted": [
@@ -403,11 +414,12 @@
     "americanfootball_nfl|2026-11-05|night",
     "2026-11-05",
     "americanfootball_nfl|2026-11-08|early",
-    "2026-11-08"
+    "2026-11-08",
+    "americanfootball_nfl|2026-11-08|night"
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-08T22:42:23Z",
+      "americanfootball_nfl": "2026-11-08T23:16:56Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -452,10 +464,11 @@
     "americanfootball_nfl|2026-11-01|night",
     "americanfootball_nfl|2026-11-02|night",
     "americanfootball_nfl|2026-11-05|night",
-    "americanfootball_nfl|2026-11-08|early"
+    "americanfootball_nfl|2026-11-08|early",
+    "americanfootball_nfl|2026-11-08|night"
   ],
   "engage": {
-    "last": "2026-11-08T22:07:39Z",
+    "last": "2026-11-08T23:16:56Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -480,11 +493,11 @@
       "2119494636947313069",
       "2119517248058712328",
       "2119534282721165742",
-      "2119552072093937788"
+      "2119552072093937788",
+      "2119570268725334502"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Heisman on Heisman is a fun headline, but I'm betting the total,",
       "Twenty-three points on the board with 15 to go, and Baltimore's chasing a 17-point hole. We've got the Under 40 (-112), so this one's been fun to watch from here.",
       "Unbeaten sounds scary on a flyer, but +120 on the Brazilian is too good to pass up. Good write-up. Lucas Gabriel ML (+120), stamped before the first bell.",
       "Tickets on Johnny Walker, money on Tatiana Suarez. Is the public chasing the price or the name? Our free play is Lucas Gabriel ML (+120) before the 9 PM first bell.",
@@ -495,9 +508,10 @@
       "Daniels going three of four is the part I keep coming back to. Do you think they can get Stafford uncomfortable enough to matter? Our free play is Washington Commanders +4.5 (+100) ahead of the 1 PM ET kickoff.",
       "Eight carries for 53 yards and a short TD for Corum, that's a real day. Still on Washington +4.5 (+100). Rams up 3 is right where that number wants them.",
       "Zvada's been automatic, no argument there. But 19-8 is an 11-point game in the 4th, not a finished one. We had Eagles +3 (-105) stamped before kickoff, and I'm not panicking on it yet.",
-      "Ten runs with zero successful ones is the stat that jumped out at me. I'm not sure 17 points through the air holds up that long. We've got Patriots -3 (-112) stamped before the 4:25 PM ET kickoff."
+      "Ten runs with zero successful ones is the stat that jumped out at me. I'm not sure 17 points through the air holds up that long. We've got Patriots -3 (-112) stamped before the 4:25 PM ET kickoff.",
+      "Down 10 at the half and you're still feeling good about it? Is that a real edge or just the Patriots being the Patriots? We've got New England -3 (-112), stamped before kickoff, and a 10-point hole at the break doesn't scare me."
     ],
-    "angle": 3
+    "angle": 4
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker"
