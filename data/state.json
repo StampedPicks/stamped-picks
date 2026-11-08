@@ -109,7 +109,8 @@
     "27": true,
     "28": true,
     "29": true,
-    "30": true
+    "30": true,
+    "31": true
   },
   "closed": {
     "13": true,
@@ -177,7 +178,8 @@
       "q4"
     ],
     "24": [
-      "half"
+      "half",
+      "q4"
     ],
     "25": [
       "half"
@@ -189,13 +191,16 @@
       "half"
     ],
     "28": [
-      "half"
+      "half",
+      "q4"
     ],
     "29": [
-      "half"
+      "half",
+      "q4"
     ],
     "30": [
-      "half"
+      "half",
+      "q4"
     ]
   },
   "announced": [
@@ -354,11 +359,11 @@
     },
     "americanfootball_nfl|2026-11-08|early": {
       "main": "2119434771315163152",
-      "last": "2119517612669280765"
+      "last": "2119525661064769917"
     },
     "americanfootball_nfl|2026-11-08|early|slate": {
       "main": "2119434803712024988",
-      "last": "2119517621171167361"
+      "last": "2119525665506554279"
     },
     "parlay:2026-11-08-ladder": {
       "main": "2119434818060763299",
@@ -374,7 +379,7 @@
     },
     "daily31": {
       "main": "2119460831729750260",
-      "last": "2119460844614619475"
+      "last": "2119525657734500752"
     }
   },
   "parlays_posted": [
@@ -389,7 +394,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-08T19:49:11Z",
+      "americanfootball_nfl": "2026-11-08T20:21:05Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -399,12 +404,16 @@
     "2026-11-07": {},
     "2026-11-08": {
       "jaylen waddle": {
-        "status": "questionable to return",
-        "post": "2119507671732597219"
+        "status": "out",
+        "post": "2119525724553941416"
       },
       "patrick mahomes": {
         "status": "returned",
         "post": "2119517655480569883"
+      },
+      "jj mccarthy": {
+        "status": "questionable to return",
+        "post": "2119525720443547975"
       }
     }
   },
