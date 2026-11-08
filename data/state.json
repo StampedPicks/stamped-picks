@@ -82,7 +82,8 @@
     "card:americanfootball_nfl:2026-11-07:night": "2026-11-07T23:20:46.989668+00:00",
     "card:mma_mixed_martial_arts:2026-11-08": "2026-11-08T01:42:03.061401+00:00",
     "grade:2026-11-08": "2026-11-08T11:21:33.826228+00:00",
-    "card:americanfootball_nfl:2026-11-08:early": "2026-11-08T14:16:55.589683+00:00"
+    "card:americanfootball_nfl:2026-11-08:early": "2026-11-08T14:16:55.589683+00:00",
+    "daily:2026-11-08": "2026-11-08T16:01:34.427945+00:00"
   },
   "pregame": {
     "13": true,
@@ -327,6 +328,10 @@
     "parlay:2026-11-08-flyer": {
       "main": "2119434827170738528",
       "last": "2119434827170738528"
+    },
+    "daily31": {
+      "main": "2119460831729750260",
+      "last": "2119460844614619475"
     }
   },
   "parlays_posted": [
@@ -341,7 +346,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-08T15:25:43Z",
+      "americanfootball_nfl": "2026-11-08T16:01:34Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -368,7 +373,7 @@
     "americanfootball_nfl|2026-11-08|early"
   ],
   "engage": {
-    "last": "2026-11-07T23:53:49Z",
+    "last": "2026-11-08T16:01:34Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -387,11 +392,11 @@
       "2118756995998081485",
       "2118751056330977397",
       "2119088472212537798",
-      "2119184313082110005"
+      "2119184313082110005",
+      "2119460800842609013"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Arm or stinger, I still want to see him warm up. Do you buy the \"fine tonight\" line? Our play: Nets ML (+147), stamped before tip.",
       "Brooklyn ML at +147 is our free play, stamped before the 7:30 tip. You're right that the lineup and minutes shake out fast, and that's where a plus-money number starts to look interesting.",
       "Over 213.5 is a fair thing to build a card around, I'm not going to argue. We're on a different angle: Brooklyn ML (+147) for the 7:30 tip.",
       "Knueppel's season debut is the headline, but a debut can come with a minutes limit, and I'm not paying Charlotte for the hype. We're on Brooklyn ML (+147), stamped before the ball goes up at 7:30.",
@@ -402,9 +407,10 @@
       "Unbeaten sounds scary on a flyer, but +120 on the Brazilian is too good to pass up. Good write-up. Lucas Gabriel ML (+120), stamped before the first bell.",
       "Tickets on Johnny Walker, money on Tatiana Suarez. Is the public chasing the price or the name? Our free play is Lucas Gabriel ML (+120) before the 9 PM first bell.",
       "Three crowns and two fire picks, that's a real card. Respect the Suarez call. We're on Gabriella Fernandes ML (+185) over Karine Silva, 7:30 PM ET. Not crowning anyone, just taking the price.",
-      "Bruno's been the easy target for years, so the captaincy debate doesn't surprise me. Different sport, same grind for us: Gabriella Fernandes ML (+185) before the 7:30 PM ET first bell."
+      "Bruno's been the easy target for years, so the captaincy debate doesn't surprise me. Different sport, same grind for us: Gabriella Fernandes ML (+185) before the 7:30 PM ET first bell.",
+      "Love the breakdown. Chase is the headline, but I'd argue Burrow going 18 of 22 with a rushing TD is what's driving that 24-10. We had Bengals -3.5 (+100) stamped before kickoff, so this half was fun."
     ],
-    "angle": 1
+    "angle": 2
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker"
