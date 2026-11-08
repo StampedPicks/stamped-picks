@@ -204,7 +204,8 @@
     "30": [
       "half",
       "q4"
-    ]
+    ],
+    "31": []
   },
   "announced": [
     "2",
@@ -220,13 +221,18 @@
     "20",
     "22",
     "23",
+    "24",
+    "25",
+    "26",
+    "28",
     "30"
   ],
   "recapped": [
     "americanfootball_nfl|2026-11-01",
     "americanfootball_nfl|2026-11-01|night",
     "americanfootball_nfl|2026-11-02|night",
-    "americanfootball_nfl|2026-11-05|night"
+    "americanfootball_nfl|2026-11-05|night",
+    "americanfootball_nfl|2026-11-08|early"
   ],
   "fightnight": {
     "600061420": {
@@ -363,11 +369,11 @@
     },
     "americanfootball_nfl|2026-11-08|early": {
       "main": "2119434771315163152",
-      "last": "2119525661064769917"
+      "last": "2119542727775822223"
     },
     "americanfootball_nfl|2026-11-08|early|slate": {
       "main": "2119434803712024988",
-      "last": "2119534841586757946"
+      "last": "2119542781022482497"
     },
     "parlay:2026-11-08-ladder": {
       "main": "2119434818060763299",
@@ -398,7 +404,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-08T20:57:33Z",
+      "americanfootball_nfl": "2026-11-08T21:28:55Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
