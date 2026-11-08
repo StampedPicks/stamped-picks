@@ -224,7 +224,9 @@
     "24",
     "25",
     "26",
+    "27",
     "28",
+    "29",
     "30"
   ],
   "recapped": [
@@ -232,7 +234,8 @@
     "americanfootball_nfl|2026-11-01|night",
     "americanfootball_nfl|2026-11-02|night",
     "americanfootball_nfl|2026-11-05|night",
-    "americanfootball_nfl|2026-11-08|early"
+    "americanfootball_nfl|2026-11-08|early",
+    "americanfootball_nfl|2026-11-08|early|slate"
   ],
   "fightnight": {
     "600061420": {
@@ -373,7 +376,7 @@
     },
     "americanfootball_nfl|2026-11-08|early|slate": {
       "main": "2119434803712024988",
-      "last": "2119542781022482497"
+      "last": "2119552495022182684"
     },
     "parlay:2026-11-08-ladder": {
       "main": "2119434818060763299",
@@ -404,7 +407,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-08T21:28:55Z",
+      "americanfootball_nfl": "2026-11-08T22:07:39Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -428,6 +431,10 @@
       "jake ferguson": {
         "status": "questionable to return",
         "post": "2119534889779237242"
+      },
+      "josh jacobs": {
+        "status": "questionable to return",
+        "post": "2119552537443348494"
       }
     }
   },
@@ -448,7 +455,7 @@
     "americanfootball_nfl|2026-11-08|early"
   ],
   "engage": {
-    "last": "2026-11-08T20:57:33Z",
+    "last": "2026-11-08T22:07:39Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -472,11 +479,11 @@
       "2119478280239886772",
       "2119494636947313069",
       "2119517248058712328",
-      "2119534282721165742"
+      "2119534282721165742",
+      "2119552072093937788"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Nine offensive coordinators 35 or under is wild. Do you think young play-callers actually change the scheme, or just the name on the sheet? We're on Jaguars/Ravens Under 40 (-112), stamped before the 8:15 kickoff.",
       "Heisman on Heisman is a fun headline, but I'm betting the total,",
       "Twenty-three points on the board with 15 to go, and Baltimore's chasing a 17-point hole. We've got the Under 40 (-112), so this one's been fun to watch from here.",
       "Unbeaten sounds scary on a flyer, but +120 on the Brazilian is too good to pass up. Good write-up. Lucas Gabriel ML (+120), stamped before the first bell.",
@@ -487,9 +494,10 @@
       "Big Fella's on the under 52.5 for $26k while 56% are on the over. Now that's a man who doesn't care what the crowd thinks. We've got Bengals -3.5 (+100) before the 9:30 AM ET kickoff.",
       "Daniels going three of four is the part I keep coming back to. Do you think they can get Stafford uncomfortable enough to matter? Our free play is Washington Commanders +4.5 (+100) ahead of the 1 PM ET kickoff.",
       "Eight carries for 53 yards and a short TD for Corum, that's a real day. Still on Washington +4.5 (+100). Rams up 3 is right where that number wants them.",
-      "Zvada's been automatic, no argument there. But 19-8 is an 11-point game in the 4th, not a finished one. We had Eagles +3 (-105) stamped before kickoff, and I'm not panicking on it yet."
+      "Zvada's been automatic, no argument there. But 19-8 is an 11-point game in the 4th, not a finished one. We had Eagles +3 (-105) stamped before kickoff, and I'm not panicking on it yet.",
+      "Ten runs with zero successful ones is the stat that jumped out at me. I'm not sure 17 points through the air holds up that long. We've got Patriots -3 (-112) stamped before the 4:25 PM ET kickoff."
     ],
-    "angle": 2
+    "angle": 3
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker"
