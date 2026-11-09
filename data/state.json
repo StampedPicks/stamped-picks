@@ -88,7 +88,8 @@
     "hype:mma_mixed_martial_arts:2026-11-09": "2026-11-08T17:14:16.220674+00:00",
     "reminder:mma_mixed_martial_arts:2026-11-08": "2026-11-08T17:14:16.220674+00:00",
     "card:americanfootball_nfl:2026-11-08:late": "2026-11-08T18:19:38.882283+00:00",
-    "card:americanfootball_nfl:2026-11-08:night": "2026-11-08T23:16:56.670079+00:00"
+    "card:americanfootball_nfl:2026-11-08:night": "2026-11-08T23:16:56.670079+00:00",
+    "card:mma_mixed_martial_arts:2026-11-09": "2026-11-09T01:43:13.630762+00:00"
   },
   "pregame": {
     "13": true,
@@ -210,7 +211,8 @@
     "31": [
       "half",
       "q4"
-    ]
+    ],
+    "32": []
   },
   "announced": [
     "2",
@@ -232,7 +234,8 @@
     "27",
     "28",
     "29",
-    "30"
+    "30",
+    "31"
   ],
   "recapped": [
     "americanfootball_nfl|2026-11-01",
@@ -421,7 +424,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-09T00:26:39Z",
+      "americanfootball_nfl": "2026-11-09T01:43:13Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -470,7 +473,7 @@
     "americanfootball_nfl|2026-11-08|night"
   ],
   "engage": {
-    "last": "2026-11-09T00:26:39Z",
+    "last": "2026-11-09T01:43:13Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -497,11 +500,11 @@
       "2119534282721165742",
       "2119552072093937788",
       "2119570268725334502",
-      "2119587461764390942"
+      "2119587461764390942",
+      "2119606418705633372"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Unbeaten sounds scary on a flyer, but +120 on the Brazilian is too good to pass up. Good write-up. Lucas Gabriel ML (+120), stamped before the first bell.",
       "Tickets on Johnny Walker, money on Tatiana Suarez. Is the public chasing the price or the name? Our free play is Lucas Gabriel ML (+120) before the 9 PM first bell.",
       "Three crowns and two fire picks, that's a real card. Respect the Suarez call. We're on Gabriella Fernandes ML (+185) over Karine Silva, 7:30 PM ET. Not crowning anyone, just taking the price.",
       "Bruno's been the easy target for years, so the captaincy debate doesn't surprise me. Different sport, same grind for us: Gabriella Fernandes ML (+185) before the 7:30 PM ET first bell.",
@@ -512,9 +515,10 @@
       "Zvada's been automatic, no argument there. But 19-8 is an 11-point game in the 4th, not a finished one. We had Eagles +3 (-105) stamped before kickoff, and I'm not panicking on it yet.",
       "Ten runs with zero successful ones is the stat that jumped out at me. I'm not sure 17 points through the air holds up that long. We've got Patriots -3 (-112) stamped before the 4:25 PM ET kickoff.",
       "Down 10 at the half and you're still feeling good about it? Is that a real edge or just the Patriots being the Patriots? We've got New England -3 (-112), stamped before kickoff, and a 10-point hole at the break doesn't scare me.",
-      "Chicago's pass rush is a fair thing to lean on, but we're taking Tampa Bay +6 (-102), stamped before the 8:20 PM ET kickoff. Six is a big number to give up when the Bucs can hang around."
+      "Chicago's pass rush is a fair thing to lean on, but we're taking Tampa Bay +6 (-102), stamped before the 8:20 PM ET kickoff. Six is a big number to give up when the Bucs can hang around.",
+      "Respect to Noah Eagle. South Bend one night, Chicago the next is a wild turnaround, and he's calling a primetime game on top of it. Me, I'm just sitting on Bucs +6 (-102) tonight. \ud83c\udfc8"
     ],
-    "angle": 5
+    "angle": 1
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker"
