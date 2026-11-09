@@ -212,7 +212,9 @@
       "half",
       "q4"
     ],
-    "32": []
+    "32": [
+      "half"
+    ]
   },
   "announced": [
     "2",
@@ -404,7 +406,7 @@
     },
     "americanfootball_nfl|2026-11-08|night": {
       "main": "2119570081017692522",
-      "last": "2119587458740613577"
+      "last": "2119633274540544262"
     },
     "americanfootball_nfl|2026-11-08|night|slate": {
       "main": "2119570094758170895",
@@ -424,7 +426,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-09T02:37:06Z",
+      "americanfootball_nfl": "2026-11-09T03:28:47Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -452,6 +454,10 @@
       "josh jacobs": {
         "status": "questionable to return",
         "post": "2119552537443348494"
+      },
+      "antoine winfield jr": {
+        "status": "questionable to return",
+        "post": "2119633310972326360"
       }
     }
   },
@@ -473,7 +479,7 @@
     "americanfootball_nfl|2026-11-08|night"
   ],
   "engage": {
-    "last": "2026-11-09T01:43:13Z",
+    "last": "2026-11-09T03:28:47Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -501,11 +507,11 @@
       "2119552072093937788",
       "2119570268725334502",
       "2119587461764390942",
-      "2119606418705633372"
+      "2119606418705633372",
+      "2119633010001612858"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Tickets on Johnny Walker, money on Tatiana Suarez. Is the public chasing the price or the name? Our free play is Lucas Gabriel ML (+120) before the 9 PM first bell.",
       "Three crowns and two fire picks, that's a real card. Respect the Suarez call. We're on Gabriella Fernandes ML (+185) over Karine Silva, 7:30 PM ET. Not crowning anyone, just taking the price.",
       "Bruno's been the easy target for years, so the captaincy debate doesn't surprise me. Different sport, same grind for us: Gabriella Fernandes ML (+185) before the 7:30 PM ET first bell.",
       "Love the breakdown. Chase is the headline, but I'd argue Burrow going 18 of 22 with a rushing TD is what's driving that 24-10. We had Bengals -3.5 (+100) stamped before kickoff, so this half was fun.",
@@ -516,9 +522,10 @@
       "Ten runs with zero successful ones is the stat that jumped out at me. I'm not sure 17 points through the air holds up that long. We've got Patriots -3 (-112) stamped before the 4:25 PM ET kickoff.",
       "Down 10 at the half and you're still feeling good about it? Is that a real edge or just the Patriots being the Patriots? We've got New England -3 (-112), stamped before kickoff, and a 10-point hole at the break doesn't scare me.",
       "Chicago's pass rush is a fair thing to lean on, but we're taking Tampa Bay +6 (-102), stamped before the 8:20 PM ET kickoff. Six is a big number to give up when the Bucs can hang around.",
-      "Respect to Noah Eagle. South Bend one night, Chicago the next is a wild turnaround, and he's calling a primetime game on top of it. Me, I'm just sitting on Bucs +6 (-102) tonight. \ud83c\udfc8"
+      "Respect to Noah Eagle. South Bend one night, Chicago the next is a wild turnaround, and he's calling a primetime game on top of it. Me, I'm just sitting on Bucs +6 (-102) tonight. \ud83c\udfc8",
+      "Goodwill employees is a great line. If Chicago's secondary is that leaky, why's Tampa still getting six? Real question: do you trust the deep ball more than the Bucs' short game? We've got Bucs +6 (-102) stamped."
     ],
-    "angle": 1
+    "angle": 4
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker"
