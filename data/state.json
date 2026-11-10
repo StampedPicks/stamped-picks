@@ -255,7 +255,8 @@
     "29",
     "30",
     "31",
-    "32"
+    "32",
+    "33"
   ],
   "recapped": [
     "americanfootball_nfl|2026-11-01",
@@ -264,7 +265,8 @@
     "americanfootball_nfl|2026-11-05|night",
     "americanfootball_nfl|2026-11-08|early",
     "americanfootball_nfl|2026-11-08|early|slate",
-    "americanfootball_nfl|2026-11-08|night"
+    "americanfootball_nfl|2026-11-08|night",
+    "americanfootball_nfl|2026-11-09|night"
   ],
   "fightnight": {
     "600061420": {
@@ -433,7 +435,7 @@
     },
     "americanfootball_nfl|2026-11-09|night": {
       "main": "2119804661419180082",
-      "last": "2120008891790672038"
+      "last": "2120023209818882247"
     },
     "americanfootball_nfl|2026-11-09|night|slate": {
       "main": "2119804674979319859",
@@ -460,7 +462,6 @@
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
     },
-    "2026-11-06": {},
     "2026-11-07": {},
     "2026-11-08": {
       "jaylen waddle": {
@@ -493,7 +494,8 @@
         "status": "returned",
         "post": "2119995066668474826"
       }
-    }
+    },
+    "2026-11-10": {}
   },
   "whale_promos": {
     "14": {
