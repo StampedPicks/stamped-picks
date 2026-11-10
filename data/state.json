@@ -228,7 +228,9 @@
       "half",
       "q4"
     ],
-    "33": []
+    "33": [
+      "half"
+    ]
   },
   "announced": [
     "2",
@@ -430,7 +432,7 @@
     },
     "americanfootball_nfl|2026-11-09|night": {
       "main": "2119804661419180082",
-      "last": "2119942952403313098"
+      "last": "2119995036549173719"
     },
     "americanfootball_nfl|2026-11-09|night|slate": {
       "main": "2119804674979319859",
@@ -452,7 +454,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-10T02:37:20Z",
+      "americanfootball_nfl": "2026-11-10T03:26:17Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -485,7 +487,12 @@
         "post": "2119649727390048687"
       }
     },
-    "2026-11-09": {}
+    "2026-11-09": {
+      "christian benford": {
+        "status": "returned",
+        "post": "2119995066668474826"
+      }
+    }
   },
   "whale_promos": {
     "14": {
@@ -506,7 +513,7 @@
     "americanfootball_nfl|2026-11-09|night"
   ],
   "engage": {
-    "last": "2026-11-10T01:52:29Z",
+    "last": "2026-11-10T03:26:17Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
