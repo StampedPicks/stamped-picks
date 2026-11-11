@@ -41,6 +41,13 @@
      "result": "win"
     }
    ]
+  },
+  {
+   "week": 2,
+   "monday": "2026-11-09",
+   "stack": 10.0,
+   "status": "climbing",
+   "rungs": []
   }
  ]
 }
