@@ -484,32 +484,6 @@
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
     },
-    "2026-11-08": {
-      "jaylen waddle": {
-        "status": "out",
-        "post": "2119525724553941416"
-      },
-      "patrick mahomes": {
-        "status": "returned",
-        "post": "2119517655480569883"
-      },
-      "jj mccarthy": {
-        "status": "questionable to return",
-        "post": "2119525720443547975"
-      },
-      "jake ferguson": {
-        "status": "questionable to return",
-        "post": "2119534889779237242"
-      },
-      "josh jacobs": {
-        "status": "questionable to return",
-        "post": "2119552537443348494"
-      },
-      "antoine winfield jr": {
-        "status": "out",
-        "post": "2119649727390048687"
-      }
-    },
     "2026-11-09": {
       "christian benford": {
         "status": "returned",
@@ -517,7 +491,8 @@
       }
     },
     "2026-11-10": {},
-    "2026-11-11": {}
+    "2026-11-11": {},
+    "2026-11-12": {}
   },
   "whale_promos": {
     "14": {
