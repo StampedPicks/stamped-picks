@@ -129,7 +129,11 @@
     "card:mma_mixed_martial_arts:2026-11-13": "2026-11-13T01:53:21.350486+00:00",
     "grade:2026-11-13": "2026-11-13T11:32:40.260311+00:00",
     "card:americanfootball_nfl:2026-11-13:early": "2026-11-13T14:36:27.454886+00:00",
-    "daily:2026-11-13": "2026-11-13T16:16:09.564496+00:00"
+    "daily:2026-11-13": "2026-11-13T16:16:09.564496+00:00",
+    "hype:americanfootball_nfl:2026-11-14": "2026-11-13T17:13:57.011175+00:00",
+    "hype:mma_mixed_martial_arts:2026-11-14": "2026-11-13T17:13:57.011175+00:00",
+    "reminder:mma_mixed_martial_arts:2026-11-13": "2026-11-13T17:13:57.011175+00:00",
+    "whale:americanfootball_nfl:2026-11-13": "2026-11-13T17:13:57.011175+00:00"
   },
   "pregame": {
     "13": true,
@@ -598,6 +602,7 @@
     "angle": 1
   },
   "event_names": {
-    "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker"
+    "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
+    "2026-11-14": "UFC 334: Gane vs. Hokit"
   }
 }
