@@ -139,7 +139,8 @@
     "card:americanfootball_nfl:2026-11-13:night": "2026-11-13T23:25:58.533091+00:00",
     "card:mma_mixed_martial_arts:2026-11-14": "2026-11-14T01:51:51.935847+00:00",
     "grade:2026-11-14": "2026-11-14T11:23:24.009181+00:00",
-    "card:americanfootball_nfl:2026-11-14:early": "2026-11-14T14:23:32.816878+00:00"
+    "card:americanfootball_nfl:2026-11-14:early": "2026-11-14T14:23:32.816878+00:00",
+    "daily:2026-11-14": "2026-11-14T16:18:02.250481+00:00"
   },
   "pregame": {
     "13": true,
@@ -510,6 +511,10 @@
     "mma_mixed_martial_arts|2026-11-14": {
       "main": "2121421693679743185",
       "last": "2121421693679743185"
+    },
+    "daily38": {
+      "main": "2121639093008322789",
+      "last": "2121639104739672384"
     }
   },
   "parlays_posted": [
@@ -561,7 +566,7 @@
     "americanfootball_nfl|2026-11-09|night"
   ],
   "engage": {
-    "last": "2026-11-13T04:28:18Z",
+    "last": "2026-11-14T16:18:02Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -594,11 +599,11 @@
       "2119649670008029392",
       "2119901592644399354",
       "2120960309078687866",
-      "2121097685474169009"
+      "2121097685474169009",
+      "2121625982453039573"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Daniels going three of four is the part I keep coming back to. Do you think they can get Stafford uncomfortable enough to matter? Our free play is Washington Commanders +4.5 (+100) ahead of the 1 PM ET kickoff.",
       "Eight carries for 53 yards and a short TD for Corum, that's a real day. Still on Washington +4.5 (+100). Rams up 3 is right where that number wants them.",
       "Zvada's been automatic, no argument there. But 19-8 is an 11-point game in the 4th, not a finished one. We had Eagles +3 (-105) stamped before kickoff, and I'm not panicking on it yet.",
       "Ten runs with zero successful ones is the stat that jumped out at me. I'm not sure 17 points through the air holds up that long. We've got Patriots -3 (-112) stamped before the 4:25 PM ET kickoff.",
@@ -609,9 +614,10 @@
       "Tampa +6 (-102) is our play, and that 3rd & 4 is exactly why. If Chicago can't convert, the Bucs get the ball back with time to get into FG range.",
       "A +1179 SGP is a fun ticket to chase, but I'd rather keep it simple. We've got Bills ML (-175), stamped before the 8:15 PM ET kickoff in Minnesota. Fewer legs, fewer ways to lose.",
       "Week 5 ending in a tie is a brutal way to finish a game. I'm not chasing a winner tonight, though. Commanders/Giants Under 41.5 (-115) is our free play.",
-      "Hard to argue with a 24-21 final for Washington. Our Commanders ML (+115) cashed, so I'm not complaining about the three points."
+      "Hard to argue with a 24-21 final for Washington. Our Commanders ML (+115) cashed, so I'm not complaining about the three points.",
+      "Love the Savicheva ticket, but I'd keep Pergande off that parlay. Stacking him on a -350 leg means both legs have to hit. We've got Akhmed Magomed"
     ],
-    "angle": 1
+    "angle": 2
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
