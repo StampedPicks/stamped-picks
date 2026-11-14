@@ -140,7 +140,10 @@
     "card:mma_mixed_martial_arts:2026-11-14": "2026-11-14T01:51:51.935847+00:00",
     "grade:2026-11-14": "2026-11-14T11:23:24.009181+00:00",
     "card:americanfootball_nfl:2026-11-14:early": "2026-11-14T14:23:32.816878+00:00",
-    "daily:2026-11-14": "2026-11-14T16:18:02.250481+00:00"
+    "daily:2026-11-14": "2026-11-14T16:18:02.250481+00:00",
+    "hype:americanfootball_nfl:2026-11-15": "2026-11-14T17:29:50.411834+00:00",
+    "hype:mma_mixed_martial_arts:2026-11-15": "2026-11-14T17:29:50.411834+00:00",
+    "reminder:mma_mixed_martial_arts:2026-11-14": "2026-11-14T17:29:50.411834+00:00"
   },
   "pregame": {
     "13": true,
@@ -510,7 +513,7 @@
     },
     "mma_mixed_martial_arts|2026-11-14": {
       "main": "2121421693679743185",
-      "last": "2121421693679743185"
+      "last": "2121656884017168539"
     },
     "daily38": {
       "main": "2121639093008322789",
@@ -566,7 +569,7 @@
     "americanfootball_nfl|2026-11-09|night"
   ],
   "engage": {
-    "last": "2026-11-14T16:18:02Z",
+    "last": "2026-11-14T17:29:50Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -600,11 +603,11 @@
       "2119901592644399354",
       "2120960309078687866",
       "2121097685474169009",
-      "2121625982453039573"
+      "2121625982453039573",
+      "2121648102155108366"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Eight carries for 53 yards and a short TD for Corum, that's a real day. Still on Washington +4.5 (+100). Rams up 3 is right where that number wants them.",
       "Zvada's been automatic, no argument there. But 19-8 is an 11-point game in the 4th, not a finished one. We had Eagles +3 (-105) stamped before kickoff, and I'm not panicking on it yet.",
       "Ten runs with zero successful ones is the stat that jumped out at me. I'm not sure 17 points through the air holds up that long. We've got Patriots -3 (-112) stamped before the 4:25 PM ET kickoff.",
       "Down 10 at the half and you're still feeling good about it? Is that a real edge or just the Patriots being the Patriots? We've got New England -3 (-112), stamped before kickoff, and a 10-point hole at the break doesn't scare me.",
@@ -615,9 +618,10 @@
       "A +1179 SGP is a fun ticket to chase, but I'd rather keep it simple. We've got Bills ML (-175), stamped before the 8:15 PM ET kickoff in Minnesota. Fewer legs, fewer ways to lose.",
       "Week 5 ending in a tie is a brutal way to finish a game. I'm not chasing a winner tonight, though. Commanders/Giants Under 41.5 (-115) is our free play.",
       "Hard to argue with a 24-21 final for Washington. Our Commanders ML (+115) cashed, so I'm not complaining about the three points.",
-      "Love the Savicheva ticket, but I'd keep Pergande off that parlay. Stacking him on a -350 leg means both legs have to hit. We've got Akhmed Magomed"
+      "Love the Savicheva ticket, but I'd keep Pergande off that parlay. Stacking him on a -350 leg means both legs have to hit. We've got Akhmed Magomed",
+      "Honestly, that 30-27 card for Magomedov is the number I keep coming back to. Judges see things differently than the eye test. We've got Akhmed Magomedov ML (+160) stamped before the first bell."
     ],
-    "angle": 2
+    "angle": 3
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
