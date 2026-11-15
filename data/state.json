@@ -190,7 +190,8 @@
     "43": true,
     "44": true,
     "45": true,
-    "46": true
+    "46": true,
+    "47": true
   },
   "closed": {
     "13": true,
@@ -324,16 +325,19 @@
       "half"
     ],
     "41": [
-      "half"
+      "half",
+      "q4"
     ],
     "42": [
       "half"
     ],
     "43": [
-      "half"
+      "half",
+      "q4"
     ],
     "44": [
-      "half"
+      "half",
+      "q4"
     ],
     "45": [
       "half"
@@ -605,7 +609,7 @@
     },
     "americanfootball_nfl|2026-11-15|early|slate": {
       "main": "2121973839987126439",
-      "last": "2122053117361750406"
+      "last": "2122062272054923523"
     },
     "parlay:2026-11-15-ladder": {
       "main": "2121973854172282941",
@@ -621,7 +625,7 @@
     },
     "daily47": {
       "main": "2122003119706083517",
-      "last": "2122003133979402537"
+      "last": "2122062267164332295"
     }
   },
   "parlays_posted": [
@@ -641,7 +645,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-15T19:44:20Z",
+      "americanfootball_nfl": "2026-11-15T20:20:38Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -670,6 +674,10 @@
       "travis kelce": {
         "status": "returned",
         "post": "2122053159292223866"
+      },
+      "geno smith": {
+        "status": "returned",
+        "post": "2122062313398128772"
       }
     }
   },
@@ -693,7 +701,7 @@
     "americanfootball_nfl|2026-11-15|early"
   ],
   "engage": {
-    "last": "2026-11-15T19:03:25Z",
+    "last": "2026-11-15T20:20:38Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -735,11 +743,11 @@
       "2121773387710443900",
       "2122002837534126526",
       "2122021766507688302",
-      "2122041601849495795"
+      "2122041601849495795",
+      "2122062166777819299"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "A +1179 SGP is a fun ticket to chase, but I'd rather keep it simple. We've got Bills ML (-175), stamped before the 8:15 PM ET kickoff in Minnesota. Fewer legs, fewer ways to lose.",
       "Week 5 ending in a tie is a brutal way to finish a game. I'm not chasing a winner tonight, though. Commanders/Giants Under 41.5 (-115) is our free play.",
       "Hard to argue with a 24-21 final for Washington. Our Commanders ML (+115) cashed, so I'm not complaining about the three points.",
       "Love the Savicheva ticket, but I'd keep Pergande off that parlay. Stacking him on a -350 leg means both legs have to hit. We've got Akhmed Magomed",
@@ -750,9 +758,10 @@
       "Ha, the McGregor-Holloway comparison got me. Hokit's path exists on paper, but we're taking Gane ML (-189), stamped before the 11:30 PM ET first bell.",
       "Fair point on one stop out of the break, but one punt doesn't cap a 50.5 total with two quarters still to play. We're on Over 50.5 (-115), stamped before the 9:35 AM ET kickoff.",
       "Best bet of Week 10 is a fair question to ask. Ours is the Jags-Titans Under 46.5 (-114), stamped before the 1:00 PM ET kickoff.",
-      "Jags up 13-3 in the 2nd and it's already looking like a lot of points. Is that Jacksonville finding the end zone or Tennessee just stalling? We stamped Under 46.5 (-114) before kickoff, so I'm watching this one closely."
+      "Jags up 13-3 in the 2nd and it's already looking like a lot of points. Is that Jacksonville finding the end zone or Tennessee just stalling? We stamped Under 46.5 (-114) before kickoff, so I'm watching this one closely.",
+      "Over 41 (-105) on Texans-Browns, stamped before kickoff. Twenty unanswered points is exactly why I like the over here."
     ],
-    "angle": 4
+    "angle": 5
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
