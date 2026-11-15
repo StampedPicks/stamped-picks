@@ -220,7 +220,8 @@
     "43": true,
     "44": true,
     "45": true,
-    "46": true
+    "46": true,
+    "47": true
   },
   "live": {
     "13": [
@@ -322,14 +323,16 @@
       "q4"
     ],
     "39": [
-      "half"
+      "half",
+      "q4"
     ],
     "41": [
       "half",
       "q4"
     ],
     "42": [
-      "half"
+      "half",
+      "q4"
     ],
     "43": [
       "half",
@@ -340,10 +343,12 @@
       "q4"
     ],
     "45": [
-      "half"
+      "half",
+      "q4"
     ],
     "46": [
-      "half"
+      "half",
+      "q4"
     ]
   },
   "announced": [
@@ -605,11 +610,11 @@
     },
     "americanfootball_nfl|2026-11-15|early": {
       "main": "2121973819636437026",
-      "last": "2122053107576377420"
+      "last": "2122071952265482500"
     },
     "americanfootball_nfl|2026-11-15|early|slate": {
       "main": "2121973839987126439",
-      "last": "2122062272054923523"
+      "last": "2122071958611468743"
     },
     "parlay:2026-11-15-ladder": {
       "main": "2121973854172282941",
@@ -645,7 +650,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-15T20:20:38Z",
+      "americanfootball_nfl": "2026-11-15T20:59:12Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -676,8 +681,12 @@
         "post": "2122053159292223866"
       },
       "geno smith": {
-        "status": "returned",
-        "post": "2122062313398128772"
+        "status": "being evaluated for concussion",
+        "post": "2122072025019929042"
+      },
+      "woody marks": {
+        "status": "out",
+        "post": "2122072020024434868"
       }
     }
   },
