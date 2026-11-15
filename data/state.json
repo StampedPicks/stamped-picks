@@ -627,7 +627,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-15T18:15:31Z",
+      "americanfootball_nfl": "2026-11-15T19:03:25Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -652,6 +652,10 @@
       "aj brown": {
         "status": "questionable to return",
         "post": "2122013301097869565"
+      },
+      "travis kelce": {
+        "status": "questionable to return",
+        "post": "2122042840935170503"
       }
     }
   },
@@ -675,7 +679,7 @@
     "americanfootball_nfl|2026-11-15|early"
   ],
   "engage": {
-    "last": "2026-11-15T17:40:19Z",
+    "last": "2026-11-15T19:03:25Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -716,11 +720,11 @@
       "2121724082521620906",
       "2121773387710443900",
       "2122002837534126526",
-      "2122021766507688302"
+      "2122021766507688302",
+      "2122041601849495795"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Tampa +6 (-102) is our play, and that 3rd & 4 is exactly why. If Chicago can't convert, the Bucs get the ball back with time to get into FG range.",
       "A +1179 SGP is a fun ticket to chase, but I'd rather keep it simple. We've got Bills ML (-175), stamped before the 8:15 PM ET kickoff in Minnesota. Fewer legs, fewer ways to lose.",
       "Week 5 ending in a tie is a brutal way to finish a game. I'm not chasing a winner tonight, though. Commanders/Giants Under 41.5 (-115) is our free play.",
       "Hard to argue with a 24-21 final for Washington. Our Commanders ML (+115) cashed, so I'm not complaining about the three points.",
@@ -731,9 +735,10 @@
       "Donte's getting the money at -200 on that list, and I'm not fighting that crowd. Almeida vs Johnson at 7:15 ET, and we're riding Donte ML (-185).",
       "Ha, the McGregor-Holloway comparison got me. Hokit's path exists on paper, but we're taking Gane ML (-189), stamped before the 11:30 PM ET first bell.",
       "Fair point on one stop out of the break, but one punt doesn't cap a 50.5 total with two quarters still to play. We're on Over 50.5 (-115), stamped before the 9:35 AM ET kickoff.",
-      "Best bet of Week 10 is a fair question to ask. Ours is the Jags-Titans Under 46.5 (-114), stamped before the 1:00 PM ET kickoff."
+      "Best bet of Week 10 is a fair question to ask. Ours is the Jags-Titans Under 46.5 (-114), stamped before the 1:00 PM ET kickoff.",
+      "Jags up 13-3 in the 2nd and it's already looking like a lot of points. Is that Jacksonville finding the end zone or Tennessee just stalling? We stamped Under 46.5 (-114) before kickoff, so I'm watching this one closely."
     ],
-    "angle": 3
+    "angle": 4
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
