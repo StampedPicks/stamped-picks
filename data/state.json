@@ -350,7 +350,9 @@
       "half",
       "q4"
     ],
-    "47": []
+    "47": [
+      "half"
+    ]
   },
   "announced": [
     "2",
@@ -640,7 +642,7 @@
     },
     "daily47": {
       "main": "2122003119706083517",
-      "last": "2122062267164332295"
+      "last": "2122100177850765527"
     }
   },
   "parlays_posted": [
@@ -660,7 +662,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-15T22:13:43Z",
+      "americanfootball_nfl": "2026-11-15T22:51:23Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -720,7 +722,7 @@
     "americanfootball_nfl|2026-11-15|early"
   ],
   "engage": {
-    "last": "2026-11-15T21:33:50Z",
+    "last": "2026-11-15T22:51:23Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -764,11 +766,11 @@
       "2122021766507688302",
       "2122041601849495795",
       "2122062166777819299",
-      "2122079725959180329"
+      "2122079725959180329",
+      "2122098912597053871"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Hard to argue with a 24-21 final for Washington. Our Commanders ML (+115) cashed, so I'm not complaining about the three points.",
       "Love the Savicheva ticket, but I'd keep Pergande off that parlay. Stacking him on a -350 leg means both legs have to hit. We've got Akhmed Magomed",
       "Honestly, that 30-27 card for Magomedov is the number I keep coming back to. Judges see things differently than the eye test. We've got Akhmed Magomedov ML (+160) stamped before the first bell.",
       "You've got Donte finishing Almeida. Is it his power or Almeida's chin you're buying? We're on Johnson ML (-185) for the 7:15 ET card.",
@@ -779,9 +781,10 @@
       "Best bet of Week 10 is a fair question to ask. Ours is the Jags-Titans Under 46.5 (-114), stamped before the 1:00 PM ET kickoff.",
       "Jags up 13-3 in the 2nd and it's already looking like a lot of points. Is that Jacksonville finding the end zone or Tennessee just stalling? We stamped Under 46.5 (-114) before kickoff, so I'm watching this one closely.",
       "Over 41 (-105) on Texans-Browns, stamped before kickoff. Twenty unanswered points is exactly why I like the over here.",
-      "Beck's debut on a 38.5 total is a lot to ask of one offense. Rams-Cardinals is our free play, Under 38.5 (-106), stamped before the 4:05 PM ET kickoff."
+      "Beck's debut on a 38.5 total is a lot to ask of one offense. Rams-Cardinals is our free play, Under 38.5 (-106), stamped before the 4:05 PM ET kickoff.",
+      "Respect to Watson for admitting that one meant more than a normal win. Our Over 41 (-105) cashed on it, stamped before kickoff."
     ],
-    "angle": 6
+    "angle": 7
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
