@@ -148,7 +148,8 @@
     "card:americanfootball_nfl:2026-11-14:night": "2026-11-14T23:04:13.941667+00:00",
     "card:mma_mixed_martial_arts:2026-11-15": "2026-11-15T01:18:40.310970+00:00",
     "grade:2026-11-15": "2026-11-15T11:22:20.589197+00:00",
-    "card:americanfootball_nfl:2026-11-15:early": "2026-11-15T14:25:56.807851+00:00"
+    "card:americanfootball_nfl:2026-11-15:early": "2026-11-15T14:25:56.807851+00:00",
+    "daily:2026-11-15": "2026-11-15T16:23:54.552196+00:00"
   },
   "pregame": {
     "13": true,
@@ -297,7 +298,9 @@
       "half",
       "q4"
     ],
-    "40": []
+    "40": [
+      "half"
+    ]
   },
   "announced": [
     "2",
@@ -561,7 +564,7 @@
     },
     "americanfootball_nfl|2026-11-15|early|slate": {
       "main": "2121973839987126439",
-      "last": "2121973839987126439"
+      "last": "2122003138446262445"
     },
     "parlay:2026-11-15-ladder": {
       "main": "2121973854172282941",
@@ -574,6 +577,10 @@
     "parlay:2026-11-15-flyer": {
       "main": "2121973863773073852",
       "last": "2121973863773073852"
+    },
+    "daily47": {
+      "main": "2122003119706083517",
+      "last": "2122003133979402537"
     }
   },
   "parlays_posted": [
@@ -593,7 +600,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-15T15:46:26Z",
+      "americanfootball_nfl": "2026-11-15T16:23:54Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -637,7 +644,7 @@
     "americanfootball_nfl|2026-11-15|early"
   ],
   "engage": {
-    "last": "2026-11-15T04:45:37Z",
+    "last": "2026-11-15T16:23:54Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -676,11 +683,11 @@
       "2121664459009638417",
       "2121709685380403663",
       "2121724082521620906",
-      "2121773387710443900"
+      "2121773387710443900",
+      "2122002837534126526"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Respect to Noah Eagle. South Bend one night, Chicago the next is a wild turnaround, and he's calling a primetime game on top of it. Me, I'm just sitting on Bucs +6 (-102) tonight. \ud83c\udfc8",
       "Goodwill employees is a great line. If Chicago's secondary is that leaky, why's Tampa still getting six? Real question: do you trust the deep ball more than the Bucs' short game? We've got Bucs +6 (-102) stamped.",
       "Tampa +6 (-102) is our play, and that 3rd & 4 is exactly why. If Chicago can't convert, the Bucs get the ball back with time to get into FG range.",
       "A +1179 SGP is a fun ticket to chase, but I'd rather keep it simple. We've got Bills ML (-175), stamped before the 8:15 PM ET kickoff in Minnesota. Fewer legs, fewer ways to lose.",
@@ -691,9 +698,10 @@
       "You've got Donte finishing Almeida. Is it his power or Almeida's chin you're buying? We're on Johnson ML (-185) for the 7:15 ET card.",
       "Good call on Donte. We're on him too: Donte Johnson ML (-185), stamped before the 7:15 ET first bell. Paying -185 means the price matters, so we're keeping the ticket simple.",
       "Donte's getting the money at -200 on that list, and I'm not fighting that crowd. Almeida vs Johnson at 7:15 ET, and we're riding Donte ML (-185).",
-      "Ha, the McGregor-Holloway comparison got me. Hokit's path exists on paper, but we're taking Gane ML (-189), stamped before the 11:30 PM ET first bell."
+      "Ha, the McGregor-Holloway comparison got me. Hokit's path exists on paper, but we're taking Gane ML (-189), stamped before the 11:30 PM ET first bell.",
+      "Fair point on one stop out of the break, but one punt doesn't cap a 50.5 total with two quarters still to play. We're on Over 50.5 (-115), stamped before the 9:35 AM ET kickoff."
     ],
-    "angle": 7
+    "angle": 2
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
