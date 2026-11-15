@@ -349,7 +349,8 @@
     "46": [
       "half",
       "q4"
-    ]
+    ],
+    "47": []
   },
   "announced": [
     "2",
@@ -380,7 +381,14 @@
     "36",
     "37",
     "38",
-    "40"
+    "39",
+    "40",
+    "41",
+    "42",
+    "43",
+    "44",
+    "45",
+    "46"
   ],
   "recapped": [
     "americanfootball_nfl|2026-11-01",
@@ -391,6 +399,8 @@
     "americanfootball_nfl|2026-11-08|early|slate",
     "americanfootball_nfl|2026-11-08|night",
     "americanfootball_nfl|2026-11-09|night",
+    "americanfootball_nfl|2026-11-15|early",
+    "americanfootball_nfl|2026-11-15|early|slate",
     "mma_mixed_martial_arts|2026-11-14"
   ],
   "fightnight": {
@@ -610,11 +620,11 @@
     },
     "americanfootball_nfl|2026-11-15|early": {
       "main": "2121973819636437026",
-      "last": "2122071952265482500"
+      "last": "2122080680624742406"
     },
     "americanfootball_nfl|2026-11-15|early|slate": {
       "main": "2121973839987126439",
-      "last": "2122071958611468743"
+      "last": "2122080789986975790"
     },
     "parlay:2026-11-15-ladder": {
       "main": "2121973854172282941",
@@ -650,7 +660,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-15T20:59:12Z",
+      "americanfootball_nfl": "2026-11-15T21:33:50Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -710,7 +720,7 @@
     "americanfootball_nfl|2026-11-15|early"
   ],
   "engage": {
-    "last": "2026-11-15T20:20:38Z",
+    "last": "2026-11-15T21:33:50Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -753,11 +763,11 @@
       "2122002837534126526",
       "2122021766507688302",
       "2122041601849495795",
-      "2122062166777819299"
+      "2122062166777819299",
+      "2122079725959180329"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Week 5 ending in a tie is a brutal way to finish a game. I'm not chasing a winner tonight, though. Commanders/Giants Under 41.5 (-115) is our free play.",
       "Hard to argue with a 24-21 final for Washington. Our Commanders ML (+115) cashed, so I'm not complaining about the three points.",
       "Love the Savicheva ticket, but I'd keep Pergande off that parlay. Stacking him on a -350 leg means both legs have to hit. We've got Akhmed Magomed",
       "Honestly, that 30-27 card for Magomedov is the number I keep coming back to. Judges see things differently than the eye test. We've got Akhmed Magomedov ML (+160) stamped before the first bell.",
@@ -768,9 +778,10 @@
       "Fair point on one stop out of the break, but one punt doesn't cap a 50.5 total with two quarters still to play. We're on Over 50.5 (-115), stamped before the 9:35 AM ET kickoff.",
       "Best bet of Week 10 is a fair question to ask. Ours is the Jags-Titans Under 46.5 (-114), stamped before the 1:00 PM ET kickoff.",
       "Jags up 13-3 in the 2nd and it's already looking like a lot of points. Is that Jacksonville finding the end zone or Tennessee just stalling? We stamped Under 46.5 (-114) before kickoff, so I'm watching this one closely.",
-      "Over 41 (-105) on Texans-Browns, stamped before kickoff. Twenty unanswered points is exactly why I like the over here."
+      "Over 41 (-105) on Texans-Browns, stamped before kickoff. Twenty unanswered points is exactly why I like the over here.",
+      "Beck's debut on a 38.5 total is a lot to ask of one offense. Rams-Cardinals is our free play, Under 38.5 (-106), stamped before the 4:05 PM ET kickoff."
     ],
-    "angle": 5
+    "angle": 6
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
