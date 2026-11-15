@@ -149,7 +149,10 @@
     "card:mma_mixed_martial_arts:2026-11-15": "2026-11-15T01:18:40.310970+00:00",
     "grade:2026-11-15": "2026-11-15T11:22:20.589197+00:00",
     "card:americanfootball_nfl:2026-11-15:early": "2026-11-15T14:25:56.807851+00:00",
-    "daily:2026-11-15": "2026-11-15T16:23:54.552196+00:00"
+    "daily:2026-11-15": "2026-11-15T16:23:54.552196+00:00",
+    "hype:americanfootball_nfl:2026-11-16": "2026-11-15T17:05:19.152202+00:00",
+    "hype:mma_mixed_martial_arts:2026-11-16": "2026-11-15T17:05:19.152202+00:00",
+    "reminder:mma_mixed_martial_arts:2026-11-15": "2026-11-15T17:05:19.152202+00:00"
   },
   "pregame": {
     "13": true,
@@ -179,7 +182,14 @@
     "35": true,
     "36": true,
     "38": true,
-    "37": true
+    "37": true,
+    "39": true,
+    "41": true,
+    "42": true,
+    "43": true,
+    "44": true,
+    "45": true,
+    "46": true
   },
   "closed": {
     "13": true,
@@ -299,7 +309,8 @@
       "q4"
     ],
     "40": [
-      "half"
+      "half",
+      "q4"
     ]
   },
   "announced": [
@@ -560,11 +571,11 @@
     },
     "americanfootball_nfl|2026-11-15|early": {
       "main": "2121973819636437026",
-      "last": "2121973819636437026"
+      "last": "2122013224098812269"
     },
     "americanfootball_nfl|2026-11-15|early|slate": {
       "main": "2121973839987126439",
-      "last": "2122003138446262445"
+      "last": "2122013238996992506"
     },
     "parlay:2026-11-15-ladder": {
       "main": "2121973854172282941",
@@ -600,7 +611,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-15T16:23:54Z",
+      "americanfootball_nfl": "2026-11-15T17:05:19Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -621,6 +632,10 @@
       "aidan hutchinson": {
         "status": "questionable to return",
         "post": "2121984010109042770"
+      },
+      "aj brown": {
+        "status": "questionable to return",
+        "post": "2122013301097869565"
       }
     }
   },
