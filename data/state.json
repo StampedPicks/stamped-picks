@@ -153,7 +153,8 @@
     "hype:americanfootball_nfl:2026-11-16": "2026-11-15T17:05:19.152202+00:00",
     "hype:mma_mixed_martial_arts:2026-11-16": "2026-11-15T17:05:19.152202+00:00",
     "reminder:mma_mixed_martial_arts:2026-11-15": "2026-11-15T17:05:19.152202+00:00",
-    "card:americanfootball_nfl:2026-11-15:late": "2026-11-15T18:15:31.989940+00:00"
+    "card:americanfootball_nfl:2026-11-15:late": "2026-11-15T18:15:31.989940+00:00",
+    "card:americanfootball_nfl:2026-11-15:night": "2026-11-15T23:30:43.805265+00:00"
   },
   "pregame": {
     "13": true,
@@ -351,7 +352,8 @@
       "q4"
     ],
     "47": [
-      "half"
+      "half",
+      "q4"
     ]
   },
   "announced": [
@@ -642,7 +644,15 @@
     },
     "daily47": {
       "main": "2122003119706083517",
-      "last": "2122100177850765527"
+      "last": "2122110710125916217"
+    },
+    "americanfootball_nfl|2026-11-15|night": {
+      "main": "2122110257027793323",
+      "last": "2122110257027793323"
+    },
+    "americanfootball_nfl|2026-11-15|night|slate": {
+      "main": "2122110268633460895",
+      "last": "2122110268633460895"
     }
   },
   "parlays_posted": [
@@ -658,11 +668,12 @@
     "americanfootball_nfl|2026-11-09|night",
     "2026-11-09",
     "americanfootball_nfl|2026-11-15|early",
-    "2026-11-15"
+    "2026-11-15",
+    "americanfootball_nfl|2026-11-15|night"
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-15T22:51:23Z",
+      "americanfootball_nfl": "2026-11-15T23:30:43Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -719,7 +730,8 @@
     "americanfootball_nfl|2026-11-08|early",
     "americanfootball_nfl|2026-11-08|night",
     "americanfootball_nfl|2026-11-09|night",
-    "americanfootball_nfl|2026-11-15|early"
+    "americanfootball_nfl|2026-11-15|early",
+    "americanfootball_nfl|2026-11-15|night"
   ],
   "engage": {
     "last": "2026-11-15T22:51:23Z",
