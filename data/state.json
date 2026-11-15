@@ -147,7 +147,8 @@
     "card:americanfootball_nfl:2026-11-14:late": "2026-11-14T18:06:25.226080+00:00",
     "card:americanfootball_nfl:2026-11-14:night": "2026-11-14T23:04:13.941667+00:00",
     "card:mma_mixed_martial_arts:2026-11-15": "2026-11-15T01:18:40.310970+00:00",
-    "grade:2026-11-15": "2026-11-15T11:22:20.589197+00:00"
+    "grade:2026-11-15": "2026-11-15T11:22:20.589197+00:00",
+    "card:americanfootball_nfl:2026-11-15:early": "2026-11-15T14:25:56.807851+00:00"
   },
   "pregame": {
     "13": true,
@@ -198,7 +199,8 @@
     "30": true,
     "33": true,
     "36": true,
-    "38": true
+    "38": true,
+    "40": true
   },
   "live": {
     "13": [
@@ -551,6 +553,26 @@
     "daily38": {
       "main": "2121639093008322789",
       "last": "2121741048846151843"
+    },
+    "americanfootball_nfl|2026-11-15|early": {
+      "main": "2121973819636437026",
+      "last": "2121973819636437026"
+    },
+    "americanfootball_nfl|2026-11-15|early|slate": {
+      "main": "2121973839987126439",
+      "last": "2121973839987126439"
+    },
+    "parlay:2026-11-15-ladder": {
+      "main": "2121973854172282941",
+      "last": "2121973854172282941"
+    },
+    "parlay:2026-11-15-td": {
+      "main": "2121973859142549940",
+      "last": "2121973859142549940"
+    },
+    "parlay:2026-11-15-flyer": {
+      "main": "2121973863773073852",
+      "last": "2121973863773073852"
     }
   },
   "parlays_posted": [
@@ -564,7 +586,9 @@
     "2026-11-08",
     "americanfootball_nfl|2026-11-08|night",
     "americanfootball_nfl|2026-11-09|night",
-    "2026-11-09"
+    "2026-11-09",
+    "americanfootball_nfl|2026-11-15|early",
+    "2026-11-15"
   ],
   "injuries": {
     "_last": {
@@ -599,7 +623,8 @@
     "americanfootball_nfl|2026-11-05|night",
     "americanfootball_nfl|2026-11-08|early",
     "americanfootball_nfl|2026-11-08|night",
-    "americanfootball_nfl|2026-11-09|night"
+    "americanfootball_nfl|2026-11-09|night",
+    "americanfootball_nfl|2026-11-15|early"
   ],
   "engage": {
     "last": "2026-11-15T04:45:37Z",
