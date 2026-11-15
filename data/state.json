@@ -321,6 +321,7 @@
     "33",
     "34",
     "35",
+    "37",
     "38"
   ],
   "recapped": [
@@ -331,7 +332,8 @@
     "americanfootball_nfl|2026-11-08|early",
     "americanfootball_nfl|2026-11-08|early|slate",
     "americanfootball_nfl|2026-11-08|night",
-    "americanfootball_nfl|2026-11-09|night"
+    "americanfootball_nfl|2026-11-09|night",
+    "mma_mixed_martial_arts|2026-11-14"
   ],
   "fightnight": {
     "600061420": {
@@ -391,12 +393,14 @@
         "401922641",
         "401922640",
         "401922639",
-        "401922638"
+        "401922638",
+        "401913646"
       ],
       "kickoff": "2026-11-14T20:07:32.158549+00:00",
       "main": "2121696556487209400",
-      "last": "2121839932985561408",
-      "poll": true
+      "last": "2121853470496174588",
+      "poll": true,
+      "wrap": true
     }
   },
   "revealed": [
@@ -540,7 +544,7 @@
     },
     "mma_mixed_martial_arts|2026-11-14": {
       "main": "2121421693679743185",
-      "last": "2121814434461122740"
+      "last": "2121853453718954027"
     },
     "daily38": {
       "main": "2121639093008322789",
