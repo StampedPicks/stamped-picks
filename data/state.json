@@ -152,7 +152,8 @@
     "daily:2026-11-15": "2026-11-15T16:23:54.552196+00:00",
     "hype:americanfootball_nfl:2026-11-16": "2026-11-15T17:05:19.152202+00:00",
     "hype:mma_mixed_martial_arts:2026-11-16": "2026-11-15T17:05:19.152202+00:00",
-    "reminder:mma_mixed_martial_arts:2026-11-15": "2026-11-15T17:05:19.152202+00:00"
+    "reminder:mma_mixed_martial_arts:2026-11-15": "2026-11-15T17:05:19.152202+00:00",
+    "card:americanfootball_nfl:2026-11-15:late": "2026-11-15T18:15:31.989940+00:00"
   },
   "pregame": {
     "13": true,
@@ -318,7 +319,14 @@
     "40": [
       "half",
       "q4"
-    ]
+    ],
+    "39": [],
+    "41": [],
+    "42": [],
+    "43": [],
+    "44": [],
+    "45": [],
+    "46": []
   },
   "announced": [
     "2",
@@ -619,7 +627,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-15T17:05:19Z",
+      "americanfootball_nfl": "2026-11-15T18:15:31Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
