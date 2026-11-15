@@ -211,7 +211,14 @@
     "33": true,
     "36": true,
     "38": true,
-    "40": true
+    "40": true,
+    "39": true,
+    "41": true,
+    "42": true,
+    "43": true,
+    "44": true,
+    "45": true,
+    "46": true
   },
   "live": {
     "13": [
@@ -341,7 +348,8 @@
     "35",
     "36",
     "37",
-    "38"
+    "38",
+    "40"
   ],
   "recapped": [
     "americanfootball_nfl|2026-11-01",
@@ -575,7 +583,7 @@
     },
     "americanfootball_nfl|2026-11-15|early|slate": {
       "main": "2121973839987126439",
-      "last": "2122013238996992506"
+      "last": "2122021914851852294"
     },
     "parlay:2026-11-15-ladder": {
       "main": "2121973854172282941",
@@ -659,7 +667,7 @@
     "americanfootball_nfl|2026-11-15|early"
   ],
   "engage": {
-    "last": "2026-11-15T16:23:54Z",
+    "last": "2026-11-15T17:40:19Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -699,11 +707,11 @@
       "2121709685380403663",
       "2121724082521620906",
       "2121773387710443900",
-      "2122002837534126526"
+      "2122002837534126526",
+      "2122021766507688302"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Goodwill employees is a great line. If Chicago's secondary is that leaky, why's Tampa still getting six? Real question: do you trust the deep ball more than the Bucs' short game? We've got Bucs +6 (-102) stamped.",
       "Tampa +6 (-102) is our play, and that 3rd & 4 is exactly why. If Chicago can't convert, the Bucs get the ball back with time to get into FG range.",
       "A +1179 SGP is a fun ticket to chase, but I'd rather keep it simple. We've got Bills ML (-175), stamped before the 8:15 PM ET kickoff in Minnesota. Fewer legs, fewer ways to lose.",
       "Week 5 ending in a tie is a brutal way to finish a game. I'm not chasing a winner tonight, though. Commanders/Giants Under 41.5 (-115) is our free play.",
@@ -714,9 +722,10 @@
       "Good call on Donte. We're on him too: Donte Johnson ML (-185), stamped before the 7:15 ET first bell. Paying -185 means the price matters, so we're keeping the ticket simple.",
       "Donte's getting the money at -200 on that list, and I'm not fighting that crowd. Almeida vs Johnson at 7:15 ET, and we're riding Donte ML (-185).",
       "Ha, the McGregor-Holloway comparison got me. Hokit's path exists on paper, but we're taking Gane ML (-189), stamped before the 11:30 PM ET first bell.",
-      "Fair point on one stop out of the break, but one punt doesn't cap a 50.5 total with two quarters still to play. We're on Over 50.5 (-115), stamped before the 9:35 AM ET kickoff."
+      "Fair point on one stop out of the break, but one punt doesn't cap a 50.5 total with two quarters still to play. We're on Over 50.5 (-115), stamped before the 9:35 AM ET kickoff.",
+      "Best bet of Week 10 is a fair question to ask. Ours is the Jags-Titans Under 46.5 (-114), stamped before the 1:00 PM ET kickoff."
     ],
-    "angle": 2
+    "angle": 3
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
