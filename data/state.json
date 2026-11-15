@@ -593,7 +593,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-15T15:09:37Z",
+      "americanfootball_nfl": "2026-11-15T15:46:26Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -608,8 +608,8 @@
     "2026-11-14": {},
     "2026-11-15": {
       "drake maye": {
-        "status": "questionable to return",
-        "post": "2121984005465895041"
+        "status": "out",
+        "post": "2121993266442686859"
       },
       "aidan hutchinson": {
         "status": "questionable to return",
