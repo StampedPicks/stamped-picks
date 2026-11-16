@@ -192,7 +192,8 @@
     "44": true,
     "45": true,
     "46": true,
-    "47": true
+    "47": true,
+    "48": true
   },
   "closed": {
     "13": true,
@@ -392,7 +393,8 @@
     "43",
     "44",
     "45",
-    "46"
+    "46",
+    "47"
   ],
   "recapped": [
     "americanfootball_nfl|2026-11-01",
@@ -648,7 +650,7 @@
     },
     "americanfootball_nfl|2026-11-15|night": {
       "main": "2122110257027793323",
-      "last": "2122110257027793323"
+      "last": "2122122223678861775"
     },
     "americanfootball_nfl|2026-11-15|night|slate": {
       "main": "2122110268633460895",
@@ -734,7 +736,7 @@
     "americanfootball_nfl|2026-11-15|night"
   ],
   "engage": {
-    "last": "2026-11-15T22:51:23Z",
+    "last": "2026-11-16T00:18:54Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -779,11 +781,11 @@
       "2122041601849495795",
       "2122062166777819299",
       "2122079725959180329",
-      "2122098912597053871"
+      "2122098912597053871",
+      "2122121591219732793"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Love the Savicheva ticket, but I'd keep Pergande off that parlay. Stacking him on a -350 leg means both legs have to hit. We've got Akhmed Magomed",
       "Honestly, that 30-27 card for Magomedov is the number I keep coming back to. Judges see things differently than the eye test. We've got Akhmed Magomedov ML (+160) stamped before the first bell.",
       "You've got Donte finishing Almeida. Is it his power or Almeida's chin you're buying? We're on Johnson ML (-185) for the 7:15 ET card.",
       "Good call on Donte. We're on him too: Donte Johnson ML (-185), stamped before the 7:15 ET first bell. Paying -185 means the price matters, so we're keeping the ticket simple.",
@@ -794,9 +796,10 @@
       "Jags up 13-3 in the 2nd and it's already looking like a lot of points. Is that Jacksonville finding the end zone or Tennessee just stalling? We stamped Under 46.5 (-114) before kickoff, so I'm watching this one closely.",
       "Over 41 (-105) on Texans-Browns, stamped before kickoff. Twenty unanswered points is exactly why I like the over here.",
       "Beck's debut on a 38.5 total is a lot to ask of one offense. Rams-Cardinals is our free play, Under 38.5 (-106), stamped before the 4:05 PM ET kickoff.",
-      "Respect to Watson for admitting that one meant more than a normal win. Our Over 41 (-105) cashed on it, stamped before kickoff."
+      "Respect to Watson for admitting that one meant more than a normal win. Our Over 41 (-105) cashed on it, stamped before kickoff.",
+      "Bengals down a full point from -4.5 to -3.5 with 53% of the bets still on them is the detail I can't stop staring at. Our free play is Bengals ML (-189), stamped ahead of the 8:20 PM ET kickoff."
     ],
-    "angle": 7
+    "angle": 3
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
