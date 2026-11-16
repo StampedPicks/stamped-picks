@@ -357,7 +357,10 @@
       "half",
       "q4"
     ],
-    "48": []
+    "48": [
+      "half",
+      "q4"
+    ]
   },
   "announced": [
     "2",
@@ -652,7 +655,7 @@
     },
     "americanfootball_nfl|2026-11-15|night": {
       "main": "2122110257027793323",
-      "last": "2122122223678861775"
+      "last": "2122174264866742456"
     },
     "americanfootball_nfl|2026-11-15|night|slate": {
       "main": "2122110268633460895",
@@ -677,7 +680,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-16T02:41:50Z",
+      "americanfootball_nfl": "2026-11-16T03:45:46Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -738,7 +741,7 @@
     "americanfootball_nfl|2026-11-15|night"
   ],
   "engage": {
-    "last": "2026-11-16T01:48:41Z",
+    "last": "2026-11-16T03:45:46Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -785,11 +788,11 @@
       "2122079725959180329",
       "2122098912597053871",
       "2122121591219732793",
-      "2122144667579961780"
+      "2122144667579961780",
+      "2122174136973770839"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "You've got Donte finishing Almeida. Is it his power or Almeida's chin you're buying? We're on Johnson ML (-185) for the 7:15 ET card.",
       "Good call on Donte. We're on him too: Donte Johnson ML (-185), stamped before the 7:15 ET first bell. Paying -185 means the price matters, so we're keeping the ticket simple.",
       "Donte's getting the money at -200 on that list, and I'm not fighting that crowd. Almeida vs Johnson at 7:15 ET, and we're riding Donte ML (-185).",
       "Ha, the McGregor-Holloway comparison got me. Hokit's path exists on paper, but we're taking Gane ML (-189), stamped before the 11:30 PM ET first bell.",
@@ -800,9 +803,10 @@
       "Beck's debut on a 38.5 total is a lot to ask of one offense. Rams-Cardinals is our free play, Under 38.5 (-106), stamped before the 4:05 PM ET kickoff.",
       "Respect to Watson for admitting that one meant more than a normal win. Our Over 41 (-105) cashed on it, stamped before kickoff.",
       "Bengals down a full point from -4.5 to -3.5 with 53% of the bets still on them is the detail I can't stop staring at. Our free play is Bengals ML (-189), stamped ahead of the 8:20 PM ET kickoff.",
-      "Three offensive plays for Pittsburgh is rough. Is that Cincinnati's defense doing it or Pittsburgh just stuck? We stamped Bengals ML (-189) before kickoff, and those early yards are a big part of why."
+      "Three offensive plays for Pittsburgh is rough. Is that Cincinnati's defense doing it or Pittsburgh just stuck? We stamped Bengals ML (-189) before kickoff, and those early yards are a big part of why.",
+      "Our Bengals ML (-189) was stamped before kickoff. Burrow tying a record against this Steelers defense is the reason I'm not running from it."
     ],
-    "angle": 4
+    "angle": 5
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
