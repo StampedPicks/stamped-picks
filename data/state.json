@@ -154,7 +154,8 @@
     "hype:mma_mixed_martial_arts:2026-11-16": "2026-11-15T17:05:19.152202+00:00",
     "reminder:mma_mixed_martial_arts:2026-11-15": "2026-11-15T17:05:19.152202+00:00",
     "card:americanfootball_nfl:2026-11-15:late": "2026-11-15T18:15:31.989940+00:00",
-    "card:americanfootball_nfl:2026-11-15:night": "2026-11-15T23:30:43.805265+00:00"
+    "card:americanfootball_nfl:2026-11-15:night": "2026-11-15T23:30:43.805265+00:00",
+    "card:mma_mixed_martial_arts:2026-11-16": "2026-11-16T01:48:41.423414+00:00"
   },
   "pregame": {
     "13": true,
@@ -355,7 +356,8 @@
     "47": [
       "half",
       "q4"
-    ]
+    ],
+    "48": []
   },
   "announced": [
     "2",
@@ -675,7 +677,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-15T23:30:43Z",
+      "americanfootball_nfl": "2026-11-16T01:48:41Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -736,7 +738,7 @@
     "americanfootball_nfl|2026-11-15|night"
   ],
   "engage": {
-    "last": "2026-11-16T00:18:54Z",
+    "last": "2026-11-16T01:48:41Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -782,11 +784,11 @@
       "2122062166777819299",
       "2122079725959180329",
       "2122098912597053871",
-      "2122121591219732793"
+      "2122121591219732793",
+      "2122144667579961780"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Honestly, that 30-27 card for Magomedov is the number I keep coming back to. Judges see things differently than the eye test. We've got Akhmed Magomedov ML (+160) stamped before the first bell.",
       "You've got Donte finishing Almeida. Is it his power or Almeida's chin you're buying? We're on Johnson ML (-185) for the 7:15 ET card.",
       "Good call on Donte. We're on him too: Donte Johnson ML (-185), stamped before the 7:15 ET first bell. Paying -185 means the price matters, so we're keeping the ticket simple.",
       "Donte's getting the money at -200 on that list, and I'm not fighting that crowd. Almeida vs Johnson at 7:15 ET, and we're riding Donte ML (-185).",
@@ -797,9 +799,10 @@
       "Over 41 (-105) on Texans-Browns, stamped before kickoff. Twenty unanswered points is exactly why I like the over here.",
       "Beck's debut on a 38.5 total is a lot to ask of one offense. Rams-Cardinals is our free play, Under 38.5 (-106), stamped before the 4:05 PM ET kickoff.",
       "Respect to Watson for admitting that one meant more than a normal win. Our Over 41 (-105) cashed on it, stamped before kickoff.",
-      "Bengals down a full point from -4.5 to -3.5 with 53% of the bets still on them is the detail I can't stop staring at. Our free play is Bengals ML (-189), stamped ahead of the 8:20 PM ET kickoff."
+      "Bengals down a full point from -4.5 to -3.5 with 53% of the bets still on them is the detail I can't stop staring at. Our free play is Bengals ML (-189), stamped ahead of the 8:20 PM ET kickoff.",
+      "Three offensive plays for Pittsburgh is rough. Is that Cincinnati's defense doing it or Pittsburgh just stuck? We stamped Bengals ML (-189) before kickoff, and those early yards are a big part of why."
     ],
-    "angle": 3
+    "angle": 4
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
