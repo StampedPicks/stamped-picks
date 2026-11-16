@@ -399,7 +399,8 @@
     "44",
     "45",
     "46",
-    "47"
+    "47",
+    "48"
   ],
   "recapped": [
     "americanfootball_nfl|2026-11-01",
@@ -412,6 +413,7 @@
     "americanfootball_nfl|2026-11-09|night",
     "americanfootball_nfl|2026-11-15|early",
     "americanfootball_nfl|2026-11-15|early|slate",
+    "americanfootball_nfl|2026-11-15|night",
     "mma_mixed_martial_arts|2026-11-14"
   ],
   "fightnight": {
@@ -655,7 +657,7 @@
     },
     "americanfootball_nfl|2026-11-15|night": {
       "main": "2122110257027793323",
-      "last": "2122174264866742456"
+      "last": "2122214185811554631"
     },
     "americanfootball_nfl|2026-11-15|night|slate": {
       "main": "2122110268633460895",
