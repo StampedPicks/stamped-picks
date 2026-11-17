@@ -371,7 +371,8 @@
     "48": [
       "half",
       "q4"
-    ]
+    ],
+    "49": []
   },
   "announced": [
     "2",
@@ -703,7 +704,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-16T03:45:46Z",
+      "americanfootball_nfl": "2026-11-17T02:18:43Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -760,7 +761,7 @@
     "americanfootball_nfl|2026-11-16|night"
   ],
   "engage": {
-    "last": "2026-11-17T01:07:45Z",
+    "last": "2026-11-17T02:18:43Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
