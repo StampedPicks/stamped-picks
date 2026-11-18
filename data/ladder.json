@@ -48,6 +48,13 @@
    "stack": 10.0,
    "status": "climbing",
    "rungs": []
+  },
+  {
+   "week": 3,
+   "monday": "2026-11-16",
+   "stack": 10.0,
+   "status": "climbing",
+   "rungs": []
   }
  ]
 }
