@@ -736,32 +736,6 @@
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
     },
-    "2026-11-15": {
-      "drake maye": {
-        "status": "out",
-        "post": "2121993266442686859"
-      },
-      "aidan hutchinson": {
-        "status": "questionable to return",
-        "post": "2121984010109042770"
-      },
-      "aj brown": {
-        "status": "questionable to return",
-        "post": "2122013301097869565"
-      },
-      "travis kelce": {
-        "status": "returned",
-        "post": "2122053159292223866"
-      },
-      "geno smith": {
-        "status": "being evaluated for concussion",
-        "post": "2122072025019929042"
-      },
-      "woody marks": {
-        "status": "out",
-        "post": "2122072020024434868"
-      }
-    },
     "2026-11-16": {
       "jacoby brissett": {
         "status": "returned",
@@ -769,7 +743,8 @@
       }
     },
     "2026-11-17": {},
-    "2026-11-18": {}
+    "2026-11-18": {},
+    "2026-11-19": {}
   },
   "whale_promos": {
     "14": {
