@@ -405,8 +405,12 @@
       "half",
       "q4"
     ],
-    "50": [],
-    "51": []
+    "50": [
+      "half"
+    ],
+    "51": [
+      "half"
+    ]
   },
   "announced": [
     "2",
@@ -721,11 +725,11 @@
     },
     "daily50": {
       "main": "2123093551441707294",
-      "last": "2123574625657594233"
+      "last": "2123619789335666786"
     },
     "daily51": {
       "main": "2123459015627681937",
-      "last": "2123574629268857140"
+      "last": "2123619792288395304"
     }
   },
   "parlays_posted": [
@@ -748,7 +752,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-20T02:38:03Z",
+      "americanfootball_nfl": "2026-11-20T03:29:46Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -785,7 +789,7 @@
     "americanfootball_nfl|2026-11-16|night"
   ],
   "engage": {
-    "last": "2026-11-20T01:46:24Z",
+    "last": "2026-11-20T03:29:46Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -840,11 +844,11 @@
       "2123471813485515210",
       "2123552828396368202",
       "2123574580560507236",
-      "2123593709405016391"
+      "2123593709405016391",
+      "2123619520950738989"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Beck's debut on a 38.5 total is a lot to ask of one offense. Rams-Cardinals is our free play, Under 38.5 (-106), stamped before the 4:05 PM ET kickoff.",
       "Respect to Watson for admitting that one meant more than a normal win. Our Over 41 (-105) cashed on it, stamped before kickoff.",
       "Bengals down a full point from -4.5 to -3.5 with 53% of the bets still on them is the detail I can't stop staring at. Our free play is Bengals ML (-189), stamped ahead of the 8:20 PM ET kickoff.",
       "Three offensive plays for Pittsburgh is rough. Is that Cincinnati's defense doing it or Pittsburgh just stuck? We stamped Bengals ML (-189) before kickoff, and those early yards are a big part of why.",
@@ -855,9 +859,10 @@
       "Respect the 2.5u on the over. But 43.5 with Houston -12.5 puts the Colts around 15 points, and that's a lot of cushion to ignore. We stamped Colts +12.5 (-108) before kickoff. \ud83e\udd1d",
       "Texans -12.5 on TNF is a lot of number to lay, and that's exactly why we're on the other side. Colts +12.5 (-108), stamped before kickoff.",
       "Both teams are sitting at 3-7 and 3-6, so the winner question is a coin flip. We don't need Indy to win, just to hang around. Colts +12.5 (-108) for the 8:15 ET start.",
-      "Missed field goal and the Colts still lead 3-0? Is that a sign Indy can hang around, or just a sloppy start for Houston? We're on Colts +12.5 (-108) anyway."
+      "Missed field goal and the Colts still lead 3-0? Is that a sign Indy can hang around, or just a sloppy start for Houston? We're on Colts +12.5 (-108) anyway.",
+      "Houston's the better team, no argument there. But 12.5 is a steep price for a spanking. Colts +12.5 (-108) at 8:15 ET, stamped early."
     ],
-    "angle": 4
+    "angle": 6
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
