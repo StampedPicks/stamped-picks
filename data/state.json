@@ -194,7 +194,11 @@
     "card:mma_mixed_martial_arts:2026-11-20": "2026-11-20T01:46:24.804866+00:00",
     "grade:2026-11-20": "2026-11-20T11:38:08.296087+00:00",
     "card:americanfootball_nfl:2026-11-20:early": "2026-11-20T14:45:16.173771+00:00",
-    "daily:2026-11-20": "2026-11-20T16:38:41.310051+00:00"
+    "daily:2026-11-20": "2026-11-20T16:38:41.310051+00:00",
+    "hype:americanfootball_nfl:2026-11-21": "2026-11-20T17:37:13.421685+00:00",
+    "hype:mma_mixed_martial_arts:2026-11-21": "2026-11-20T17:37:13.421685+00:00",
+    "reminder:mma_mixed_martial_arts:2026-11-20": "2026-11-20T17:37:13.421685+00:00",
+    "whale:americanfootball_nfl:2026-11-20": "2026-11-20T17:37:13.421685+00:00"
   },
   "pregame": {
     "13": true,
@@ -735,6 +739,10 @@
     "daily51": {
       "main": "2123459015627681937",
       "last": "2123619792288395304"
+    },
+    "americanfootball_nfl|2026-11-22|whale": {
+      "main": "2123833353161843156",
+      "last": "2123833353161843156"
     }
   },
   "parlays_posted": [
@@ -774,6 +782,13 @@
       "units": "5",
       "done": true,
       "reply_to": "2116983471793156249"
+    },
+    "52": {
+      "last_call": "2026-11-22T17:00:00Z",
+      "sport": "americanfootball_nfl",
+      "units": "5",
+      "done": false,
+      "reply_to": "2123833353161843156"
     }
   },
   "extras_posted": [
@@ -866,6 +881,7 @@
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
-    "2026-11-14": "UFC 334: Gane vs. Hokit"
+    "2026-11-14": "UFC 334: Gane vs. Hokit",
+    "2026-11-21": "UFC Fight Night: Proch\u00e1zka vs. Stirling"
   }
 }
