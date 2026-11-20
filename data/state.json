@@ -190,7 +190,8 @@
     "hype:mma_mixed_martial_arts:2026-11-20": "2026-11-19T17:42:46.386827+00:00",
     "reminder:mma_mixed_martial_arts:2026-11-19": "2026-11-19T17:42:46.386827+00:00",
     "card:americanfootball_nfl:2026-11-19:late": "2026-11-19T18:37:03.051861+00:00",
-    "card:americanfootball_nfl:2026-11-19:night": "2026-11-19T23:04:44.130201+00:00"
+    "card:americanfootball_nfl:2026-11-19:night": "2026-11-19T23:04:44.130201+00:00",
+    "card:mma_mixed_martial_arts:2026-11-20": "2026-11-20T01:46:24.804866+00:00"
   },
   "pregame": {
     "13": true,
@@ -403,7 +404,9 @@
     "49": [
       "half",
       "q4"
-    ]
+    ],
+    "50": [],
+    "51": []
   },
   "announced": [
     "2",
@@ -745,7 +748,7 @@
   ],
   "injuries": {
     "_last": {
-      "americanfootball_nfl": "2026-11-17T03:59:03Z",
+      "americanfootball_nfl": "2026-11-20T01:46:24Z",
       "icehockey_nhl": "2026-11-01T23:18:05Z",
       "basketball_ncaab": "2026-11-04T02:29:23Z",
       "basketball_nba": "2026-11-05T02:36:56Z"
@@ -782,7 +785,7 @@
     "americanfootball_nfl|2026-11-16|night"
   ],
   "engage": {
-    "last": "2026-11-20T00:30:02Z",
+    "last": "2026-11-20T01:46:24Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -836,11 +839,11 @@
       "2122458598877892863",
       "2123471813485515210",
       "2123552828396368202",
-      "2123574580560507236"
+      "2123574580560507236",
+      "2123593709405016391"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Over 41 (-105) on Texans-Browns, stamped before kickoff. Twenty unanswered points is exactly why I like the over here.",
       "Beck's debut on a 38.5 total is a lot to ask of one offense. Rams-Cardinals is our free play, Under 38.5 (-106), stamped before the 4:05 PM ET kickoff.",
       "Respect to Watson for admitting that one meant more than a normal win. Our Over 41 (-105) cashed on it, stamped before kickoff.",
       "Bengals down a full point from -4.5 to -3.5 with 53% of the bets still on them is the detail I can't stop staring at. Our free play is Bengals ML (-189), stamped ahead of the 8:20 PM ET kickoff.",
@@ -851,9 +854,10 @@
       "Under 39 (-110) is our side on Chargers/Ravens. Eleven bucks to $1,081 is a fun ride, but I'd rather win one number than need every leg to land.",
       "Respect the 2.5u on the over. But 43.5 with Houston -12.5 puts the Colts around 15 points, and that's a lot of cushion to ignore. We stamped Colts +12.5 (-108) before kickoff. \ud83e\udd1d",
       "Texans -12.5 on TNF is a lot of number to lay, and that's exactly why we're on the other side. Colts +12.5 (-108), stamped before kickoff.",
-      "Both teams are sitting at 3-7 and 3-6, so the winner question is a coin flip. We don't need Indy to win, just to hang around. Colts +12.5 (-108) for the 8:15 ET start."
+      "Both teams are sitting at 3-7 and 3-6, so the winner question is a coin flip. We don't need Indy to win, just to hang around. Colts +12.5 (-108) for the 8:15 ET start.",
+      "Missed field goal and the Colts still lead 3-0? Is that a sign Indy can hang around, or just a sloppy start for Houston? We're on Colts +12.5 (-108) anyway."
     ],
-    "angle": 1
+    "angle": 4
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
