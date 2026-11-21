@@ -201,7 +201,8 @@
     "whale:americanfootball_nfl:2026-11-20": "2026-11-20T17:37:13.421685+00:00",
     "card:americanfootball_nfl:2026-11-20:late": "2026-11-20T18:34:58.242734+00:00",
     "whale:mma_mixed_martial_arts:2026-11-20": "2026-11-20T18:34:58.242734+00:00",
-    "card:americanfootball_nfl:2026-11-20:night": "2026-11-20T23:31:48.784656+00:00"
+    "card:americanfootball_nfl:2026-11-20:night": "2026-11-20T23:31:48.784656+00:00",
+    "card:mma_mixed_martial_arts:2026-11-21": "2026-11-21T01:40:34.695895+00:00"
   },
   "pregame": {
     "13": true,
@@ -746,6 +747,10 @@
     "americanfootball_nfl|2026-11-22|whale": {
       "main": "2123833353161843156",
       "last": "2123833353161843156"
+    },
+    "mma_mixed_martial_arts|2026-11-21": {
+      "main": "2123955358934667397",
+      "last": "2123955358934667397"
     }
   },
   "parlays_posted": [
