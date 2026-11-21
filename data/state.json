@@ -253,7 +253,8 @@
     "50": true,
     "51": true,
     "53": true,
-    "54": true
+    "54": true,
+    "55": true
   },
   "closed": {
     "13": true,
@@ -567,11 +568,13 @@
         "401927853",
         "401927856",
         "401927852",
-        "401927854"
+        "401927854",
+        "401927851",
+        "401927855"
       ],
       "kickoff": "2026-11-21T13:10:11.093037+00:00",
       "main": "2124128244567806120",
-      "last": "2124207455039341046",
+      "last": "2124221129220849779",
       "poll": true
     }
   },
@@ -780,7 +783,7 @@
     },
     "daily55": {
       "main": "2124176886402093075",
-      "last": "2124176901652574696"
+      "last": "2124221125500514680"
     }
   },
   "parlays_posted": [
@@ -842,7 +845,7 @@
     "americanfootball_nfl|2026-11-16|night"
   ],
   "engage": {
-    "last": "2026-11-21T17:48:17Z",
+    "last": "2026-11-21T19:19:09Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -899,11 +902,11 @@
       "2123574580560507236",
       "2123593709405016391",
       "2123619520950738989",
-      "2124160362073231635"
+      "2124160362073231635",
+      "2124205164017918090"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Bengals down a full point from -4.5 to -3.5 with 53% of the bets still on them is the detail I can't stop staring at. Our free play is Bengals ML (-189), stamped ahead of the 8:20 PM ET kickoff.",
       "Three offensive plays for Pittsburgh is rough. Is that Cincinnati's defense doing it or Pittsburgh just stuck? We stamped Bengals ML (-189) before kickoff, and those early yards are a big part of why.",
       "Our Bengals ML (-189) was stamped before kickoff. Burrow tying a record against this Steelers defense is the reason I'm not running from it.",
       "Ha, 0-10-1 ATS is a brutal stretch to be on the wrong side of. Fair question on Herbert, but we're not chasing the streak. Stamped Chargers/Ravens Under 39 (-110) before the 8:15 PM ET kickoff.",
@@ -914,9 +917,10 @@
       "Both teams are sitting at 3-7 and 3-6, so the winner question is a coin flip. We don't need Indy to win, just to hang around. Colts +12.5 (-108) for the 8:15 ET start.",
       "Missed field goal and the Colts still lead 3-0? Is that a sign Indy can hang around, or just a sloppy start for Houston? We're on Colts +12.5 (-108) anyway.",
       "Houston's the better team, no argument there. But 12.5 is a steep price for a spanking. Colts +12.5 (-108) at 8:15 ET, stamped early.",
-      "Good list. The flyweight is the one I'd circle. We're on Kyoji Horiguchi ML (-179), stamped before the first bell at 1:45 PM ET."
+      "Good list. The flyweight is the one I'd circle. We're on Kyoji Horiguchi ML (-179), stamped before the first bell at 1:45 PM ET.",
+      "Mar Fan's not wrong, Motta kept walking through those big shots like they were nothing. Still, our Dom Mar Fan ML (-156) cashed for +0.64u, so no complaints from this side."
     ],
-    "angle": 7
+    "angle": 1
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
