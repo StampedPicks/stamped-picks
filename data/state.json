@@ -209,7 +209,8 @@
     "hype:americanfootball_nfl:2026-11-22": "2026-11-21T17:08:18.534146+00:00",
     "hype:mma_mixed_martial_arts:2026-11-22": "2026-11-21T17:08:18.534146+00:00",
     "reminder:mma_mixed_martial_arts:2026-11-21": "2026-11-21T17:08:18.534146+00:00",
-    "card:americanfootball_nfl:2026-11-21:late": "2026-11-21T18:24:56.541971+00:00"
+    "card:americanfootball_nfl:2026-11-21:late": "2026-11-21T18:24:56.541971+00:00",
+    "card:americanfootball_nfl:2026-11-21:night": "2026-11-21T23:19:10.220340+00:00"
   },
   "pregame": {
     "13": true,
@@ -851,7 +852,7 @@
     "americanfootball_nfl|2026-11-16|night"
   ],
   "engage": {
-    "last": "2026-11-21T22:01:35Z",
+    "last": "2026-11-21T23:19:10Z",
     "done": [
       "2117366413358944719",
       "2117388313942274421",
@@ -911,11 +912,11 @@
       "2124160362073231635",
       "2124205164017918090",
       "2124241332503998570",
-      "2124249105220383205"
+      "2124249105220383205",
+      "2124279781768446176"
     ],
     "me": "1599826577948393491",
     "recent": [
-      "Ha, 0-10-1 ATS is a brutal stretch to be on the wrong side of. Fair question on Herbert, but we're not chasing the streak. Stamped Chargers/Ravens Under 39 (-110) before the 8:15 PM ET kickoff.",
       "Terrible is a fair word, but +3500 means the book already has this ticket at roughly 1 in 36. We'd rather bet the ugly football",
       "Under 39 (-110) is our side on Chargers/Ravens. Eleven bucks to $1,081 is a fun ride, but I'd rather win one number than need every leg to land.",
       "Respect the 2.5u on the over. But 43.5 with Houston -12.5 puts the Colts around 15 points, and that's a lot of cushion to ignore. We stamped Colts +12.5 (-108) before kickoff. \ud83e\udd1d",
@@ -926,9 +927,10 @@
       "Good list. The flyweight is the one I'd circle. We're on Kyoji Horiguchi ML (-179), stamped before the first bell at 1:45 PM ET.",
       "Mar Fan's not wrong, Motta kept walking through those big shots like they were nothing. Still, our Dom Mar Fan ML (-156) cashed for +0.64u, so no complaints from this side.",
       "Hype's earned, but I'm not paying for the name. Navajo Stirling ML (-175), stamped before the 3:15 PM ET first bell.",
-      "Hitting 5/5 with Horiguchi vs Almabaev going the full 15 is a great night. We've got Kyoji ML (-179) for the 1:45 PM ET first bell."
+      "Hitting 5/5 with Horiguchi vs Almabaev going the full 15 is a great night. We've got Kyoji ML (-179) for the 1:45 PM ET first bell.",
+      "Round 2 drop on Prochazka is a real statement. Do you buy Stirling as a title threat now, or want to see a step up first? We cashed Navajo ML (-175) for +0.28u."
     ],
-    "angle": 3
+    "angle": 4
   },
   "event_names": {
     "2026-11-07": "UFC Fight Night: Cortes Acosta vs. Walker",
