@@ -1,12 +1,5 @@
 {
   "done": {
-    "daily:2026-11-03": "2026-11-03T16:19:16.761989+00:00",
-    "hype:americanfootball_nfl:2026-11-04": "2026-11-03T17:18:29.318322+00:00",
-    "hype:mma_mixed_martial_arts:2026-11-04": "2026-11-03T17:18:29.318322+00:00",
-    "reminder:mma_mixed_martial_arts:2026-11-03": "2026-11-03T17:18:29.318322+00:00",
-    "hype:boxing_boxing:2026-11-04": "2026-11-03T17:18:29.318322+00:00",
-    "reminder:boxing_boxing:2026-11-03": "2026-11-03T17:18:29.318322+00:00",
-    "card:americanfootball_nfl:2026-11-03:late": "2026-11-03T18:04:43.582604+00:00",
     "card:americanfootball_nfl:2026-11-03:night": "2026-11-03T23:21:35.655513+00:00",
     "card:mma_mixed_martial_arts:2026-11-04": "2026-11-04T01:44:07.695129+00:00",
     "card:boxing_boxing:2026-11-04": "2026-11-04T01:44:07.695129+00:00",
@@ -188,7 +181,11 @@
     "hype:mma_mixed_martial_arts:2026-11-24": "2026-11-23T20:23:48.942927+00:00",
     "reminder:mma_mixed_martial_arts:2026-11-23": "2026-11-23T20:23:48.942927+00:00",
     "card:mma_mixed_martial_arts:2026-11-24": "2026-11-24T01:54:09.382412+00:00",
-    "card:americanfootball_nfl:2026-11-24:early": "2026-11-24T15:34:43.531206+00:00"
+    "card:americanfootball_nfl:2026-11-24:early": "2026-11-24T15:34:43.531206+00:00",
+    "hype:americanfootball_nfl:2026-11-25": "2026-11-24T20:21:39.147191+00:00",
+    "card:americanfootball_nfl:2026-11-24:late": "2026-11-24T20:21:39.147191+00:00",
+    "hype:mma_mixed_martial_arts:2026-11-25": "2026-11-24T20:21:39.147191+00:00",
+    "reminder:mma_mixed_martial_arts:2026-11-24": "2026-11-24T20:21:39.147191+00:00"
   },
   "pregame": {
     "13": true,
