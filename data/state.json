@@ -1,7 +1,5 @@
 {
   "done": {
-    "card:americanfootball_nfl:2026-11-04:night": "2026-11-04T23:06:52.109139+00:00",
-    "card:mma_mixed_martial_arts:2026-11-05": "2026-11-05T01:42:18.560489+00:00",
     "grade:2026-11-05": "2026-11-05T11:34:29.635905+00:00",
     "card:americanfootball_nfl:2026-11-05:early": "2026-11-05T14:42:06.630670+00:00",
     "daily:2026-11-05": "2026-11-05T16:43:29.381804+00:00",
@@ -180,7 +178,8 @@
     "hype:americanfootball_nfl:2026-11-26": "2026-11-25T20:13:20.781488+00:00",
     "card:americanfootball_nfl:2026-11-25:late": "2026-11-25T20:13:20.781488+00:00",
     "hype:mma_mixed_martial_arts:2026-11-26": "2026-11-25T20:13:20.781488+00:00",
-    "reminder:mma_mixed_martial_arts:2026-11-25": "2026-11-25T20:13:20.781488+00:00"
+    "reminder:mma_mixed_martial_arts:2026-11-25": "2026-11-25T20:13:20.781488+00:00",
+    "card:mma_mixed_martial_arts:2026-11-26": "2026-11-26T03:44:57.469627+00:00"
   },
   "pregame": {
     "13": true,
